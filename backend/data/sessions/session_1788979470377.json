@@ -1,0 +1,141 @@
+{
+  "session_id": "session_1788979470377",
+  "started_at": 1788959608.113481,
+  "ended_at": 1788959699.53529,
+  "total_events": 68,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "clock",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "07751228-904f-4b56-b4b8-3e835fd863f7",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979477.92,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f84519ce-731e-4e16-8627-cedd924273c0",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979485.415,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "37cd3a66-4b5d-47c4-bf17-c47a9962ebe9",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979486.927,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "45cb03f7-1888-4262-a528-658bcbdea0bc",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979489.929,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "161b9d6f-c678-4f20-bb69-4fdeefb745aa",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979491.428,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "24176bd8-a2b0-422a-a6f8-6a9a3a3336b6",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979497.429,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6a109311-843b-4788-b9de-d3455e574688",
+      "person_name": "Arya",
+      "session_id": "session_1788979470377",
+      "timestamp": 1788979533.605,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-09T18:44:11.665949",
+      "speaker": "Arya",
+      "text": "hey I am Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:44:20.293376",
+      "speaker": "Arya",
+      "text": "he Chhotu I am group",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:44:26.484163",
+      "speaker": "Arya",
+      "text": "I am Dhruv Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:44:35.457153",
+      "speaker": "Arya",
+      "text": "DJ song",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:44:44.462118",
+      "speaker": "Arya",
+      "text": "Chikni Chikni Chikni Chikni Chikni",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:44:53.374217",
+      "speaker": "Arya",
+      "text": "pitts Dhruv",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-09-09T18:44:59.294021",
+      "speaker": "Arya",
+      "text": "kids Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:45:05.036346",
+      "speaker": "Arya",
+      "text": "pet Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:45:07.916319",
+      "speaker": "Arya",
+      "text": "are its",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:45:10.943404",
+      "speaker": "Arya",
+      "text": "its Dhruv",
+      "emotion": "neutral"
+    }
+  ]
+}

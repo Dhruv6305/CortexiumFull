@@ -1,0 +1,175 @@
+{
+  "session_id": "session_1787687910140",
+  "started_at": 1787668111.685644,
+  "ended_at": 1787668160.771396,
+  "total_events": 45,
+  "persons_seen": [
+    "Aarya",
+    "Dhaval"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "chair",
+    "donut",
+    "teddy bear"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "8f0311f6-6907-41a3-8b44-e07caff651bd",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687927.692,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "847da5b7-9001-452f-94e1-9fac815a6ad4",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687929.186,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b7486f9d-c374-404f-bd03-fedcdb9d71f7",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687930.692,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "33ea2392-b974-4520-a200-22393663c484",
+      "person_name": "Dhaval",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687933.685,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "044c2a99-7f02-4b12-a7f4-ff371fd407c5",
+      "person_name": "Dhaval",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687936.693,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "df488283-1cc5-4509-8a84-e9ce290ed041",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687936.693,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "052db5d0-58cb-47b6-8e54-6e92a15eeb64",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687938.185,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5af2e27d-84e6-433d-808a-4b649b40afc2",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687939.692,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5505aca3-4e5b-41ee-ab80-e57ff9cdcefd",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687941.186,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6412af07-21e7-4dee-af3d-63c3d654abed",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687942.692,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d806b66c-b5b0-413f-a679-a2344920c1c6",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687944.186,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "77558ab6-83fa-4716-99c9-4cdcc21d0a58",
+      "person_name": "Dhaval",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687945.685,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d7f5b02c-ab63-489c-adf4-0e40a128c073",
+      "person_name": "Dhaval",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687947.186,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "22d9c982-19ef-4d4e-8755-7162e365b335",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687948.697,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0064b88e-4928-4b85-b25d-991a524a32d4",
+      "person_name": "Dhaval",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687950.181,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "dc83a5e2-de91-4be3-8c2e-f6b4a45ae640",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687951.68,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9dc9cc62-af36-4c0f-9d1b-02bcc56b0dac",
+      "person_name": "Aarya",
+      "session_id": "session_1787687910140",
+      "timestamp": 1787687954.688,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hello so we are going to talk about this project so this project will like technically look into me it will recognise my face and it will track the conversation for the letter sessions to be summarised and it will showcase what is being spoken in the last session and it will be registered and then"
+  ]
+}

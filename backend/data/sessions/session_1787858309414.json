@@ -1,0 +1,70 @@
+{
+  "session_id": "session_1787858309414",
+  "started_at": 1787838510.944834,
+  "ended_at": 1787838516.321961,
+  "total_events": 9,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "bed"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "98842725-2188-45d5-8ae0-1e02fa925d85",
+      "person_name": "Arya",
+      "session_id": "session_1787858309414",
+      "timestamp": 1787858310.938,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "424dbe4c-4e5e-4a5a-825d-1f7fca0e2573",
+      "person_name": "Arya",
+      "session_id": "session_1787858309414",
+      "timestamp": 1787858310.938,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "19e20783-587d-4415-a553-11e6cc79edb1",
+      "person_name": "Arya",
+      "session_id": "session_1787858309414",
+      "timestamp": 1787858312.439,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "60b563f1-6c19-4a98-9ef6-03f22dbc3be1",
+      "person_name": "Arya",
+      "session_id": "session_1787858309414",
+      "timestamp": 1787858312.439,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9e635040-a3b1-4269-9115-478ccffc0cf6",
+      "person_name": "Arya",
+      "session_id": "session_1787858309414",
+      "timestamp": 1787858313.939,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5a8ce0f4-a2ed-4e04-87a5-3e357731e7bf",
+      "person_name": "Arya",
+      "session_id": "session_1787858309414",
+      "timestamp": 1787858313.939,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

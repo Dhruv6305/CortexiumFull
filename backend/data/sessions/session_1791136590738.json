@@ -1,0 +1,29 @@
+{
+  "session_id": "session_1791136590738",
+  "started_at": 1791116792.421906,
+  "ended_at": 1791116865.802611,
+  "total_events": 0,
+  "persons_seen": [],
+  "objects_seen": [],
+  "encounters": [],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T17:57:10.943041",
+      "speaker": "Unknown",
+      "text": "hey let's see if you recognise me",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:57:19.265222",
+      "speaker": "Aarya",
+      "text": "I am Dhruv bro I am not Arya",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:57:21.031214",
+      "speaker": "Unknown",
+      "text": "I think you did not say my image",
+      "emotion": "neutral"
+    }
+  ]
+}

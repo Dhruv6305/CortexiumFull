@@ -1,0 +1,210 @@
+{
+  "session_id": "session_1787774329360",
+  "started_at": 1787754530.895436,
+  "ended_at": 1787754562.987469,
+  "total_events": 39,
+  "persons_seen": [
+    "Just Stating"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "teddy bear",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "f0b961b3-ffdd-4ef3-b25e-b4cb82d3b0c2",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774330.891,
+      "emotion": "neutral",
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "1c3088a1-697d-470b-a46f-e02f3ba90694",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774330.891,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e23d135c-3751-4699-b049-e0a845a48803",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774332.391,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "45e55825-6961-4252-9d30-ea7255306a63",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774333.894,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "de5d984c-f463-427a-a879-135023d55fe5",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774335.385,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8397f1dd-b6b4-4c19-9b44-901b4212b2d6",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774336.887,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "570b475c-dcd8-4e93-9eea-8bda1574d043",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774338.385,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8eda719c-5bf0-4d19-a30e-bd5586e86be9",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774339.88,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ef51d3db-c3e4-41b6-b163-2487d6bf155b",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774341.379,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0f149b9e-fc8f-415f-96ea-343a0b261a1b",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774344.38,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7bd64839-1459-4bf7-9716-d22fce984319",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774347.381,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ad41232b-69b8-41b8-beaf-a895faa05f9c",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774348.88,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fbe804e9-49fb-4e44-9e66-085baead4f6e",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774350.379,
+      "emotion": "sad",
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "4e3e56b4-13f6-460b-9661-f940fac7c647",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774350.379,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2f70d475-89f7-47a7-8271-4252e0c8e438",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774353.38,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d7726889-c8ba-4741-9617-e61f583ca8de",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774354.881,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "65434cb6-2171-4bab-9d2f-710bf3d8b82e",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774354.881,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f0ecb15d-7ae7-4242-ae3b-731602d8be88",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774356.38,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5c5c84e6-33db-4bb8-be10-2f0005d73622",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774356.38,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1d39d0e6-3cf5-4164-aacd-4d503e78ef44",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774357.88,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "65b5ca5e-1762-4ccd-95e4-44d084d5130e",
+      "person_name": "Just Stating",
+      "session_id": "session_1787774329360",
+      "timestamp": 1787774359.381,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hello",
+    "user: ok"
+  ]
+}

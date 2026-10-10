@@ -1,0 +1,987 @@
+"""
+organizer.py — Cortexium Organizer Module Router
+
+Mounts all Adaptive Organizer endpoints under /organizer/* prefix so the
+organizer module can share the social module's backend (port 8005).
+
+All organizer state is completely isolated from the social module state.
+The detector thread and camera lifecycle are managed independently here.
+
+Camera source can be:
+  - An integer index (0, 1, 2 …) for local USB/built-in webcams
+  - An HTTP/RTSP URL string for IP cameras (e.g. "http://192.168.1.106:8080/video")
+  - A DroidCam/IP Webcam URL (e.g. "http://192.168.1.106:4747/video")
+
+Endpoints:
+    GET  /organizer/dashboard
+    POST /organizer/camera/start
+    POST /organizer/camera/stop
+    GET  /organizer/camera/stream
+    GET  /organizer/camera/source
+    POST /organizer/camera/source
+    POST /organizer/mode
+    POST /organizer/retrain
+    POST /organizer/reset
+    GET  /organizer/metrics
+    GET  /organizer/export/dataset
+    GET  /organizer/rules
+    POST /organizer/feedback
+    WS   /organizer/ws
+"""
+
+import asyncio
+import json
+import os
+import sys
+import threading
+import time
+from datetime import datetime
+from pathlib import Path
+from typing import Optional, Union
+
+# Suppress raw OpenCV/FFmpeg C-level console noise before importing cv2
+os.environ["OPENCV_LOG_LEVEL"] = "SILENT"
+os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "timeout;3000000|stimeout;3000000|rtsp_transport;tcp"
+
+import cv2
+import numpy as np
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+
+# ─────────────────────────────────────────────
+# Add organizer clone directory to sys.path
+# so ml_pipeline and related modules can be imported
+# ─────────────────────────────────────────────
+_ORGANIZER_DIR = Path(__file__).resolve().parent.parent.parent / "cortexium-organizer-clone"
+if str(_ORGANIZER_DIR) not in sys.path:
+    sys.path.insert(0, str(_ORGANIZER_DIR))
+
+# All file-relative paths from the original server.py are resolved here absolutely.
+_ORGANIZER_DATA_DIR = _ORGANIZER_DIR
+
+LEARNED_RULES_PATH = str(_ORGANIZER_DATA_DIR / "learned_rules.json")
+USAGE_DATA_PATH    = str(_ORGANIZER_DATA_DIR / "usage_data.csv")
+YOLO_MODEL_PATH    = str(_ORGANIZER_DATA_DIR / "yolov8s.pt")
+
+# ─────────────────────────────────────────────
+# Camera source — integer index OR IP URL string
+# This can be changed at runtime via POST /organizer/camera/source
+# or patched by change_ports.py (--camera flag)
+# ─────────────────────────────────────────────
+# CAMERA_SOURCE = "http://10.207.120.163:8080/video"   ← local webcam (default)
+# CAMERA_SOURCE = "http://10.207.120.163:8080/video"  ← Android IP Webcam
+# CAMERA_SOURCE = "http://10.207.120.163:8080/video"  ← RTSP
+_cam_env = os.environ.get("CAMERA_SOURCE", "")
+CAMERA_SOURCE: Union[int, str] = _cam_env if _cam_env else 0
+
+from ml_pipeline import (  # noqa: E402  (after sys.path update)
+    DataCollector,
+    BaselineCatBoostPredictor,
+    PersonalizedCatBoostPredictor,
+    train_and_evaluate,
+    get_active_metrics,
+    PERSONALIZED_MODEL_PATH,
+    PERSONALIZED_METRICS_PATH,
+)
+
+METRICS_PATH = PERSONALIZED_METRICS_PATH
+
+# ─────────────────────────────────────────────
+# Constants (same as original server.py)
+# ─────────────────────────────────────────────
+DEFAULT_RULES = {
+    "laptop": "table",
+    "cell phone": "table",
+    "book": "table",
+    "bottle": "table",
+    "cup": "table",
+    "backpack": "chair",
+    "handbag": "chair",
+    "remote": "sofa",
+    "keyboard": "table",
+    "mouse": "table",
+}
+
+SURFACE_ALIASES = {
+    "dining table": "table",
+    "bench": "table",
+    "couch": "sofa",
+}
+
+SURFACES = ["dining table", "table", "chair", "couch", "bench", "bed"]
+
+
+# ─────────────────────────────────────────────
+# Isolated Organizer State
+# ─────────────────────────────────────────────
+class OrganizerState:
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.camera_lock = threading.Lock()
+        # Camera
+        self.camera_active = False
+        self.cap: Optional[cv2.VideoCapture] = None
+        # Camera source (mirrors the module-level CAMERA_SOURCE, updated via API)
+        self.camera_source: Union[int, str] = CAMERA_SOURCE
+        # Mode
+        self.mode = "predict"
+        # Model status
+        self.model_status = "Ready"
+        # Last detection results
+        self.detected_objects: list[dict] = []
+        self.surface_boxes: dict[str, tuple] = {}
+        # FIX Bug 3: persist last known surface boxes so they don't vanish on missed frames
+        self.last_surface_boxes: dict[str, tuple] = {}
+        self.fps = 0.0
+        self.inference_time_ms = 0.0
+        self.frame_count = 0
+        # Event log (newest first, capped at 50)
+        self.events: list[dict] = []
+        # ML components
+        self.learned_rules: dict = {}
+        self.data_collector = DataCollector(USAGE_DATA_PATH)
+        self.personalized_predictor = PersonalizedCatBoostPredictor()
+        self.baseline_predictor = BaselineCatBoostPredictor()
+        # YOLO model (lazy-loaded by detector thread)
+        self.yolo = None
+        # WebSocket clients
+        self.ws_clients: list[WebSocket] = []
+        # Last annotated JPEG bytes for the MJPEG stream
+        self.last_jpeg: Optional[bytes] = None
+        # Auto-retrain tracking
+        self.new_samples_since_retrain: int = 0
+        self.retrain_threshold: int = 5
+        self.last_retrain_time: str = "Never"
+
+    def safe_release_camera(self):
+        """Thread-safe release of the camera capture to prevent FFmpeg C assertion race conditions."""
+        with self.camera_lock:
+            self.camera_active = False
+            if self.cap is not None:
+                try:
+                    self.cap.release()
+                except Exception as e:
+                    print(f"[Organizer] cap.release error: {e}")
+                self.cap = None
+
+    def log_event(self, type_: str, message: str):
+        with self.lock:
+            self.events.insert(0, {
+                "type": type_,
+                "message": message,
+                "timestamp": datetime.now().strftime("%H:%M:%S"),
+            })
+            if len(self.events) > 50:
+                self.events.pop()
+
+    def load_learned_rules(self):
+        try:
+            with open(LEARNED_RULES_PATH, "r") as f:
+                self.learned_rules = json.load(f)
+        except Exception:
+            self.learned_rules = {}
+
+    def save_learned_rules(self):
+        with open(LEARNED_RULES_PATH, "w") as f:
+            json.dump(self.learned_rules, f, indent=2)
+
+    def get_snapshot(self) -> dict:
+        with self.lock:
+            objects = list(self.detected_objects)
+            events = list(self.events[:20])
+            fps = self.fps
+            inference_ms = self.inference_time_ms
+            new_samples = self.new_samples_since_retrain
+            retrain_threshold = self.retrain_threshold
+            last_retrain = self.last_retrain_time
+            camera_source = self.camera_source
+
+        # Strip internal-only fields before sending to frontend
+        objects_for_ws = [{k: v for k, v in o.items() if k != "box"} for o in objects]
+
+        correctly_placed = sum(1 for o in objects if o.get("status") == "Correct")
+        misplaced = sum(1 for o in objects if o.get("status") == "Misplaced")
+        confidences = [o.get("confidence", 0.0) for o in objects]
+        avg_conf = round(sum(confidences) / len(confidences), 4) if confidences else 0.0
+
+        misplaced_obj = None
+        for o in objects:
+            if o.get("status") == "Misplaced":
+                misplaced_obj = {
+                    **{k: v for k, v in o.items() if k != "box"},
+                    "recommendedSurface": o.get("predictedSurface", ""),
+                    "explanation": (
+                        f"Historical data shows {o.get('name', '')} is usually "
+                        f"placed on the {o.get('predictedSurface', '')}."
+                    ),
+                }
+                break
+
+        total_relationships = len(self.learned_rules)
+        dataset_size = 0
+        try:
+            with open(USAGE_DATA_PATH, "r") as f:
+                dataset_size = max(0, sum(1 for _ in f) - 1)
+        except FileNotFoundError:
+            pass
+
+        learning_data = {
+            "totalRelationships": total_relationships,
+            "datasetSize": dataset_size,
+            "newSamples": new_samples,
+            "lastRetrainTime": last_retrain,
+            "retrainThreshold": retrain_threshold,
+        }
+
+        is_personalized = self.personalized_predictor.is_loaded
+        if is_personalized:
+            active_model = "personalized_model"
+        elif self.baseline_predictor.is_loaded:
+            active_model = "baseline_model"
+        else:
+            active_model = "default_rules"
+
+        metrics_data = get_active_metrics()
+
+        return {
+            "objects": objects_for_ws,
+            "events": events,
+            "misplacedObject": misplaced_obj,
+            "stats": {
+                "totalObjects": len(objects),
+                "totalSurfaces": len(self.surface_boxes),
+                "correctlyPlaced": correctly_placed,
+                "misplaced": misplaced,
+                "fps": round(fps, 1),
+                "inferenceTime": round(inference_ms, 1),
+                "avgConfidence": avg_conf,
+            },
+            "mode": self.mode,
+            "cameraActive": self.camera_active,
+            "modelStatus": self.model_status,
+            "activeModel": active_model,
+            "learningData": learning_data,
+            "metrics": metrics_data,
+            "cameraSource": str(camera_source),
+        }
+
+
+org_state = OrganizerState()
+
+# FIX Bug 1: store event loop reference — set from lifespan via start_organizer_background()
+_org_event_loop: Optional[asyncio.AbstractEventLoop] = None
+
+
+# ─────────────────────────────────────────────
+# Helpers
+# ─────────────────────────────────────────────
+def overlap_ratio(boxA, boxB) -> float:
+    xA = max(boxA[0], boxB[0])
+    yA = max(boxA[1], boxB[1])
+    xB = min(boxA[2], boxB[2])
+    yB = min(boxA[3], boxB[3])
+    inter_area = max(0, xB - xA) * max(0, yB - yA)
+    boxA_area = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
+    return (inter_area / boxA_area) if boxA_area > 0 else 0.0
+
+
+def _trigger_retrain():
+    """Kick off personalized model retraining in a background thread."""
+    with org_state.lock:
+        if org_state.model_status == "Training":
+            return
+        org_state.model_status = "Training"
+
+    def _train():
+        try:
+            metrics = train_and_evaluate(
+                USAGE_DATA_PATH,
+                PERSONALIZED_MODEL_PATH,
+                None,
+                PERSONALIZED_METRICS_PATH,
+            )
+            ts = metrics.get("last_retrain_time", datetime.now().strftime("%H:%M:%S"))
+            with org_state.lock:
+                org_state.personalized_predictor.reload()
+                org_state.predictor = org_state.personalized_predictor
+                org_state.model_status = "Ready"
+                org_state.new_samples_since_retrain = 0
+                org_state.last_retrain_time = ts
+            org_state.log_event(
+                "success",
+                f"Personalized retraining complete! "
+                f"Accuracy: {metrics.get('accuracy', 0):.4f}  "
+                f"ROC-AUC: {metrics.get('roc_auc', 0):.4f}",
+            )
+        except Exception as e:
+            with org_state.lock:
+                org_state.model_status = "Ready"
+            org_state.log_event("error", f"Retraining failed: {e}")
+
+    threading.Thread(target=_train, daemon=True).start()
+
+
+# ─────────────────────────────────────────────
+# Detector background thread
+# ─────────────────────────────────────────────
+def _detector_thread():
+    """
+    Continuously reads frames from the camera (local or IP), runs YOLO,
+    updates shared state, and broadcasts over WebSocket.
+
+    Supports:
+      - Local webcam:  org_state.camera_source = 0 (or any int index)
+      - IP camera:     org_state.camera_source = "http://192.168.1.x:8080/video"
+      - DroidCam:      org_state.camera_source = "http://192.168.1.x:4747/video"
+      - RTSP stream:   org_state.camera_source = "rtsp://..."
+    """
+    from ultralytics import YOLO
+
+    with org_state.lock:
+        org_state.yolo = YOLO(YOLO_MODEL_PATH)
+        org_state.load_learned_rules()
+
+    org_state.log_event("info", "Organizer detector thread started. Waiting for camera.")
+
+    fps_timer = time.time()
+    fps_frames = 0
+
+    consecutive_failures = 0
+    reconnect_attempts = 0
+
+    while True:
+        if not org_state.camera_active:
+            consecutive_failures = 0
+            reconnect_attempts = 0
+            time.sleep(0.1)
+            continue
+
+        with org_state.camera_lock:
+            if not org_state.camera_active or org_state.cap is None or not org_state.cap.isOpened():
+                time.sleep(0.1)
+                continue
+            ret, frame = org_state.cap.read()
+
+        if not ret or frame is None:
+            consecutive_failures += 1
+            if consecutive_failures >= 30:  # ~3 seconds of failed reads before attempting background reconnect
+                consecutive_failures = 0
+                reconnect_attempts += 1
+                if reconnect_attempts <= 3:
+                    org_state.log_event("warning", f"Camera read stutter. Attempting background reconnect ({reconnect_attempts}/3)...")
+                    with org_state.camera_lock:
+                        if org_state.cap is not None:
+                            try:
+                                org_state.cap.release()
+                            except Exception:
+                                pass
+                            org_state.cap = None
+                        source = org_state.camera_source
+                        new_cap = cv2.VideoCapture(source)
+                        if not isinstance(source, str) or not (source.startswith("http://") or source.startswith("https://")):
+                            new_cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+                        if new_cap.isOpened():
+                            org_state.cap = new_cap
+                            org_state.log_event("success", "Camera background reconnected successfully.")
+                            reconnect_attempts = 0
+                            continue
+                
+                org_state.log_event("error", "Camera stream disconnected after retries. Stopping camera.")
+                org_state.safe_release_camera()
+                reconnect_attempts = 0
+            time.sleep(0.1)
+            continue
+
+        consecutive_failures = 0
+        reconnect_attempts = 0
+
+        h, w = frame.shape[:2]
+        scale = 0.7
+        frame = cv2.resize(frame, (int(w * scale), int(h * scale)))
+
+        with org_state.lock:
+            org_state.frame_count += 1
+            fc = org_state.frame_count
+
+        # Skip every 2 out of 3 frames for performance
+        if fc % 3 != 0:
+            fps_frames += 1
+            continue
+
+        # ── Inference ──
+        t0 = time.time()
+        with org_state.lock:
+            yolo = org_state.yolo
+            mode = org_state.mode
+            learned_rules = dict(org_state.learned_rules)
+
+        results = yolo(frame, imgsz=416, conf=0.25, verbose=False)
+        inference_ms = (time.time() - t0) * 1000
+
+        # FPS calculation
+        fps_frames += 1
+        elapsed = time.time() - fps_timer
+        if elapsed >= 1.0:
+            fps = fps_frames / elapsed
+            fps_timer = time.time()
+            fps_frames = 0
+        else:
+            with org_state.lock:
+                fps = org_state.fps
+
+        # ── Parse detections — surfaces first ──
+        surface_boxes: dict[str, tuple] = {}
+        detected: list[dict] = []
+
+        for r in results:
+            for box in r.boxes:
+                cls = int(box.cls)
+                label = yolo.names[cls]
+                if label in SURFACES:
+                    sname = SURFACE_ALIASES.get(label, label)
+                    x1, y1, x2, y2 = map(int, box.xyxy[0])
+                    surface_boxes[sname] = (x1, y1, x2, y2)
+
+        # FIX Bug 3: use last known surface boxes as fallback when none detected this frame
+        with org_state.lock:
+            if surface_boxes:
+                org_state.last_surface_boxes.update(surface_boxes)
+            else:
+                surface_boxes = dict(org_state.last_surface_boxes)
+
+        # ── Parse objects (non-surfaces) ──
+        for r in results:
+            for box in r.boxes:
+                cls = int(box.cls)
+                label = yolo.names[cls]
+                det_conf = float(box.conf[0])
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+
+                if label in SURFACES:
+                    continue
+
+                obj_box = (x1, y1, x2, y2)
+
+                # Determine current surface (best overlap)
+                current_surface = None
+                best_overlap = 0.0
+                for sname, sbox in surface_boxes.items():
+                    ov = overlap_ratio(obj_box, sbox)
+                    if ov > best_overlap:
+                        best_overlap = ov
+                        current_surface = sname
+
+                # ── Learn mode: record this placement ──
+                if mode == "learn" and current_surface is not None:
+                    with org_state.lock:
+                        org_state.learned_rules[label] = current_surface
+                        org_state.save_learned_rules()
+                        try:
+                            org_state.data_collector.log_sample(
+                                label,
+                                current_surface,
+                                obj_box,
+                                surface_boxes[current_surface],
+                                det_conf,
+                                frame.shape[:2],
+                                is_positive=True,
+                            )
+                            org_state.new_samples_since_retrain += 1
+                        except Exception as _le:
+                            print(f"[OrgDetector] log_sample error: {_le}")
+
+                        # Negative samples for other surfaces
+                        for other_name, other_box in surface_boxes.items():
+                            if other_name != current_surface:
+                                try:
+                                    org_state.data_collector.log_sample(
+                                        label,
+                                        other_name,
+                                        obj_box,
+                                        other_box,
+                                        det_conf,
+                                        frame.shape[:2],
+                                        is_positive=False,
+                                    )
+                                except Exception:
+                                    pass
+
+                        # Auto-retrain check
+                        should_retrain = (
+                            org_state.new_samples_since_retrain >= org_state.retrain_threshold
+                            and org_state.model_status == "Ready"
+                        )
+                    if should_retrain:
+                        org_state.log_event(
+                            "info",
+                            f"Auto-retrain triggered after {org_state.retrain_threshold} new samples.",
+                        )
+                        _trigger_retrain()
+
+                # FIX Bug 2: use four-tier prediction logic matching server.py
+                # TIER 1: learned_rule       — user-observed placements
+                # TIER 2: personalized_model — CatBoost trained on usage_data.csv
+                # TIER 3: baseline_model     — immutable CatBoost (Visual Genome)
+                # TIER 4: default_rule       — hardcoded fallback table
+                expected_surface = None
+                prediction_source = "default_rule"
+
+                # Tier 1 — personalized rules (Learn Mode observations)
+                if label in learned_rules:
+                    expected_surface = learned_rules[label]
+                    prediction_source = "learned_rule"
+
+                # Tier 2 — personalized CatBoost model
+                if expected_surface is None and org_state.personalized_predictor.is_loaded and surface_boxes:
+                    try:
+                        predicted, _ = org_state.personalized_predictor.predict(
+                            label, surface_boxes, obj_box, det_conf, frame.shape[:2]
+                        )
+                        if predicted is not None:
+                            expected_surface = predicted
+                            prediction_source = "personalized_model"
+                    except Exception as _pe:
+                        print(f"[OrgDetector] personalized predict error: {_pe}")
+
+                # Tier 3 — CatBoost baseline (static general knowledge)
+                if expected_surface is None and org_state.baseline_predictor.is_loaded and surface_boxes:
+                    try:
+                        predicted, _ = org_state.baseline_predictor.predict(
+                            label, surface_boxes, obj_box, det_conf, frame.shape[:2]
+                        )
+                        if predicted is not None:
+                            expected_surface = predicted
+                            prediction_source = "baseline_model"
+                    except Exception as _be:
+                        print(f"[OrgDetector] baseline predict error: {_be}")
+
+                # Tier 4 — hardcoded DEFAULT_RULES
+                if expected_surface is None:
+                    expected_surface = DEFAULT_RULES.get(label)
+                    if expected_surface:
+                        prediction_source = "default_rule"
+
+                # ── Determine placement status ──
+                is_correct = False
+                if expected_surface and expected_surface in surface_boxes:
+                    if overlap_ratio(obj_box, surface_boxes[expected_surface]) > 0.3:
+                        is_correct = True
+                elif expected_surface and current_surface == expected_surface:
+                    is_correct = True
+
+                detected.append({
+                    "name": label,
+                    "confidence": round(det_conf, 3),
+                    "currentSurface": current_surface or "Unknown",
+                    "predictedSurface": expected_surface or "Unknown",
+                    "status": "Correct" if is_correct else "Misplaced",
+                    "predictionSource": prediction_source,
+                    "box": (x1, y1, x2, y2),
+                })
+
+                # Log misplacement event
+                if not is_correct and expected_surface:
+                    org_state.log_event(
+                        "warning",
+                        f"{label} detected on {current_surface or 'unknown'} "
+                        f"(expected: {expected_surface})",
+                    )
+
+        # ── Update shared state ──
+        with org_state.lock:
+            org_state.detected_objects = detected
+            org_state.surface_boxes = surface_boxes
+            org_state.fps = fps
+            org_state.inference_time_ms = inference_ms
+
+        # ── Draw annotations ──
+        annotated = frame.copy()
+        for sname, sbox in surface_boxes.items():
+            cv2.rectangle(annotated, sbox[:2], sbox[2:], (255, 255, 0), 2)
+            cv2.putText(annotated, f"[{sname}]", (sbox[0], max(sbox[1] - 4, 12)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2)
+
+        for obj in detected:
+            box = obj.get("box")
+            if not box:
+                continue
+            bx1, by1, bx2, by2 = box
+            color = (0, 255, 0) if obj["status"] == "Correct" else (0, 0, 255)
+            cv2.rectangle(annotated, (bx1, by1), (bx2, by2), color, 2)
+            src_tag = obj.get("predictionSource", "")[:3].upper()
+            tag = (f"{obj['name']} OK [{src_tag}]"
+                   if obj["status"] == "Correct"
+                   else f"{obj['name']}->{obj['predictedSurface']} [{src_tag}]")
+            tag_y = max(by1 - 6, 12)
+            (tw, th), _ = cv2.getTextSize(tag, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1)
+            cv2.rectangle(annotated, (bx1, tag_y - th - 2), (bx1 + tw + 2, tag_y + 2), (0, 0, 0), -1)
+            cv2.putText(annotated, tag, (bx1 + 1, tag_y),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1)
+
+        with org_state.lock:
+            mode_copy = org_state.mode
+
+        cv2.putText(annotated, f"MODE: {mode_copy.upper()}", (10, 25),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+        cv2.putText(annotated, f"FPS: {fps:.1f}", (10, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), 1)
+
+        ok, buf = cv2.imencode(".jpg", annotated, [cv2.IMWRITE_JPEG_QUALITY, 70])
+        if ok:
+            with org_state.lock:
+                org_state.last_jpeg = buf.tobytes()
+
+        # ── Broadcast via WebSocket ──
+        if org_state.ws_clients and MAIN_EVENT_LOOP:
+            payload = {
+                "type": "frame",
+                "objects": detected,
+                "surfaceBoxes": {k: list(v) for k, v in surface_boxes.items()},
+                "fps": round(fps, 1),
+                "mode": mode_copy,
+                "stats": {
+                    "totalTracked": len(detected),
+                    "misplacedCount": sum(1 for o in detected if o["status"] == "Misplaced"),
+                    "correctCount": sum(1 for o in detected if o["status"] == "Correct"),
+                    "inferenceTimeMs": round(inference_ms, 1),
+                },
+            }
+            asyncio.run_coroutine_threadsafe(_org_broadcast(payload), MAIN_EVENT_LOOP)
+
+        time.sleep(0.03)  # cap loop at ~30 fps
+
+
+# ─────────────────────────────────────────────
+# WebSocket Broadcast Helper & Startup
+# ─────────────────────────────────────────────
+MAIN_EVENT_LOOP: Optional[asyncio.AbstractEventLoop] = None
+
+
+async def _org_broadcast(data: dict):
+    with org_state.lock:
+        clients = list(org_state.ws_clients)
+    dead = []
+    msg = json.dumps(data)
+    for ws in clients:
+        try:
+            await ws.send_text(msg)
+        except Exception:
+            dead.append(ws)
+    if dead:
+        with org_state.lock:
+            for d in dead:
+                if d in org_state.ws_clients:
+                    org_state.ws_clients.remove(d)
+
+
+def start_organizer_background(loop: asyncio.AbstractEventLoop):
+    global MAIN_EVENT_LOOP
+    MAIN_EVENT_LOOP = loop
+    threading.Thread(target=_detector_thread, daemon=True).start()
+
+
+# ─────────────────────────────────────────────
+# FastAPI Router
+# ─────────────────────────────────────────────
+router = APIRouter(prefix="/organizer", tags=["organizer"])
+
+
+@router.get("/dashboard")
+def org_get_dashboard():
+    """Returns dashboard snapshot: stats, learning data, metrics."""
+    snap = org_state.get_snapshot()
+    org_state.load_learned_rules()
+    total_relationships = len(org_state.learned_rules)
+    dataset_size = 0
+    try:
+        with open(USAGE_DATA_PATH, "r") as f:
+            dataset_size = max(0, sum(1 for _ in f) - 1)
+    except FileNotFoundError:
+        pass
+
+    metrics_data = get_active_metrics() or {
+        "accuracy": 0.0, "precision": 0.0, "recall": 0.0,
+        "f1Score": 0.0, "cvScore": 0.0,
+        "confusionMatrix": [], "classes": [], "featureImportance": {},
+    }
+    last_retrain_time = metrics_data.get("last_retrain_time", "Never")
+
+    return {
+        "stats": snap["stats"],
+        "learningData": {
+            "totalRelationships": total_relationships,
+            "datasetSize": dataset_size,
+            "lastRetrainTime": last_retrain_time,
+        },
+        "metrics": metrics_data,
+        "cameraSource": str(org_state.camera_source),
+    }
+
+
+# ─────────────────────────────────────────────
+# Camera source endpoints (IP camera support)
+# ─────────────────────────────────────────────
+
+@router.get("/camera/source")
+def org_get_camera_source():
+    """
+    Return the current camera source.
+    Response: { "source": "0" }  or  { "source": "http://192.168.1.x:8080/video" }
+    """
+    with org_state.lock:
+        source = org_state.camera_source
+    return {"source": str(source)}
+
+
+@router.post("/camera/source")
+async def org_set_camera_source(body: dict):
+    """
+    Set the camera source.
+    If camera was active or auto_start is true, it automatically reconnects immediately.
+
+    Body: { "source": "0" }                          — local webcam index 0
+          { "source": "1" }                          — local webcam index 1
+          { "source": "http://192.168.1.106:8080/video" }  — Android IP Webcam
+          { "source": "http://192.168.1.106:4747/video" }  — DroidCam
+          { "source": "rtsp://user:pass@host/stream" }      — RTSP camera
+    """
+    raw = body.get("source", "").strip()
+    if not raw:
+        return JSONResponse(status_code=400, content={"error": "source is required"})
+
+    # Parse: if it's a pure integer string, convert to int (webcam index)
+    if raw.isdigit():
+        new_source: Union[int, str] = int(raw)
+    else:
+        new_source = raw
+
+    with org_state.lock:
+        was_running = org_state.camera_active
+        org_state.camera_source = new_source
+
+    org_state.safe_release_camera()
+
+    # Also update the module-level constant so future starts use the new source
+    global CAMERA_SOURCE
+    CAMERA_SOURCE = new_source
+
+    # Auto-reconnect if camera was running or auto_start requested
+    if was_running or body.get("auto_start", True):
+        res = org_start_camera()
+        if isinstance(res, JSONResponse):
+            return res
+        return {
+            "status": "ok",
+            "source": str(new_source),
+            "was_running": True,
+            "message": f"Camera source updated to {new_source} and reconnected successfully.",
+        }
+
+    org_state.log_event("info", f"Camera source updated to: {new_source}")
+    return {
+        "status": "ok",
+        "source": str(new_source),
+        "was_running": False,
+        "message": f"Camera source set to: {new_source}",
+    }
+
+
+@router.post("/camera/start")
+def org_start_camera():
+    """Open the camera capture (local webcam or IP camera URL)."""
+    with org_state.camera_lock:
+        if org_state.camera_active and org_state.cap is not None and org_state.cap.isOpened():
+            return {"status": "already_running", "message": "Camera is already active."}
+
+        source = org_state.camera_source
+
+        # For IP/RTSP streams, configure FFmpeg timeouts so connection attempts fail fast (3s) instead of blocking for 60s
+        if isinstance(source, str) and (source.startswith("http://") or source.startswith("https://") or source.startswith("rtsp://")):
+            os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "timeout;3000000|stimeout;3000000|rtsp_transport;tcp"
+
+        if org_state.cap is not None:
+            try:
+                org_state.cap.release()
+            except Exception:
+                pass
+            org_state.cap = None
+
+        cap = cv2.VideoCapture(source)
+        if not isinstance(source, str) or not (source.startswith("http://") or source.startswith("https://")):
+            cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
+        if not cap.isOpened():
+            org_state.camera_active = False
+            org_state.cap = None
+            org_state.log_event("error", f"Failed to open camera source: {source}")
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "status": "error",
+                    "message": (
+                        f"Cannot open camera source: {source!r}. "
+                        "For local webcam: make sure it is connected. "
+                        "For IP camera: check the IP address, ensure phone/device is on the same network, "
+                        "and that IP Webcam app is running."
+                    ),
+                },
+            )
+
+        org_state.cap = cap
+        org_state.camera_active = True
+
+    source_label = f"index {source}" if isinstance(source, int) else f"IP stream {source}"
+    org_state.log_event("success", f"Camera connected ({source_label}).")
+    return {"status": "ok", "message": f"Camera started ({source_label})."}
+
+
+@router.post("/camera/stop")
+def org_stop_camera():
+    """Release the camera capture."""
+    org_state.safe_release_camera()
+    with org_state.lock:
+        org_state.detected_objects = []
+        org_state.surface_boxes = {}
+
+    org_state.log_event("info", "Camera stopped.")
+    return {"status": "ok", "message": "Camera stopped."}
+
+
+@router.get("/camera/stream")
+def org_camera_stream():
+    """MJPEG stream — serves annotated frames from the detector thread."""
+    HEADER = (
+        b"--cortexorgframe\r\n"
+        b"Content-Type: image/jpeg\r\n"
+        b"\r\n"
+    )
+
+    def generate():
+        placeholder = np.zeros((360, 640, 3), dtype=np.uint8)
+        cv2.putText(placeholder, "Waiting for camera...", (120, 180),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (100, 100, 100), 2)
+        _, placeholder_buf = cv2.imencode(".jpg", placeholder)
+        placeholder_bytes = placeholder_buf.tobytes()
+        last_sent: Optional[bytes] = None
+
+        while True:
+            with org_state.lock:
+                jpeg = org_state.last_jpeg
+
+            if jpeg is None:
+                yield HEADER + placeholder_bytes + b"\r\n"
+                time.sleep(0.2)
+                continue
+
+            if jpeg is not last_sent:
+                last_sent = jpeg
+                yield HEADER + jpeg + b"\r\n"
+
+            time.sleep(0.033)  # cap at ~30 fps
+
+    return StreamingResponse(
+        generate(),
+        media_type="multipart/x-mixed-replace; boundary=cortexorgframe",
+    )
+
+
+@router.post("/mode")
+async def org_set_mode(body: dict):
+    """Switch between learn and predict modes."""
+    new_mode = body.get("mode", "predict").lower()
+    if new_mode not in ("learn", "predict"):
+        return JSONResponse(status_code=400, content={"error": "mode must be 'learn' or 'predict'"})
+
+    with org_state.lock:
+        org_state.mode = new_mode
+
+    org_state.log_event("info", f"Mode switched to: {new_mode.upper()}")
+    return {"status": "ok", "mode": new_mode}
+
+
+@router.post("/retrain")
+async def org_retrain_model():
+    """Trigger personalized model retraining."""
+    with org_state.lock:
+        if org_state.model_status == "Training":
+            return {"status": "already_training", "message": "Training already in progress."}
+    org_state.log_event("info", "Manual retraining triggered.")
+    _trigger_retrain()
+    return {"status": "ok", "message": "Retraining started."}
+
+
+@router.post("/reset")
+def org_reset_learning():
+    """Reset to baseline: clear learned rules, disable personalized model."""
+    import os as _os
+    with org_state.lock:
+        org_state.learned_rules = {}
+        org_state.new_samples_since_retrain = 0
+        org_state.personalized_predictor.disable()
+        org_state.predictor = org_state.baseline_predictor
+
+    try:
+        with open(LEARNED_RULES_PATH, "w") as f:
+            json.dump({}, f)
+    except Exception:
+        pass
+
+    pers_path = PERSONALIZED_MODEL_PATH
+    if pers_path and _os.path.exists(pers_path):
+        try:
+            _os.remove(pers_path)
+        except Exception:
+            pass
+
+    org_state.log_event("info", "Learning reset. Baseline model active.")
+    return {"status": "ok", "message": "Learned rules cleared. Baseline model active."}
+
+
+@router.get("/metrics")
+def org_get_metrics():
+    """Download the latest organizer metrics JSON."""
+    if not os.path.exists(METRICS_PATH):
+        return JSONResponse(
+            status_code=404,
+            content={"error": "metrics.json not found. Run retraining first."},
+        )
+    return FileResponse(METRICS_PATH, media_type="application/json", filename="organizer_metrics.json")
+
+
+@router.get("/export/dataset")
+def org_export_dataset():
+    """Download the usage_data.csv training dataset."""
+    if not os.path.exists(USAGE_DATA_PATH):
+        return JSONResponse(status_code=404, content={"error": "usage_data.csv not found."})
+    return FileResponse(USAGE_DATA_PATH, media_type="text/csv", filename="organizer_dataset.csv")
+
+
+@router.get("/rules")
+def org_get_rules():
+    """Return current learned rules."""
+    org_state.load_learned_rules()
+    return {"rules": org_state.learned_rules, "defaultRules": DEFAULT_RULES}
+
+
+@router.websocket("/ws")
+async def org_websocket_endpoint(websocket: WebSocket):
+    """WebSocket — pushes live detection data to connected organizer clients."""
+    await websocket.accept()
+    org_state.ws_clients.append(websocket)
+    org_state.log_event("info", "Organizer dashboard client connected via WebSocket.")
+
+    try:
+        await websocket.send_json(org_state.get_snapshot())
+        while True:
+            await asyncio.sleep(2)
+            await websocket.send_json(org_state.get_snapshot())
+    except WebSocketDisconnect:
+        pass
+    except Exception:
+        pass
+    finally:
+        try:
+            org_state.ws_clients.remove(websocket)
+        except ValueError:
+            pass
+        org_state.log_event("info", "Organizer dashboard client disconnected.")

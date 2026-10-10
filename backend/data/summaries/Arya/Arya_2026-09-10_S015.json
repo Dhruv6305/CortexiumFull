@@ -1,0 +1,17 @@
+{
+  "person": "Arya",
+  "session_id": "session_1789012990476",
+  "session_code": "2026-09-10_S015",
+  "date": "2026-09-10",
+  "started_at": "2026-09-10T09:32:46.897452",
+  "ended_at": "2026-09-10T09:32:54.447106",
+  "summary": "I want you to think like this is not the laptop ka camera it is like glasses for camera. and that perspective like it will see like look at me and I will introduce it I will introduce myself first.",
+  "transcript": [
+    "I want you to think like this is not the laptop ka camera it is like glasses for camera",
+    "and that perspective like it will see like look at me and I will introduce it I will introduce myself first"
+  ],
+  "entry_count": 2,
+  "clean_count": 2,
+  "generated_at": "2026-10-02T09:34:03.925864",
+  "llm_used": false
+}

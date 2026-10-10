@@ -1,0 +1,270 @@
+{
+  "session_id": "session_1788979700085",
+  "started_at": 1788959834.801079,
+  "ended_at": 1788959875.02108,
+  "total_events": 53,
+  "persons_seen": [
+    "Arya",
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "clock"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "a49e1b8f-6473-4a49-9021-f0e03dc3a1d6",
+      "person_name": "Arya",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979701.643,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7d8b574c-821e-4a6d-a8da-b95ff93a8d5a",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979703.126,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f8d86b40-ade4-4ba1-ba42-b8fad8a71945",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979704.652,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "56ac4a78-b885-4741-81e3-84c3d914211c",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979706.174,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "67a24510-be03-4711-ae53-2ecdfa08cd96",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979707.667,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9e5d76a3-0ff1-4743-b58b-c133953ff493",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979709.169,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9146be5e-612e-4e7c-8b40-7380306867f0",
+      "person_name": "Arya",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979712.15,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "df78371e-ef8f-4b60-841e-ce6f53a5859e",
+      "person_name": "Arya",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979713.663,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c43f7cfc-ea77-4adf-8402-b97ea4a10f2e",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979715.152,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "da6c1a1b-93b6-4f4b-b45e-21c5f2a04a7b",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979716.656,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "43f958a3-4237-4553-9517-a2c74b08f2da",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979718.164,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a0288cb2-e080-403d-8d97-2d23472c1d4e",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979719.642,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ac0ba496-cc64-4c4d-b81f-2eccc93137dd",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979721.159,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "403ba3d3-2c33-404c-8912-9524b1066c26",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979722.654,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "99e01593-974b-46f7-ba3b-1e05899216e0",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979724.151,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ceed89a1-d2b4-4b6f-99f8-16a59bec71f3",
+      "person_name": "Arya",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979725.651,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4a7a0cdf-8f6e-4458-b0bf-b37336145482",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979727.171,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1d2081d2-0de4-42e5-a00d-d89aeecd3ec4",
+      "person_name": "Arya",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979728.656,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4a738081-d2e7-460c-9f5b-ab22b7be8ce4",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979730.148,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "77ef0635-5b99-4bb0-bea5-b6a19faeee7a",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979731.649,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "66d8af0c-e098-4e7b-80a9-06e4cfc42c31",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979733.15,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "617af68c-11c5-4a3d-ab20-796f5860c874",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979734.649,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "56a2f8b1-dd73-45e7-98b1-121729d58808",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979736.132,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0250d62e-92ca-4584-82db-e7760f5e7cca",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979737.632,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ea889312-ac66-457c-ae16-4af50264662b",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979739.144,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fdc348dc-60be-4d5d-b059-0f42a8e78ead",
+      "person_name": "Dhruv",
+      "session_id": "session_1788979700085",
+      "timestamp": 1788979740.649,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-09T18:47:42.922828",
+      "speaker": "Dhruv",
+      "text": "hey how are you bro",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-09-09T18:47:56.050697",
+      "speaker": "Dhruv",
+      "text": "what's happening today if we are just doing dry run of the project we made",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:48:03.382441",
+      "speaker": "Dhruv",
+      "text": "bus khatm Hogi Baat",
+      "emotion": "happy"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "person": "Aarya",
+  "session_id": "session_1790939293860",
+  "session_code": "2026-10-02_S002",
+  "date": "2026-10-02",
+  "started_at": "2026-10-02T16:38:42.593183",
+  "ended_at": "2026-10-02T16:38:42.599523",
+  "summary": "so. English walking. the local AI models.",
+  "transcript": [
+    "so",
+    "English walking",
+    "the local AI models"
+  ],
+  "entry_count": 3,
+  "clean_count": 3,
+  "generated_at": "2026-10-02T11:08:49.386283",
+  "llm_used": true
+}

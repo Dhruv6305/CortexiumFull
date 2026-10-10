@@ -1,0 +1,169 @@
+{
+  "session_id": "session_1787775429159",
+  "started_at": 1787755630.70062,
+  "ended_at": 1787755698.86535,
+  "total_events": 47,
+  "persons_seen": [
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "teddy bear",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "3f7df56f-1410-4c04-9411-f7fc11d8b8dc",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775430.693,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "42718bff-d5f2-454b-8b25-b9f921eb5c20",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775436.683,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2e54d2de-7343-431a-8427-9d2d8128db19",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775438.178,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ce1b2706-12cb-4716-a96a-c8ccffa5b559",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775447.196,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "09f41825-7e7b-47f2-ab5e-82b10fdf524b",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775474.193,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "52113f81-91e9-40e6-8d43-3b1c7eae5bdc",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775475.698,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fc18cfd4-e335-4efc-bc30-f34ce030445b",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775481.699,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "65a7d9bd-220d-4716-b06e-c09cb7bbc825",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775483.193,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0ff669c2-fef6-4beb-a2ea-3719a6705339",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775484.694,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "edc96d66-0d25-4e92-a694-3259592c8bb8",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775486.194,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8de6db3d-2666-418c-8844-ec3839b6f406",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775487.695,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c858120d-7a8f-442d-abb2-879e5b3d5a50",
+      "person_name": "Aarya",
+      "session_id": "session_1787775429159",
+      "timestamp": 1787775497.204,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-08-26T20:18:00.623941",
+      "speaker": "Unknown",
+      "text": "facing is light and issue",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:18:05.582928",
+      "speaker": "Aarya",
+      "text": "I know sessions recorded",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:18:05.584918",
+      "speaker": "Unknown",
+      "text": "recognise me from a bunch of crowd",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:18:08.841301",
+      "speaker": "Unknown",
+      "text": "Ashok currently",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:18:12.160539",
+      "speaker": "Aarya",
+      "text": "is also not recognising my face I guess because yeah",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:18:12.163540",
+      "speaker": "doing right",
+      "text": "I am doing right now because",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:18:18.864352",
+      "speaker": "Aarya",
+      "text": "I should like probably and the session right now and check if it is working correctly or not",
+      "emotion": "neutral"
+    }
+  ]
+}

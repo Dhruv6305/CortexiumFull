@@ -1,0 +1,90 @@
+{
+  "session_id": "session_1788998575191",
+  "started_at": 1788978776.77037,
+  "ended_at": 1788978799.094327,
+  "total_events": 15,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "chair",
+    "couch"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "d151c598-2c7d-4619-919c-1b14bea3b3c0",
+      "person_name": "Arya",
+      "session_id": "session_1788998575191",
+      "timestamp": 1788998576.72,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "db9889a8-789b-463a-91a4-8c0a5a522d74",
+      "person_name": "Arya",
+      "session_id": "session_1788998575191",
+      "timestamp": 1788998578.217,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1da771af-48b9-437c-9ce4-7c6f1bc7f840",
+      "person_name": "Arya",
+      "session_id": "session_1788998575191",
+      "timestamp": 1788998579.719,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1c171277-0634-4a8b-a195-727ab48c8fe6",
+      "person_name": "Arya",
+      "session_id": "session_1788998575191",
+      "timestamp": 1788998581.215,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f2b59998-4d27-45c6-a28d-79c6fbab2663",
+      "person_name": "Arya",
+      "session_id": "session_1788998575191",
+      "timestamp": 1788998582.721,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8390dd99-b154-41cf-9230-fd5c1e038566",
+      "person_name": "Arya",
+      "session_id": "session_1788998575191",
+      "timestamp": 1788998584.222,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T00:03:26.231368",
+      "speaker": "Arya",
+      "text": "what did you talk about last scene",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T00:03:35.873748",
+      "speaker": "Arya",
+      "text": "Colony",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T00:03:43.043850",
+      "speaker": "Arya",
+      "text": "college",
+      "emotion": "neutral"
+    }
+  ]
+}

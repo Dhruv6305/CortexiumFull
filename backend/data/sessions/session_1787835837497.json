@@ -1,0 +1,261 @@
+{
+  "session_id": "session_1787835837497",
+  "started_at": 1787816039.048151,
+  "ended_at": 1787816082.393583,
+  "total_events": 56,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "couch",
+    "bed",
+    "bottle"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "dd2c8735-30c9-484d-8afd-c5741c669f18",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835839.039,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a12fc0dd-0737-48cc-8b9a-dfadf4148841",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835840.515,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b349d858-f453-4c26-9f63-2e9e998e1714",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835842.013,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3600f624-f9e8-413f-9134-77d9e4a7a769",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835843.521,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2a683589-4315-4d70-9b53-9085ab4db5a4",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835846.517,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "96219e61-5770-4939-8d2e-6512a6861018",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835848.016,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cf7a45c3-d279-4b85-92d3-ef17f544928d",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835851.016,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7395825f-d86a-4ed9-9c6f-ed9633d4eba3",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835852.516,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "941d4c47-fc9b-4ca2-a538-15b39f82219b",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835854.016,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0bc05abd-f824-4c82-9288-8b5863dec048",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835855.518,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "675c941d-49cb-41e3-be2d-685e445382d1",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835857.018,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c3eb6ed1-1efa-49b4-a484-6c2bd1d913d9",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835858.518,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c3c9ac0d-2532-441e-832c-bc8bb5bc4cd6",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835860.017,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c441eaed-de16-4472-9215-8163cfb466de",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835861.518,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e89ce6fe-9c55-4a9b-9cfb-a131b2dcf5ac",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835863.017,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9cbae12d-67ff-407d-a2da-7b653738e1d7",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835864.517,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5ab31005-cba5-4310-ae69-e7c5993cc365",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835866.011,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "53e871dd-02a6-4b55-9477-209856ab79ec",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835867.512,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5b0cc558-cc0c-4f9c-904d-e296cf1a546d",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835869.012,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e8deb1f7-f4eb-42fa-803b-2531a85a1d5a",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835870.512,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "15c6479a-3f8b-40ec-9a12-4b141d3ffc2b",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835872.012,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7806ea13-26e5-4606-b84b-2bcaf42dfa99",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835873.512,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ba3cecd8-8c51-460e-8917-04ae683309cd",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835875.012,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ba6f8998-65e1-4eca-8aee-e79b62259693",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835876.512,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c8f4ed23-cfbc-4940-87bc-0accb85d7955",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835878.012,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8c49abc9-9b95-41d2-913a-52c826ebdee0",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835879.511,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4be47f40-7b6d-41c9-b36e-85ee96e9bf7b",
+      "person_name": "Arya",
+      "session_id": "session_1787835837497",
+      "timestamp": 1787835881.012,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

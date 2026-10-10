@@ -1,0 +1,101 @@
+{
+  "session_id": "session_1791662822295",
+  "started_at": 1791643025.150275,
+  "ended_at": 1791643159.028777,
+  "total_events": 12,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "clock"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "ac077034-7f74-4a7b-817a-16a5163e6201",
+      "person_name": "Dhruv",
+      "session_id": "session_1791662822295",
+      "timestamp": 1791662824.574,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2a576506-a4a0-4cae-92c7-b6145d082159",
+      "person_name": "Dhruv",
+      "session_id": "session_1791662822295",
+      "timestamp": 1791662824.829,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "17cbfe88-c55c-48e9-8a26-aedbfda51ad8",
+      "person_name": "Dhruv",
+      "session_id": "session_1791662822295",
+      "timestamp": 1791662824.379,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a2b299b9-9863-4acc-a637-4986b9089d33",
+      "person_name": "Dhruv",
+      "session_id": "session_1791662822295",
+      "timestamp": 1791662825.099,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "28473e5d-9a63-4b00-8d62-d41326073e20",
+      "person_name": "Dhruv",
+      "session_id": "session_1791662822295",
+      "timestamp": 1791662825.363,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cf10e064-321e-4872-bf58-222623e6b846",
+      "person_name": "Dhruv",
+      "session_id": "session_1791662822295",
+      "timestamp": 1791662825.71,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-10T20:07:28.144054",
+      "speaker": "Unknown",
+      "text": "yo Mere Jigar Ke chhallo",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-10T20:07:33.148578",
+      "speaker": "Unknown",
+      "text": "do you recognise me bro",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-10T20:08:54.171349",
+      "speaker": "Dhruv",
+      "text": "is what we talk",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-10T20:09:18.186193",
+      "speaker": "Dhruv",
+      "text": "okay so you need to remember what I am saying in this is your working right now",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-10T20:09:18.861717",
+      "speaker": "Dhruv",
+      "text": "and if it does not work it's your problem not mine ok",
+      "emotion": "neutral"
+    }
+  ]
+}

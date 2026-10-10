@@ -1,0 +1,19 @@
+{
+  "person": "Dhruv",
+  "session_id": "session_1791289044780",
+  "session_code": "2026-10-06_S002",
+  "date": "2026-10-06",
+  "started_at": "2026-10-06T17:47:35.150383",
+  "ended_at": "2026-10-06T17:48:00.922525",
+  "summary": "hey bro did you recognise me. recognise me properly. up your organisation also properly now thanks for the. working.",
+  "transcript": [
+    "hey bro did you recognise me",
+    "recognise me properly",
+    "up your organisation also properly now thanks for the",
+    "working"
+  ],
+  "entry_count": 4,
+  "clean_count": 4,
+  "generated_at": "2026-10-10T19:28:42.250804",
+  "llm_used": false
+}

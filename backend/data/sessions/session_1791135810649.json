@@ -1,0 +1,45 @@
+{
+  "session_id": "session_1791135810649",
+  "started_at": 1791116012.264227,
+  "ended_at": 1791116056.984428,
+  "total_events": 29,
+  "persons_seen": [],
+  "objects_seen": [
+    "person",
+    "clock",
+    "cell phone"
+  ],
+  "encounters": [],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T17:44:02.510128",
+      "speaker": "Dhruv",
+      "text": "hey my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:44:02.570639",
+      "speaker": "Unknown",
+      "text": "yes if you can properly detect me",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:44:04.503404",
+      "speaker": "Unknown",
+      "text": "how can I in the session and check that",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:44:07.446731",
+      "speaker": "Unknown",
+      "text": "detected Netflix",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:44:13.125700",
+      "speaker": "Unknown",
+      "text": "recognise me and save my history",
+      "emotion": "neutral"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "session_id": "session_1789012990476",
+  "started_at": 1788993126.993543,
+  "ended_at": null,
+  "total_events": 38,
+  "persons_seen": [
+    "Arya",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "airplane",
+    "chair",
+    "tv",
+    "cell phone",
+    "microwave",
+    "refrigerator",
+    "mouse",
+    "couch"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "b0d8d08e-ce60-49d4-a4cd-a2bd687badd9",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789012995.037,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1dae2756-a5ba-4911-9e20-f5c28922faea",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789012999.516,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f93c0bb3-8d4b-4cf0-ad36-56d3817b9608",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013001.032,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ab3a6dfa-5ae7-4b09-9a8f-c9c73f77e904",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013002.53,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "84e0f0a0-bf2e-4029-84be-2b83253dd0a0",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013004.035,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bdaac7ca-eace-48ed-8873-22603848d94a",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013004.035,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "00f5dfa1-7c41-4847-8c52-c11d6bcabb40",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013005.531,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "27c07541-afd8-46ac-b04f-5b1689ec17ab",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013008.515,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "93139e61-c8db-4179-b0bc-0bbf4a33249b",
+      "person_name": "Arya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013020.53,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "14c8f188-de8f-44f9-8a51-79cfe00e2443",
+      "person_name": "Aarya",
+      "session_id": "session_1789012990476",
+      "timestamp": 1789013035.525,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T04:02:46.898946",
+      "speaker": "Arya",
+      "text": "I want you to think like this is not the laptop ka camera it is like glasses for camera",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-09-10T04:02:54.448597",
+      "speaker": "Arya",
+      "text": "and that perspective like it will see like look at me and I will introduce it I will introduce myself first",
+      "emotion": "neutral"
+    }
+  ]
+}

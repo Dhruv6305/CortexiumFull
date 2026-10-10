@@ -1,0 +1,277 @@
+{
+  "session_id": "session_1787739384122",
+  "started_at": 1787719585.650023,
+  "ended_at": 1787719662.015518,
+  "total_events": 79,
+  "persons_seen": [
+    "Dhaval"
+  ],
+  "objects_seen": [
+    "person",
+    "couch",
+    "bed",
+    "remote",
+    "teddy bear",
+    "dining table",
+    "cell phone",
+    "chair"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "5bb2fbd8-199d-42c0-8db1-487deff5de7e",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739400.642,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fd730bc7-da28-4d10-9e1c-ac34ce773d85",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739408.141,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c962dd29-f14c-4d4a-bd0c-ffd2e6849fb0",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739412.697,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a02a2669-7584-4ff9-80d8-0864f0e4dffb",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739414.163,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "08561ab4-e38c-411c-992d-fd1d4c6143c3",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739415.64,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5a76b2f1-2c1a-4d94-bf4c-cc2425c2c6eb",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739417.141,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "43fa72b7-5f6d-4881-bff0-c094ef78dc9b",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739418.646,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "12e2da21-ab20-488a-ad87-002281fb19a9",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739420.14,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "37980d15-03d4-467a-b42f-778e7a42dcba",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739421.644,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b84f0b27-5807-4448-9c8f-66d51bebd89c",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739423.144,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cc546e03-7742-4732-8c93-ce7114f880f7",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739427.648,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8e54c60d-d0da-4f3e-8a1d-0cf56b9478a7",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739429.145,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "299fdeb4-32d7-41a2-8b04-e661328887c9",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739430.648,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "81d4928d-dc97-446c-8ffd-9b0591acbce1",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739432.149,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cf7672d8-e96e-442d-862b-95ee33489ad2",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739433.646,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "14d2d24e-478a-4909-b8f6-df8ce32483db",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739435.142,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e495a96a-b126-4f25-8cf8-0e0ce27ec4fc",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739436.651,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "48b80ef4-950b-4ed0-8bd4-a49bbae2b826",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739438.152,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e885c61b-91f9-451f-a87d-287b94202e30",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739439.649,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "dda8ddc6-066b-4bf1-9dfb-74065e48b5d4",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739441.149,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c1d81c93-207d-47db-b44a-1b08de07b7c6",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739445.645,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f8cb4ffa-acad-4a1b-be55-7b25e88791d4",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739448.651,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a81dc94c-7c81-41ec-a5d5-87a6ba849074",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739450.148,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5a200a2b-29a5-4a4e-847a-458fad85b226",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739451.643,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0d861e61-3df0-4ed9-8d25-3592d4c50f75",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739453.146,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "73b5da6b-66eb-43d9-835e-5fff6f1b50b8",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739454.652,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f22f80a0-9f6f-4fe2-ab01-e74e49bedf64",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739456.152,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7e5ba982-f327-4085-892a-fe84e88bd722",
+      "person_name": "Dhaval",
+      "session_id": "session_1787739384122",
+      "timestamp": 1787739457.659,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hey",
+    "user: Arya Bhansali"
+  ]
+}

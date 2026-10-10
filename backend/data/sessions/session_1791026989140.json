@@ -1,0 +1,44 @@
+{
+  "session_id": "session_1791026989140",
+  "started_at": 1791007193.713041,
+  "ended_at": 1791007220.156071,
+  "total_events": 17,
+  "persons_seen": [],
+  "objects_seen": [
+    "person",
+    "clock"
+  ],
+  "encounters": [],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-03T11:30:00.274065",
+      "speaker": "Unknown",
+      "text": "hey hello",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-03T11:30:01.040813",
+      "speaker": "Dhruv",
+      "text": "my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-03T11:30:08.233409",
+      "speaker": "Unknown",
+      "text": "good detection",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-03T11:30:11.200344",
+      "speaker": "Unknown",
+      "text": "Galaxy a few",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-03T11:30:19.332490",
+      "speaker": "Unknown",
+      "text": "register or not by your home",
+      "emotion": "neutral"
+    }
+  ]
+}

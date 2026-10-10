@@ -1,0 +1,183 @@
+{
+  "session_id": "session_1788979579710",
+  "started_at": 1788959782.11613,
+  "ended_at": 1788959815.453371,
+  "total_events": 40,
+  "persons_seen": [
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "sink",
+    "chair"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "c74c77cd-565e-429a-8309-fd0d7886862d",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979588.769,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "10e74f94-b9fe-4157-bd95-be6a37832a35",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979590.279,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d387a697-7358-47ec-ad5e-d1e49b76ff62",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979591.777,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5c00b68d-a8aa-48ab-a9ab-1d7c2f77da7b",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979593.3,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "11075700-8d06-4ebe-a245-68fc95676008",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979594.789,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2f8d802f-d9fb-4a35-bdb0-29d0a119e709",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979596.275,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "166bb731-7204-40c8-ad11-c5743284a1af",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979597.773,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e73b070c-beaf-4c22-a9a0-0ffc1424b7cc",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979599.273,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b9dd0219-9b17-4fca-832c-6582da2a9d2d",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979600.773,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c83a700a-107a-4629-ae2c-71e20d504b6f",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979602.27,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d4835d6b-1389-4e04-bc8d-b83ee266cd1c",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979603.776,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "927949b0-d495-44c2-8022-99c5ad1ca795",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979605.288,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1544e723-e795-444c-94da-7691705f27f0",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979606.773,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ead79ad9-ffe1-4627-aa01-3755728051c2",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979611.27,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6d7f2438-09c7-42ef-bd57-a7def811c6f8",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979612.772,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7f1cfcec-e229-42fd-9942-42608b081051",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979614.277,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b72e041c-f5cc-49fb-903c-d4d833a12358",
+      "person_name": "Aarya",
+      "session_id": "session_1788979579710",
+      "timestamp": 1788979615.796,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-09T18:46:59.947868",
+      "speaker": "Aarya",
+      "text": "also it is running on local data also",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T18:47:06.230993",
+      "speaker": "Aarya",
+      "text": "did that cloud Paris actually working on this",
+      "emotion": "neutral"
+    }
+  ]
+}

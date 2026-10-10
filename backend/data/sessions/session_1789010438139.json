@@ -1,0 +1,69 @@
+{
+  "session_id": "session_1789010438139",
+  "started_at": 1788990576.981747,
+  "ended_at": null,
+  "total_events": 36,
+  "persons_seen": [
+    "Aarya",
+    "Arya",
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "cat",
+    "dog",
+    "baseball bat"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "1ca76797-720f-48d0-bf10-934c809cd722",
+      "person_name": "Aarya",
+      "session_id": "session_1789010438139",
+      "timestamp": 1789010447.18,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5cb9a784-c749-42ad-882d-2e01d45ed308",
+      "person_name": "Arya",
+      "session_id": "session_1789010438139",
+      "timestamp": 1789010462.172,
+      "emotion": "surprise",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f09cb4db-e8ff-45bd-a750-a81fc14e893d",
+      "person_name": "Arya",
+      "session_id": "session_1789010438139",
+      "timestamp": 1789010483.17,
+      "emotion": "surprise",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b7ca0167-f424-4fdd-bff7-43fa223d51fa",
+      "person_name": "Dhruv",
+      "session_id": "session_1789010438139",
+      "timestamp": 1789010487.673,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T03:20:05.801071",
+      "speaker": "Aarya",
+      "text": "picture chahie",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T03:20:21.858376",
+      "speaker": "Aarya",
+      "text": "mummy ne beta",
+      "emotion": "neutral"
+    }
+  ]
+}

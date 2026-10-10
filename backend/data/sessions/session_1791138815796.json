@@ -1,0 +1,72 @@
+{
+  "session_id": "session_1791138815796",
+  "started_at": 1791119017.350433,
+  "ended_at": 1791119106.028975,
+  "total_events": 8,
+  "persons_seen": [
+    "Dhruv",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "clock"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "1baf260b-8777-4b14-8217-741846561c21",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138815796",
+      "timestamp": 1791138818.863,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "280b52e5-444b-41be-a129-bca4d9544b81",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138815796",
+      "timestamp": 1791138820.348,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ee776baa-cc50-4932-9c7c-632cb7373fd8",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138815796",
+      "timestamp": 1791138817.329,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "79c5a7f7-438e-4aea-bc80-297de03eb623",
+      "person_name": "Aarya",
+      "session_id": "session_1791138815796",
+      "timestamp": 1791138821.859,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T18:34:48.160580",
+      "speaker": "dhru",
+      "text": "hello my name is dhru",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:34:48.520090",
+      "speaker": "dhru",
+      "text": "hello my name is dhru",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:34:49.331183",
+      "speaker": "Dhruv",
+      "text": "are you recognising my name",
+      "emotion": "neutral"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "session_id": "session_1790940093803",
+  "started_at": 1790920295.342398,
+  "ended_at": null,
+  "total_events": 20,
+  "persons_seen": [
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "cake",
+    "dining table",
+    "backpack",
+    "bed",
+    "chair",
+    "handbag"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "ed0943d8-f16c-4b0f-a0b0-8183a7db978a",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940098.337,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5e2cf258-12da-4a30-a76c-e5b6b109fb00",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940099.836,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "39051e35-5fd6-4bcb-b27d-13e3c1a08432",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940101.334,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "58296acd-44ab-4418-b511-77227c953779",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940102.822,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c9c8ec77-f07f-4f45-aac7-2682ea2c0322",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940104.329,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0de2abc1-c24f-4916-b13b-5dd78b6cf2f5",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940105.828,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a226314a-90e7-49c6-81fc-3c06813a54fb",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940107.327,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6d9fb1bd-7c1c-4ff4-bf1e-d7f0324f8c50",
+      "person_name": "Aarya",
+      "session_id": "session_1790940093803",
+      "timestamp": 1790940108.828,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-02T11:21:54.001937",
+      "speaker": "Aarya",
+      "text": "what is ETA Khabar Rajasthan",
+      "emotion": "neutral"
+    }
+  ]
+}

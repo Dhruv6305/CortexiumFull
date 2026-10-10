@@ -1,0 +1,16 @@
+{
+  "person": "Arya",
+  "session_id": "session_1788593775001",
+  "session_code": "2026-09-05_S007",
+  "date": "2026-09-05",
+  "started_at": "2026-09-05T13:06:37.857335",
+  "ended_at": "2026-09-05T13:06:37.857335",
+  "summary": "recognise me.",
+  "transcript": [
+    "recognise me"
+  ],
+  "entry_count": 1,
+  "clean_count": 1,
+  "generated_at": "2026-09-09T17:54:40.608387",
+  "llm_used": false
+}

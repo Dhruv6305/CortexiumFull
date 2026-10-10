@@ -1,0 +1,9 @@
+{
+  "theme": "dark",
+  "hud_opacity": 0.92,
+  "frame_interval_ms": 1500,
+  "vlm_enabled": true,
+  "voice_enabled": true,
+  "auto_register": false,
+  "hazard_alerts": true
+}

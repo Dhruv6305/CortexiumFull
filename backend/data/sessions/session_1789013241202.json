@@ -1,0 +1,389 @@
+{
+  "session_id": "session_1789013241202",
+  "started_at": 1788993374.690649,
+  "ended_at": 1788993982.908549,
+  "total_events": 426,
+  "persons_seen": [
+    "Aarya",
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "mouse",
+    "tv",
+    "chair",
+    "airplane",
+    "keyboard",
+    "laptop",
+    "hot dog",
+    "cell phone",
+    "remote",
+    "microwave",
+    "sink",
+    "teddy bear",
+    "clock",
+    "couch",
+    "cup",
+    "scissors",
+    "tie",
+    "potted plant"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "86f0460c-53a6-4014-a22b-44ca18e1859e",
+      "person_name": "Aarya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013266.747,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f6e64e5e-ee88-4587-bb53-16495bcf3412",
+      "person_name": "Aarya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013271.228,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5d529df1-0b96-4f93-be7a-eff56f19635c",
+      "person_name": "Aarya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013272.749,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "21ced3e0-53ae-4d85-afb9-a24963817754",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013409.255,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3c55894d-0d50-40c5-a8fb-4a66a1c467cd",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013421.267,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "efa3e7a9-0f5c-4dfe-844f-52cad97418f6",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013465.245,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0de34b9e-0d53-49e4-8160-0267ad517e79",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013466.297,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5964b291-23e3-4691-8b14-e0b0b1d44f3d",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013468.268,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6bdd920f-a441-41bd-85df-2933a2a08001",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013633.239,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "56e3d1a4-5153-4057-a1e2-47c98714028a",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013637.258,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7a5610b8-1bfa-4c72-b2af-9285e487641c",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013663.238,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "dc4f97e3-329e-4b12-a2f7-899b06fbbd21",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013687.241,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d1ff0819-bd89-4684-9d00-b18283b9b4ad",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013688.264,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bedb0abb-68d7-466c-b089-5dcfc40d4bcf",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013703.263,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "64193965-2065-46bb-a269-0ef93e438304",
+      "person_name": "Aarya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013750.26,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b71d7050-b5d3-40a7-9023-491100d23402",
+      "person_name": "Aarya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013751.253,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3649f159-060f-4963-8f45-b43bbfa36996",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013760.244,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9486f1ba-6b50-49b4-9002-ed962d6d9ea4",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013760.244,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e4b519d5-6a92-4e19-a676-3b68443cc51a",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013765.232,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "16125abb-0939-46ee-bc2c-aac489ff0c2c",
+      "person_name": "Arya",
+      "session_id": "session_1789013241202",
+      "timestamp": 1789013766.246,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T04:06:58.597793",
+      "speaker": "Aarya",
+      "text": "han to Abhi unhen Kuchh Nahin dete Kiya Humne Jo bola vah Nahin Hai",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:07.464368",
+      "speaker": "Aarya",
+      "text": "16 cause delays and",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:16.369970",
+      "speaker": "Aarya",
+      "text": "Mere Naam Ka Ek Do Naam Rakhe",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:24.915171",
+      "speaker": "Aarya",
+      "text": "main bol raha hun",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:32.523443",
+      "speaker": "Aarya",
+      "text": "a conversation Dal dega",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:41.112583",
+      "speaker": "Aarya",
+      "text": "dialogue status",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:50.232052",
+      "speaker": "Aarya",
+      "text": "organisation module it it Learns the relationship between objects and surfaces already a base",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:07:58.394071",
+      "speaker": "Aarya",
+      "text": "90% will have",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:08:06.321654",
+      "speaker": "Aarya",
+      "text": "object detection kar rahe ho",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:08:14.610942",
+      "speaker": "Aarya",
+      "text": "best rules learn karvaya ki agar yah bag chair per Hona chahie",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:08:20.381436",
+      "speaker": "Aarya",
+      "text": "sirf bike Niche",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:08:29.276777",
+      "speaker": "Aarya",
+      "text": "Iske alava",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:08:38.032587",
+      "speaker": "Aarya",
+      "text": "inventory management Mein pahle koi jo bhi stakeholder Hoga vah Apna inventory manage karna chahta hai",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:08:49.222265",
+      "speaker": "Aarya",
+      "text": "agar koi bhi chij misplace",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:09:08.464864",
+      "speaker": "Aarya",
+      "text": "warehouse offices libraries vagaira Mein based on the data it will learn relationship",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:09:17.451695",
+      "speaker": "Aarya",
+      "text": "generalized",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:09:32.646719",
+      "speaker": "Aarya",
+      "text": "and whenever I reset learning it goes back cover the generalized relationship",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:10:29.311430",
+      "speaker": "Aarya",
+      "text": "Itna implementation sunane ke liye external ke pass paise",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:10:40.946931",
+      "speaker": "Aarya",
+      "text": "confusing hai",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:10:55.985641",
+      "speaker": "Aarya",
+      "text": "perspective de sakte ho",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:11:42.990872",
+      "speaker": "Aarya",
+      "text": "vehicle driving licence",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:11:51.751326",
+      "speaker": "Aarya",
+      "text": "use Din bataya tha usmein abhi Kuchh changes Kiye Hain",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:12:08.483018",
+      "speaker": "Aarya",
+      "text": "research",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:12:19.934516",
+      "speaker": "Aarya",
+      "text": "functionality",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:12:46.175033",
+      "speaker": "Aarya",
+      "text": "videos and images and all that",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:12:59.465101",
+      "speaker": "Arya",
+      "text": "10 13 22 23 Acharya",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-09-10T04:13:23.386466",
+      "speaker": "Aarya",
+      "text": "Inka Kya Hai 22 hai na",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:13:31.991990",
+      "speaker": "Aarya",
+      "text": "what is your group number",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:13:38.012428",
+      "speaker": "Aarya",
+      "text": "who is 23",
+      "emotion": "neutral"
+    }
+  ]
+}

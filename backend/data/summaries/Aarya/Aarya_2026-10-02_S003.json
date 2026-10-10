@@ -1,0 +1,16 @@
+{
+  "person": "Aarya",
+  "session_id": "session_1790940093803",
+  "session_code": "2026-10-02_S003",
+  "date": "2026-10-02",
+  "started_at": "2026-10-02T16:51:54.000300",
+  "ended_at": "2026-10-02T16:51:54.000300",
+  "summary": "what is ETA Khabar Rajasthan.",
+  "transcript": [
+    "what is ETA Khabar Rajasthan"
+  ],
+  "entry_count": 1,
+  "clean_count": 1,
+  "generated_at": "2026-10-03T11:29:24.170748",
+  "llm_used": false
+}

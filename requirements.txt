@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+python-dotenv
+ultralytics
+opencv-python
+httpx
+openai>=1.0.0
+deepface
+tf-keras
+speechrecognition
+catboost
+scikit-learn
+pandas
+numpy
+

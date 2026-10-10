@@ -1,0 +1,17 @@
+{
+  "person": "Arya",
+  "session_id": "session_1788998522982",
+  "session_code": "2026-09-10_S007",
+  "date": "2026-09-10",
+  "started_at": "2026-09-10T05:32:40.887597",
+  "ended_at": "2026-09-10T05:32:49.975330",
+  "summary": "Arya asked about data collection and an incomplete follow-up question. The discussion focused on defining data collection and its related aspects.",
+  "transcript": [
+    "what is data collection",
+    "are also"
+  ],
+  "entry_count": 2,
+  "clean_count": 2,
+  "generated_at": "2026-09-10T00:02:53.421906",
+  "llm_used": true
+}

@@ -1,0 +1,303 @@
+{
+  "session_id": "session_1787774088529",
+  "started_at": 1787754290.054084,
+  "ended_at": 1787754387.982957,
+  "total_events": 96,
+  "persons_seen": [
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "cell phone",
+    "bed",
+    "teddy bear"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "9ebb1e27-e024-49f3-8e1a-b523359b8ab2",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774093.05,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "48cb6868-e758-4293-9f02-041ffa884ffe",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774094.557,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "46e2278a-3a79-4198-bde2-201caa25f281",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774100.549,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "43abf59a-0d86-43d8-8863-fe78a0ea211f",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774105.048,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "760a13e0-92ff-4708-9664-a9e8f908b4e0",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774106.553,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3697ade5-bce2-4260-858f-1a24ccd7b290",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774111.051,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "360c4cf0-5a5c-44ee-87fe-7714ac04aef9",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774112.549,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ce1bcb77-fcd7-4ca6-8425-231375f69c93",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774123.05,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8e7bc2b0-9322-4054-8940-d0b1c68898f6",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774132.055,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "50a8a1cc-035f-4076-8232-2f51e24a95d0",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774133.551,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7b1ae8e8-e6be-42db-8a24-97d4d135df4d",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774136.547,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "abdc2d22-fc1f-4852-82f3-4af570d23c3c",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774138.051,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ebec0f5f-4dac-4dde-b3eb-b895e018f61a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774139.552,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "be8d26b3-d43c-4ddc-bb61-afd28e4b912b",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774141.046,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c24d1205-8ca0-4323-b452-b0524603d47a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774144.041,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1a433a18-6048-447f-a406-dad07e734c9a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774147.045,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4cf17612-ca3c-468e-aad4-052263f46864",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774163.551,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6eacdd26-0af4-4b2a-b081-1d235993b230",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774165.047,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5a229b45-621e-48df-a2a0-882e9a86506a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774166.546,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6663aeaa-aeb1-403a-aafd-cf3507935dc8",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774168.047,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "48fc7b96-d6a4-4c61-a1f3-ca045acd4f34",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774169.548,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f5a54836-583b-4d2b-9432-e3a8a70b2c74",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774171.048,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4d98370a-5e79-4e79-8eb5-ff214e1708bc",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774172.548,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "439621a4-cfa7-40fa-be76-41c9800ec0af",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774174.049,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "78ce5a3f-2fda-440f-a28a-a45f92a8126a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774175.549,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "acd9974b-c809-471d-af97-61b3b828b25a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774177.049,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9ded23d2-52cc-42a4-ad8a-b98a261a4afc",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774178.547,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "535d1cfa-16a5-417d-add3-14470976fd73",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774180.048,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0f228761-2553-495d-8cff-2bd0254aeb73",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774181.548,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "87f48c0d-69e1-4dc6-b21d-a0ab981c12af",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774184.548,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "59962c8f-01bd-41e0-893a-962333249cd8",
+      "person_name": "Aarya",
+      "session_id": "session_1787774088529",
+      "timestamp": 1787774186.055,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hey yeah",
+    "user: what was the previous conversation",
+    "user: TVS conversation",
+    "user: hello",
+    "user: so we are going to solve few DSA questions we are going to make a single project and also we are going to show our project to a recruiter so that it could help him analyse ourselves and it will help them evaluate as on basis of that"
+  ]
+}

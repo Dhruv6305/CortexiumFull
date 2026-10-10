@@ -1,0 +1,287 @@
+{
+  "session_id": "session_1786744161821",
+  "started_at": 1786724363.340663,
+  "ended_at": 1786724419.374665,
+  "total_events": 54,
+  "persons_seen": [
+    "speaking about",
+    "Dhaval",
+    "Arif Ansari"
+  ],
+  "objects_seen": [
+    "person",
+    "couch",
+    "chair",
+    "teddy bear",
+    "bed",
+    "tv"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "b6ebdd5b-688e-4d2d-956a-7aed87097bf7",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744163.336,
+      "emotion": "happy",
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "96ed155b-f266-41f9-8cb3-b93a1d199111",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744163.336,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cead85d9-7647-4a62-a8f7-563097bb8348",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744164.842,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "46f956ec-aff9-4537-a6fa-18cf324597cb",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744166.336,
+      "emotion": "surprise",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3a6548dd-6d64-40a5-b52d-5b86f890b2c2",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744167.844,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2e12f595-1657-4757-ae74-96959b6e4321",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744170.843,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f3189963-741b-4aeb-98a2-c82ae06e7286",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744169.338,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cea203af-ce2a-46f8-b085-044b19150c68",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744172.342,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b6b6d39a-cdab-4d92-a274-851e2152fedc",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744175.201,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7398483d-b6af-4102-87a3-a1bb8c377b67",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744176.692,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5942f8a1-1c30-46b9-8fcd-4a73281a8e2e",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744178.197,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a7326ded-7bc4-40c7-a8f5-e576978c3e84",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744179.697,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4e2f3bea-3c27-43cb-b8c5-0174fb5f812d",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744181.199,
+      "emotion": "surprise",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d73a8b29-5246-49a3-878e-8d29b99ab65c",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744189.991,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8952e176-5c33-498a-b7ac-586e3fe5c16b",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744191.496,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "da5256ef-d7d6-421a-87ba-42fdce308562",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744192.991,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2d687511-72b5-4044-b7fe-023d68548f18",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744194.492,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3e461693-0d0e-4050-88c3-88b9b140a53e",
+      "person_name": "speaking about",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744195.997,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4961c15f-6d5c-4cdf-bf35-89fa89ab1aba",
+      "person_name": "Dhaval",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744197.497,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3f654117-8cdc-40f2-84f0-95dddf18ded2",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744198.997,
+      "emotion": "happy",
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "1cac32d4-f04d-47e8-a7f4-a9bfa832175f",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744198.997,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "da7bcbad-e76f-4137-a1fa-0ce11f0c3ae2",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744200.497,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cc0feb71-795d-456e-bf6f-9d3a40875899",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744201.998,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ceadc62e-e307-484d-adc4-6f503167d81d",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744203.497,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9e935842-fded-4b6b-8874-f5ac1d83903c",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744204.992,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "885800fc-ad98-4aae-82c5-31bd74764b3b",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744206.506,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "25342ba1-6f63-4298-9824-4b772c36c159",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744208.002,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8c927ba4-d5ee-420b-9793-d77794edb33b",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744209.492,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4c373b36-ef09-42d1-b439-325e83d6d80b",
+      "person_name": "Arif Ansari",
+      "session_id": "session_1786744161821",
+      "timestamp": 1786744211.0,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hey my name is Arif Ansari",
+    "user: deleted from the system how are you detecting idea",
+    "user: but I have remove the"
+  ]
+}

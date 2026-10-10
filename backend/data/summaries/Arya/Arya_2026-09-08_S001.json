@@ -1,0 +1,16 @@
+{
+  "person": "Arya",
+  "session_id": "session_1788812427610",
+  "session_code": "2026-09-08_S001",
+  "date": "2026-09-08",
+  "started_at": "2026-09-08T01:51:07.436980",
+  "ended_at": "2026-09-08T01:51:07.436980",
+  "summary": "ok so this is the test for the application in which we are going to chest various kind of conversations if it is saving or not and also it is detecting my face something else and also.",
+  "transcript": [
+    "ok so this is the test for the application in which we are going to chest various kind of conversations if it is saving or not and also it is detecting my face something else and also"
+  ],
+  "entry_count": 1,
+  "clean_count": 1,
+  "generated_at": "2026-09-07T20:21:10.763105",
+  "llm_used": true
+}

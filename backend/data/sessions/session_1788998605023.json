@@ -1,0 +1,144 @@
+{
+  "session_id": "session_1788998605023",
+  "started_at": 1788978806.599693,
+  "ended_at": 1788978836.639552,
+  "total_events": 34,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "chair",
+    "couch",
+    "teddy bear"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "2e1e542e-bc79-4aa3-aa76-d8594f272d17",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998606.552,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d6a35e64-0296-4755-b5c8-3b563668e7b7",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998609.546,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bb3ce4db-2c89-4ebf-bcd9-8af3b36ed8a5",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998611.047,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "87bf1454-0184-4d97-9450-44d02398dc9a",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998612.549,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f4c54575-9e29-495f-ae70-1710bc7ba8ac",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998614.05,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4b2bcf9c-e5b3-4e17-b517-42def2e5026e",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998623.049,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1c8e0b84-611f-4e61-a8ba-872386d9de59",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998624.544,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9a3630a4-6337-477e-b445-1ea9a02cd64c",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998626.045,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d4da07f6-3029-4198-8e7b-cbcd16a44975",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998627.539,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5979ac86-d694-4271-8ea2-4634e693ec5f",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998629.046,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "242d8f9d-3f1d-46fa-ac80-ef224adb3a46",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998630.547,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f3fe97aa-fffa-44da-ab76-0b04ab3f01be",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998632.048,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d80f210e-0042-44ef-9997-a71996aca64a",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998633.547,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e978bd13-8e01-4ece-9dd8-3247f76a0a30",
+      "person_name": "Arya",
+      "session_id": "session_1788998605023",
+      "timestamp": 1788998635.402,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

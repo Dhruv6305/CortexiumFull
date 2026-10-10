@@ -1,0 +1,245 @@
+{
+  "session_id": "session_1787773971618",
+  "started_at": 1787754173.166565,
+  "ended_at": 1787754235.615892,
+  "total_events": 65,
+  "persons_seen": [
+    "Aarya",
+    "Arya Bhansali"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "couch",
+    "teddy bear",
+    "chair"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "f1ea0f42-3f41-4a0c-8890-ad82a3e6584d",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773979.142,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "88a21451-0658-4e4e-845b-26795e9061da",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773980.643,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3d6cbf55-b574-428f-89e4-f6832b737680",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773980.643,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4405ff42-f9af-4e93-a892-803571a7483b",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773982.15,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "51fdc5b4-c9fc-4dc8-b79a-e734d03e4438",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773983.646,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "91be720c-a063-4462-a2e6-4aceccaa4463",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773988.143,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "044f82e9-c75b-4075-b523-2b6363768967",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773991.138,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c65335fe-e463-4191-9e6b-f0072ef451d4",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773992.639,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d0d1cef7-7237-4f5c-92b6-121ed3647f6e",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773992.639,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c4395975-a712-4a66-af7c-ef70a27ad950",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773992.639,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "010e3fbf-e2fa-4dbd-807b-a7268a40e829",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773994.132,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "57ac2836-bc34-4b4b-b615-51cbba68f054",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773994.132,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5f7ce627-566e-45cd-a252-c06a34ffeb69",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773995.64,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ddba2e7b-da29-4674-b308-44e8dcf66807",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773997.134,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e87b68bd-b796-4da9-99ea-ab2da8bc361f",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787773997.134,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0721b129-2773-40fc-ac7d-7fde352d4ab0",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774009.139,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bfadf083-30cf-4031-867a-e0781a3f4b73",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774010.64,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "89310762-7040-44fd-a7e2-88deb9050474",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774010.64,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "063167bb-d364-42da-be1d-ab9c5e4822ec",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774013.64,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7bb74ed0-5092-4515-a96b-4d5a1b401c4e",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774013.64,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "817d183f-93b1-43b9-89c6-e520c17acccc",
+      "person_name": "Aarya",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774013.64,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "702ef511-cd00-435e-8fc2-c1b7f2cb4909",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774018.14,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6b7d3e8e-bbeb-4561-94cd-9672d37fdb72",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774021.141,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bd4651bb-c14f-4c72-94f7-f70e0bb73ff1",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774024.134,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6cbf16f3-8887-4b4c-9c01-64851216b276",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787773971618",
+      "timestamp": 1787774028.634,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

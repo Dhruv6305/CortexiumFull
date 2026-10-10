@@ -1,0 +1,66 @@
+{
+  "session_id": "session_1789011185723",
+  "started_at": 1788991324.045019,
+  "ended_at": null,
+  "total_events": 53,
+  "persons_seen": [
+    "Arya",
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "cat",
+    "dog",
+    "bird",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "833ad84f-0bdb-4bff-8994-46c49737a798",
+      "person_name": "Arya",
+      "session_id": "session_1789011185723",
+      "timestamp": 1789011230.245,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "589ff80b-e53e-4083-af13-2e0a1a0a238e",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011185723",
+      "timestamp": 1789011234.276,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3c75b849-c21b-4ddd-a509-0f80c75eb586",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011185723",
+      "timestamp": 1789011255.26,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T03:32:49.033950",
+      "speaker": "Arya",
+      "text": "Resort",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T03:32:58.713863",
+      "speaker": "Arya",
+      "text": "IPC section 10.207 120.163",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T03:33:16.789904",
+      "speaker": "Arya",
+      "text": "1 minut",
+      "emotion": "neutral"
+    }
+  ]
+}

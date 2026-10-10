@@ -1,0 +1,152 @@
+{
+  "session_id": "session_1789011357982",
+  "started_at": 1788991513.698123,
+  "ended_at": null,
+  "total_events": 55,
+  "persons_seen": [
+    "Aarya",
+    "Arya",
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "cat",
+    "dog"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "e2fc06b1-7ba6-44cc-a570-da27539f2440",
+      "person_name": "Aarya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011365.539,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "79102a2b-8d6f-4788-9332-a72cb6911a2e",
+      "person_name": "Aarya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011367.042,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8490b553-cb3d-4c87-8900-cbfc31ff669f",
+      "person_name": "Aarya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011368.54,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "39ef5007-f161-4df6-8ce0-5aa78e7f990a",
+      "person_name": "Aarya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011370.039,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7946c503-b880-4b5a-bb6f-3f52247f4df0",
+      "person_name": "Aarya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011378.271,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "24fac1a4-5405-44b2-968a-19ef6738773f",
+      "person_name": "Arya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011379.252,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a4f8cdf7-b5f1-490c-b43c-06ff98849bb9",
+      "person_name": "Aarya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011381.255,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e1bb8418-a5ee-4400-a8b3-784c01c9337f",
+      "person_name": "Arya",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011384.302,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7e085c8a-646c-4ef1-b5ad-54f5e191ec30",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011386.522,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ebff7114-d556-4d96-a2c0-7ca5ca3ac0ec",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011400.287,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4e3d76bc-1f02-4834-90b7-0de2119fc4e0",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011401.517,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2ab0d88a-552f-4e98-92ef-7492d80181bc",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011408.25,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e09c7288-9b2e-48c2-a919-e0cd429669c7",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011409.249,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "deb3911e-d10c-4599-b7de-28952a657db2",
+      "person_name": "Dhruv",
+      "session_id": "session_1789011357982",
+      "timestamp": 1789011411.284,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T03:36:41.692898",
+      "speaker": "Aarya",
+      "text": "Google Assistant process ka result",
+      "emotion": "neutral"
+    }
+  ]
+}

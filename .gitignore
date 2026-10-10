@@ -1,0 +1,57 @@
+# ─────────────────────────────────────────────────────────────
+# Cortexium 2.0 — Root .gitignore
+# ─────────────────────────────────────────────────────────────
+
+# Python Virtual Environments
+.venv/
+venv/
+**/venv/
+**/env/
+ENV/
+
+# Python Caches & Build Artifacts
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
+.pytest_cache/
+catboost_info/
+
+# Node.js & Frontend Dependencies
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+**/dist/
+
+# Environment Variables & Secrets
+.env
+**/.env
+.env.local
+.env.*.local
+
+# Backups & System Generated Files
+*.portbak
+*.resolved
+*.tmp
+*.temp
+scratch/
+
+# Operating System & IDE Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large Video Files exceeding GitHub 100MB limit
+cortexium/data/sample_videos/NavTesting_2.mp4
+cortexium/data/sample_videos/NavTesting_3.mp4
+
+# Generated Session Reports
+cortexium/session_report_*.pdf
+cortexium/data/debug_crops/

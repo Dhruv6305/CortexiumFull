@@ -1,0 +1,53 @@
+{
+  "session_id": "session_1789013039863",
+  "started_at": 1788993173.377814,
+  "ended_at": 1788993212.319374,
+  "total_events": 29,
+  "persons_seen": [
+    "Arya",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "chair",
+    "tv",
+    "keyboard"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "cfcd4eb1-c07d-4e37-9f7d-e1d5a33d639a",
+      "person_name": "Arya",
+      "session_id": "session_1789013039863",
+      "timestamp": 1789013042.928,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0a242cdd-a40f-4707-b576-c30805dade3b",
+      "person_name": "Aarya",
+      "session_id": "session_1789013039863",
+      "timestamp": 1789013069.892,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "48aa5e14-0730-467d-aa6a-445e235d7d34",
+      "person_name": "Aarya",
+      "session_id": "session_1789013039863",
+      "timestamp": 1789013078.906,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T04:03:21.488688",
+      "speaker": "Arya",
+      "text": "so abhi Uske pass Mera data Nahin Hai so I will introduce myself I am Arya",
+      "emotion": "neutral"
+    }
+  ]
+}

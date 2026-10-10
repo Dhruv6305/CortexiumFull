@@ -1,0 +1,26 @@
+{
+  "person": "Arya",
+  "session_id": "session_1788963786961",
+  "session_code": "2026-09-09_S003",
+  "date": "2026-09-09",
+  "started_at": "2026-09-09T19:53:55.606093",
+  "ended_at": "2026-09-09T19:55:20.734282",
+  "summary": "normal. while. having a conversation with someone the person in front of the front of the camera like the sessions conversation is not being stored of a person and it is not even displayed as last.",
+  "transcript": [
+    "normal",
+    "while",
+    "having a conversation with someone the person in front of the front of the camera like the sessions conversation is not being stored of a person and it is not even displayed as last conversation",
+    "in the current conversations",
+    "how to fix that complete because it is sometimes working sometimes not working sometimes LLM is processing the data and sometimes it is not processing the data",
+    "so yeah that's the issue I am facing and I don't know how to fix that you have to fix that and",
+    "make a plan how you are going to fix that",
+    "make sure that everything works",
+    "sometimes it is having a call with LLM and sometimes the LLM is ideal",
+    "ok so if I know it is not working I am also not happening in some questions",
+    "everything related to social module"
+  ],
+  "entry_count": 11,
+  "clean_count": 11,
+  "generated_at": "2026-09-09T17:54:40.805186",
+  "llm_used": false
+}

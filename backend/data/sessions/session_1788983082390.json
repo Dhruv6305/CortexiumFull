@@ -1,0 +1,94 @@
+{
+  "session_id": "session_1788983082390",
+  "started_at": 1788963283.951064,
+  "ended_at": 1788963303.294764,
+  "total_events": 14,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "couch",
+    "chair",
+    "bed"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "f401bd82-9e74-42b2-874b-8f19e9deb852",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983083.91,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0e7ee827-dafe-4cf7-8d47-d53eac5e0749",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983085.41,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bf756bd9-cfdc-435c-8278-eb1a20a7c1c1",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983086.91,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9e44eb4a-77ae-4959-a540-cd5e87ffec20",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983088.413,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ca5ff4e1-b530-4e6b-9cca-151f1ae11736",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983089.911,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ce3ad94d-f03a-4f7a-a3c1-48c2fc95a39b",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983091.409,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a04c491c-0367-4f02-b834-9c0a92d24851",
+      "person_name": "Arya",
+      "session_id": "session_1788983082390",
+      "timestamp": 1788983092.911,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-09T19:45:12.334845",
+      "speaker": "Arya",
+      "text": "crash Kyon Ho Gaya",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-09T19:45:23.789719",
+      "speaker": "Arya",
+      "text": "hello",
+      "emotion": "neutral"
+    }
+  ]
+}

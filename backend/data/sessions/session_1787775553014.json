@@ -1,0 +1,410 @@
+{
+  "session_id": "session_1787775553014",
+  "started_at": 1787755754.555952,
+  "ended_at": 1787755836.528757,
+  "total_events": 96,
+  "persons_seen": [
+    "Doing Right"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "teddy bear",
+    "chair",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "ba4232ce-aeb1-41f3-a738-a9c93ac51bcf",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775554.55,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d9ec3445-0f76-4733-ab36-35c6ecba3a07",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775556.04,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7b63a33d-f08b-485f-8645-309b4faae723",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775557.54,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "08a0d09a-e983-49c9-811f-0145fe6f3373",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775559.041,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2f805c9d-d34e-41be-85cd-7c2c484de137",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775560.541,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a3925f6b-9743-4a55-81a1-cd4094b7068c",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775562.043,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "02c5f8d6-3d34-4b69-8449-835bcfbdc92f",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775563.547,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9990fa01-d650-43ee-aff4-eaae679d5367",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775565.035,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cd1dfded-7f63-4e28-b557-0752ad8badf7",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775566.535,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a86d10dd-1852-452d-a201-8cc3e397b296",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775568.035,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "41a6f966-ba4b-4fdd-9d0c-4025bc352236",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775569.535,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7c33d5d0-9c2d-42dd-91bf-90c0d740503d",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775571.035,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b99feb00-01df-4cd2-9b94-adf8ed420a59",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775572.534,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "83f2310f-59f3-49b5-8ae2-c14031a878e4",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775574.037,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7db492a3-0921-40b9-8b6b-2484cd70e914",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775575.535,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2c611631-475c-44b5-aafb-85e644e5cbf9",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775577.034,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c0e9014b-47e9-4703-b921-c1e8c6304c65",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775578.543,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "59a1cfbb-79a1-4484-8d76-f73699bc52e8",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775580.037,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0b5ce541-e493-4815-ac15-34d3ef2b8037",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775581.544,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "edb72f25-25cf-430a-90a0-0989a8c091bc",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775583.048,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e8295293-152a-452a-a9ff-5954eb99305d",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775584.529,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "91afee3d-0262-4447-a6a2-d5f9882af7a9",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775598.039,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "869d5965-7e3f-4d34-b9b2-042d88e78f1e",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775599.53,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1f458a13-9b05-4ed1-97f9-614163b23819",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775601.04,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "26152f03-5abb-4b95-83ba-a8d73feeea7a",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775602.534,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a06db853-bddd-4054-8bc6-11a067d41c4e",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775608.532,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ab12412e-c28b-4476-8244-098b337e8d4f",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775610.033,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5307ac46-c2aa-4163-afa6-09e71ebe418c",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775611.532,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "eeaced0a-aa68-4d7c-b62f-20b4ab2e7e2c",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775613.034,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a5406aa9-cdd3-4815-b3cc-f02bf4d0816e",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775614.535,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4d856d28-c76e-4d4c-b6bd-2507351d5040",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775616.032,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "507a6f49-40b6-4881-b204-fd134db43236",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775617.534,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "beca4134-93cb-4ca3-959a-ffebaf9f54f8",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775619.032,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "197f2a09-ada3-4fa6-aee4-e9464ec4654e",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775620.532,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5479e327-9c26-4b64-9e6e-85153b7bf994",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775622.033,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b721395e-c2ce-4bf3-b03e-0d8b1e14a744",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775623.533,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d162e1b7-5840-4732-a3c1-5cd495faa065",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775625.034,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "07fc0504-3b60-4dbd-a88f-ee6bcbf96f30",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775626.533,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8bd53025-02cd-4a95-a50e-f378696a9be4",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775628.033,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c6d7bdf3-e10c-47f3-8031-34227ad08392",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775631.027,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1c59ddef-80aa-4c9a-98cd-fec74aa1cf67",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775632.532,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "595af172-6656-4054-9d84-7c08053c57b9",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775553014",
+      "timestamp": 1787775634.027,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-08-26T20:20:19.154251",
+      "speaker": "Doing Right",
+      "text": "conversations",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-08-26T20:20:28.626290",
+      "speaker": "Doing Right",
+      "text": "naked dance",
+      "emotion": "neutral"
+    }
+  ]
+}

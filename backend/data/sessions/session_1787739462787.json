@@ -1,0 +1,158 @@
+{
+  "session_id": "session_1787739462787",
+  "started_at": 1787719664.522466,
+  "ended_at": 1787719728.804366,
+  "total_events": 56,
+  "persons_seen": [
+    "Arya Bhansali"
+  ],
+  "objects_seen": [
+    "person",
+    "teddy bear",
+    "dining table",
+    "bed"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "b855bada-426a-4443-9141-8d58834a1cd0",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739464.515,
+      "emotion": "neutral",
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "ea7be59c-6306-44ce-9e65-2dad04ce5794",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739464.515,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3ae483ac-1c98-457c-bdf1-d5b36d8b9cc6",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739466.008,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b58bee30-e283-47dd-970d-561021ffb4c4",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739467.509,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3c7b3d7e-9cbd-4167-a778-4dc379451cb2",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739469.009,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d9627b0b-ea59-4431-bd45-b48fe641b791",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739470.508,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fb55bff7-19a2-4485-bea8-976425471053",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739472.005,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c1954053-eb53-4630-b835-a29ab9cb73f3",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739488.503,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a307b57b-20ed-4d4f-896a-f55a42588680",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739497.504,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "dcc5e4c1-c8c1-4738-8734-e42413084af8",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739499.004,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "36279b43-f55d-4775-9b56-d6692400e462",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739502.005,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1999b27c-4323-4654-abed-5b1394ebf0d6",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739503.504,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c57c6b62-b97d-415a-a9d7-2503a225bcd2",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739508.006,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e1113b7f-83c4-4ad4-9153-8f3a774ff21e",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739511.013,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c97db5c0-85a6-45ec-a19e-2a23b51d1ae1",
+      "person_name": "Arya Bhansali",
+      "session_id": "session_1787739462787",
+      "timestamp": 1787739525.916,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hello",
+    "user: nothing",
+    "user: ok so this is like a test for this application which is running or not perfectly so we are going to solve 300 DSA questions and on top of that we are going to do competitive exam in which we have to score above 300 at least to be at a bar of passing",
+    "user: for the chance for getting selected at that company"
+  ]
+}

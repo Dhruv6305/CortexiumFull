@@ -1,0 +1,31 @@
+Cortexium social — Project Description
+====================================
+
+1. Executive Summary
+Cortexium social is an ambient intelligence platform that transforms the first-person camera feed (POV) of a user into a continuous stream of structured knowledge. It acts on that knowledge in real time through adaptive XR overlays, an agentic AI orchestration layer, and persistent memory. Every interaction, recognition, and classification event feeds back into a self-improving model that makes the system smarter with every use.
+
+2. Core Capabilities
+- Live Person Recognition: Uses YOLOv8 for person detection and DeepFace for facial recognition.
+- Voice Integration: Background microphone thread listens for introduction phrases (e.g., "I am [Name]", "My name is [Name]") using Google Speech Recognition to automatically register unknown faces in real-time.
+- Activity & Object Detection: Real-time classification of activities and detection of objects in the environment.
+- Adaptive Learning: Learns temporal routines, social memory, spatial awareness, and user preferences to provide proactive alerts and personalized experiences.
+- Multi-Platform Support: Features a WebXR browser interface, a terminal CLI, and potential for mobile and Unity XR integrations.
+
+3. System Architecture
+- Input Layer: Processes POV camera feeds, audio from microphones, GPS location, and device sensors.
+- Computer Vision Engine: Normalizes frames, classifies activities, recognizes faces, and analyzes gestures.
+- Agentic AI Orchestrator: Dispatches events to specialist agents (Navigation, Social Context, Environment, Memory, and Adaptive Learning) using a finite-state machine.
+- Backend Control Layer: Built with Python and FastAPI. It includes a Scene State Manager, a Rule-Based Decision Engine (YAML rules), and a WebSocket Event Bus for real-time communication.
+- Data Layer: Stores user data, session logs, events, encounters, and face embeddings locally (JSON/SQLite/Supabase).
+- XR Presentation Layer: The primary frontend is built with React, Three.js (WebXR), and Tailwind CSS for rendering AR overlays and dashboards.
+
+4. Technology Stack
+- Backend: Python 3, FastAPI, Uvicorn, OpenCV, Ultralytics (YOLOv8), DeepFace, SpeechRecognition.
+- Frontend: React 18, Vite, Three.js (@react-three/fiber, @react-three/drei), Tailwind CSS, Framer Motion.
+- AI/ML Models: YOLOv8 (yolov8n.pt, yolov8s.pt) for object detection, DeepFace for facial embeddings.
+
+5. Key Files & Structure
+- live_recognizer.py: A standalone script for real-time AR overlay fusing computer vision and microphone inputs. It allows manual/automatic face registration and conversation logging.
+- backend/: Contains the FastAPI application, API routers, agent logic, computer vision processing pipelines, and local database management.
+- frontend-web/: Contains the React application that serves as the WebXR interface and dashboard.
+- MCP_Cortexium2.md.resolved: The Master Control Plan detailing the vision, architecture, and roadmap for the platform.

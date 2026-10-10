@@ -1,0 +1,18 @@
+{
+  "person": "Aarya",
+  "session_id": "session_1791139181698",
+  "session_code": "2026-10-05_S001",
+  "date": "2026-10-05",
+  "started_at": "2026-10-05T00:10:11.626215",
+  "ended_at": "2026-10-05T00:10:18.657947",
+  "summary": "hello I am dhru. hello I am Dhruv. can you recognise me properly.",
+  "transcript": [
+    "hello I am dhru",
+    "hello I am Dhruv",
+    "can you recognise me properly"
+  ],
+  "entry_count": 3,
+  "clean_count": 3,
+  "generated_at": "2026-10-04T18:40:19.350596",
+  "llm_used": true
+}

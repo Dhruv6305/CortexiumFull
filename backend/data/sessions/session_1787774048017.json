@@ -1,0 +1,66 @@
+{
+  "session_id": "session_1787774048017",
+  "started_at": 1787754249.559015,
+  "ended_at": 1787754282.951315,
+  "total_events": 26,
+  "persons_seen": [
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "teddy bear",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "6722134b-2626-4af3-bde4-5b96a64f28cf",
+      "person_name": "Aarya",
+      "session_id": "session_1787774048017",
+      "timestamp": 1787774052.546,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e82efb5a-aca4-4e9c-a74a-f92e8a360017",
+      "person_name": "Aarya",
+      "session_id": "session_1787774048017",
+      "timestamp": 1787774054.038,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2092b4c3-4865-4b23-934f-6747055839f6",
+      "person_name": "Aarya",
+      "session_id": "session_1787774048017",
+      "timestamp": 1787774063.041,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "dbf56c3f-2baf-41ac-8e67-fe0cf173cf86",
+      "person_name": "Aarya",
+      "session_id": "session_1787774048017",
+      "timestamp": 1787774064.541,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9394348d-a078-4834-9898-08401f1b002a",
+      "person_name": "Aarya",
+      "session_id": "session_1787774048017",
+      "timestamp": 1787774079.534,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: hello",
+    "user: talk about that we are about to solve like few days questions and we are going to build an application related to Chennai and then we will be showcasing our project to somebody who is recruiting team"
+  ]
+}

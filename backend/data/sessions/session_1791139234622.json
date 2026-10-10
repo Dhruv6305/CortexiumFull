@@ -1,0 +1,34 @@
+{
+  "session_id": "session_1791139234622",
+  "started_at": 1791119436.224183,
+  "ended_at": 1791119494.557125,
+  "total_events": 4,
+  "persons_seen": [
+    "Dhru"
+  ],
+  "objects_seen": [
+    "person",
+    "clock"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "73553c4c-73eb-4e7f-a99c-afb03e6384ac",
+      "person_name": "Dhru",
+      "session_id": "session_1791139234622",
+      "timestamp": 1791139236.183,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a44d38b1-4209-4144-a9e2-774dcc0de2c9",
+      "person_name": "Dhru",
+      "session_id": "session_1791139234622",
+      "timestamp": 1791139237.758,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

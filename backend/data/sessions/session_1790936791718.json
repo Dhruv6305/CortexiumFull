@@ -1,0 +1,107 @@
+{
+  "session_id": "session_1790936791718",
+  "started_at": 1790916993.261092,
+  "ended_at": 1790917052.327703,
+  "total_events": 46,
+  "persons_seen": [
+    "Aarya",
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "chair",
+    "dining table",
+    "backpack",
+    "suitcase",
+    "teddy bear",
+    "handbag"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "652d4258-dc56-4a32-82ce-eeaddcfe66ac",
+      "person_name": "Aarya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936805.25,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "16935552-8dbb-4078-98d7-e6f7e80883bd",
+      "person_name": "Arya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936806.742,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3a51e82d-b0cc-4101-9654-d4dc6c34ff33",
+      "person_name": "Arya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936809.75,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "10e10e8d-75f9-4029-bd2c-e1f15b99b187",
+      "person_name": "Aarya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936818.746,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bb4f0b8a-28b3-4a4f-86e0-55a04b33a75d",
+      "person_name": "Arya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936821.749,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7cd1940e-65cd-42a5-87c9-a649ecd396eb",
+      "person_name": "Arya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936823.236,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3458d34e-0499-4cb7-a55f-cec8703458a9",
+      "person_name": "Arya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936824.743,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "92c313a0-40c5-4801-b191-14fdf2bf8d8a",
+      "person_name": "Arya",
+      "session_id": "session_1790936791718",
+      "timestamp": 1790936826.259,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-02T10:27:30.032149",
+      "speaker": "Aarya",
+      "text": "Pakistani celebration we are going to talk about the working of this project is so country I have facts to exhibit the",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-02T10:27:30.034976",
+      "speaker": "Aarya",
+      "text": "online models instead of local LLB malls this is the complete test for that",
+      "emotion": "neutral"
+    }
+  ]
+}

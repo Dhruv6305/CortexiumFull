@@ -1,0 +1,144 @@
+{
+  "session_id": "session_1791287914112",
+  "started_at": 1791268115.352911,
+  "ended_at": 1791268211.851209,
+  "total_events": 18,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "couch",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "e33e48c4-db48-4263-a53d-67c6cf563c2b",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287915.762,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b8a734e0-cc16-4d71-91ec-7036295aee91",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287915.762,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "28b6dd68-47cf-40ad-ae8d-7fe47016991b",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.025,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9bcb14d1-73e6-493d-a3b0-3a05ace732c6",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.025,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "625a7cfd-10dc-4030-a55e-54680a853cf4",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287915.267,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6fcfb255-e1ad-4032-9a42-80a847e3b7a1",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287915.267,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f878f6d5-1e06-431a-9f2b-624094bb52ee",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.398,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "adf0aff0-54f6-421d-9556-9d1489e0e369",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.398,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "422db4be-319f-4b59-96e7-e370d08986fc",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.908,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "211cdf70-879f-41b2-abd9-6ccb883075ff",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.908,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "835d057c-d743-49e1-a0a5-e940586169bd",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.597,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f9d7611a-49e9-452b-bb55-656f969dec46",
+      "person_name": "Dhruv",
+      "session_id": "session_1791287914112",
+      "timestamp": 1791287916.597,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-06T11:59:02.839652",
+      "speaker": "Unknown",
+      "text": "hello",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:00:05.374969",
+      "speaker": "Dhruv",
+      "text": "hello my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:00:17.625412",
+      "speaker": "Dhruv",
+      "text": "yeah yeah yeah",
+      "emotion": "neutral"
+    }
+  ]
+}

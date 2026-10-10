@@ -1,0 +1,10 @@
+=== Prompt 1 ===
+"Analyze this... analyze the system, whole complete system specification, and suggest me the best AI model I can download using Ollama or Hugging Face (whatever feels correct). Give the best model I can download and which will be running properly in my computer's specific specifications using the max power. General task I want to do with it is it should be able to write codes efficiently and also understand things efficiently."
+
+=== Prompt 2 ===
+"Also give my both this one and the above prompt in text format in a text file and also give the system specification in the same file too. And also I wanna communicate with the model using my voice, and also texts, and images, and videos. It should be capable of everything in short and should be best performing also."
+
+=== System Specifications ===
+CPU: 13th Gen Intel Core i7-13700K (16 Cores, 24 Threads)
+RAM: 32 GB
+GPU: NVIDIA GeForce RTX 4060 Ti (8 GB VRAM)

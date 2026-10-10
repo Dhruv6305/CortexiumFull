@@ -1,0 +1,133 @@
+CORTEXIUM: Context-Aware AI Driving Assistant & AR HUD System
+Part 1: Comprehensive Project Analysis (IEEE Paper Ready)
+1. What is the project/module about?
+Cortexium is an edge-executable, real-time context-aware Advanced Driver Assistance System (ADAS) and Augmented Reality Heads-Up Display (AR-HUD). It processes forward-facing dashcam video and GPS telemetry to monitor driving behavior, detect environmental hazards, render 3D perspective AR navigation directly onto the road surface, and generate comprehensive post-trip safety coaching analytics.
+2. What problem does it solve?
+Driver Distraction from Traditional 2D Turn-by-Turn Navigation: Conventional GPS screens force drivers to shift visual focus away from the road to interpret abstract 2D map lines.
+Delayed Collision & Tailgating Hazard Detection: Drivers frequently misjudge relative headway distance and lane boundary drift.
+Lack of Objective Driver Evaluation & Safety Feedback: Traditional vehicles provide no quantifiable, automated feedback on dangerous driving habits (e.g., tailgating, erratic steering, improper lane positioning).
+3. What is the main objective?
+To design a lightweight, unified vision-and-telemetry system that:
+Accurately tracks vehicles, road lanes, and driver context at 30+ FPS.
+Projects perspective-corrected 3D AR navigation cues on the road without obstructing the driver's forward view.
+Provides non-intrusive, priority-based auditory warnings and automated post-drive diagnostic safety reports.
+4. What are the main features/functions?
+Real-Time Object & Vehicle Detection: Employs YOLOv8n to identify cars, buses, and trucks in the vehicle’s path with bounding-box tracking.
+Monocular Headway & Distance Estimation: Estimates relative distance to leading vehicles using bounding-box scaling and triggers collision/tailgating alerts.
+Lane Detection & Drift Analysis: Uses computer vision algorithms (Canny edge detection, Region of Interest masking, Hough Line Transform) to calculate lane center offset, deviation, and steering stability.
+Driver Context Verification: Analyzes interior cockpit characteristics to verify whether the system is actively in an operating vehicle before running pipeline logic.
+Dynamic 3D AR Projection & Glassmorphic HUD:
+Computes vanishing-point ground perspective to render glowing neon-green chevrons strictly bounded to the road surface (Y_MAX_ROAD clipping mask).
+Overlays a glassmorphic status HUD (Traffic, Speed Limit 40 sign, Safety status) and floating 3D destination signage.
+Cognitive-Load Optimized Routing UI: Replaces traditional restrictive visual blocking (e.g., heavy red cross-outs over incorrect lanes) with non-intrusive, context-aware advisory text (e.g., indicating a path does not lead to the destination), ensuring the driver maintains full visual awareness of all physical road options.
+Turn-Aware Behavioral Rule Scoring: Evaluates lane stability and headway distance into a smoothed 0–100 safety score. Automatically suppresses false drift penalties during legitimate maneuvers/turns.
+Priority-Based Audio TTS Alert Engine: Multithreaded text-to-speech engine (pyttsx3) that schedules critical warnings (collision risk) above informational advisories with state cooldowns to prevent alarm fatigue.
+Post-Trip Telemetry Logging & PDF Report Generation: Generates multi-page PDF performance reports (fpdf2, matplotlib) with trend regression analysis, violation breakdowns, and coaching recommendations.
+5. How does it work, step by step? Frame Capture & Context Check: VideoInput captures the live camera/video frame. DriverContextDetector ensures the vehicle is in an active driving context.
+Parallel Perception:
+VehicleDetector executes YOLOv8 inference to detect bounding boxes of surrounding vehicles.
+LaneDetector segments left/right lane boundaries, computing lane center offset.
+NavDirector & GoogleRouteEngine resolve current GPS coordinates against route nodes to identify upcoming maneuvers and distances.
+Behavioral Analysis & Scoring:
+DistanceEstimator computes headway distance and flags collision risks.
+BehaviorAnalyzer measures lateral drift and steering instability.
+RuleEngine computes the frame safety score (0–100) and deduplicates deduction penalties during turns.
+AR Projection & Audio Output:
+ARProjector renders perspective-projected ground chevrons with Y_MAX_ROAD hood-masking, floating destination signboards, speedometer, and the top-right status card.
+AudioAlertManager asynchronously queues and speaks priority alerts.
+Session Aggregation & Reporting:
+Frame metrics are recorded by SessionLogger.
+Upon session termination, TrendAnalyzer and ReportGenerator compile safety charts, violation breakdowns, and coaching insights into an exportable PDF.
+6. What technologies/tools are used?
+Computer Vision & Deep Learning: OpenCV (cv2), Ultralytics YOLOv8 (yolov8n.pt), EasyOCR (easyocr).
+Numerical & Data Processing: NumPy (numpy), Pandas (pandas).
+Routing & Geo-Spatial: Google Maps Directions API, Polyline encoder/decoder (polyline), Requests (requests).
+Audio / Speech: Microsoft SAPI / TTS engine via pyttsx3.
+Data Visualization & Document Generation: Matplotlib (matplotlib), FPDF2 (fpdf2).
+Language & Runtime: Python 3.10+, PowerShell / Bash CLI.
+7. Who would use it and what are the main use cases?
+Commercial Fleets & Logistics: Fleet managers monitoring driver safety compliance, tailgating habits, and generating automated risk reports.
+Consumer ADAS & Smart Cockpits: Retrofitted smart dashcam or heads-up display hardware for everyday drivers seeking augmented navigation and collision alerts.
+Automotive Telematics & Insurance (UBI): Usage-Based Insurance providers calculating dynamic actuarial risk scores from empirical driving behavior.
+8. What are the inputs and outputs?
+Inputs:
+Forward dashcam RGB video stream (camera feed or MP4 file).
+GPS telemetry data (data/telemetry.csv containing latitude, longitude, speed, heading).
+Destination selector input (Downtown, Airport, Mall).
+Google Maps API Key (.env).
+Outputs:
+Real-time 3D AR composite video frame displayed at 30 FPS.
+Real-time spoken auditory warnings (TTS).
+Live console telemetry diagnostics.
+Multi-page PDF driving diagnostic & coaching report (session_report_<timestamp>.pdf).
+9. What is the main benefit or contribution of this module?
+Integrated Edge ADAS Pipeline: Unifies object tracking, lane boundary analysis, route navigation, and driver behavior evaluation in a single synchronous processing loop.
+Perspective-Corrected Masked AR: Solves the common AR UI clutter problem by mathematically grounding chevrons to road perspective vanishing points and masking them against the physical vehicle hood.
+Context-Aware Rule Filtering: Prevents false-positive lane deviation penalties during legitimate turn/curve maneuvers.
+10. What are its main limitations?
+Monocular Depth Approximation: Headway distance is geometrically approximated from 2D bounding-box dimensions rather than LiDAR or stereo camera disparity.
+Lane Detection Environmental Sensitivity: Classical edge and Hough transform methods perform best on clearly marked asphalt and may degrade under heavy occlusion, severe glare, or unmarked dirt roads.
+API Dependency: Full turn-by-turn dynamic rerouting requires active Google Maps Directions API billing (though local telemetry fallback is implemented).
+Part 2: Project Description Summary
+1. Executive Summary
+Cortexium is an intelligent, context-aware driving assistant software system designed to bridge real-time edge computer vision with Augmented Reality Heads-Up Displays (AR-HUD). By synthesizing YOLOv8-based vehicle detection, classical lane-boundary tracking, monocular collision risk estimation, and GPS-synchronized navigation, Cortexium creates an immersive, non-obtrusive driving experience. It delivers real-time spatial navigational cues, priority voice warnings, and generates automated, analytical post-drive safety audits.
+2. Core Capabilities
+Perception & Ranging: Real-time multi-class vehicle detection with monocular headway distance estimation and collision alerting.
+Lane Dynamics & Behavior Scoring: Lateral deviation measurement, steering instability analysis, and dynamic 0–100 safety index evaluation.
+World-Space AR Projection: 3D road-plane perspective chevrons with neon-glow shading and strict vehicle hood boundary clipping (Y_MAX_ROAD).
+Screen-Space Glassmorphic HUD: Slim top status bar (Traffic, Speed Limit 40 sign, Safety rating), next-maneuver bar, and speedometer.
+Smart Audio Alert Dispatcher: Cooldown-managed, priority-queued text-to-speech audio feedback.
+Diagnostic Reporting Engine: Automated PDF report generation with regression curves, violation statistics, and actionable driver coaching insights.
+3. System Architecture
+4. Technology Stack
+Layer
+Technologies / Libraries
+Language & Environment
+Python 3.10+, PowerShell / Bash
+Object Detection & Perception
+Ultralytics YOLOv8 (yolov8n.pt), OpenCV (cv2)
+OCR & Geometry
+EasyOCR, NumPy, Polyline
+Routing & APIs
+Google Maps Directions API, Requests, Python-Dotenv
+Telemetry & Data
+Pandas, Smoother Utilities
+Audio Engine
+Pyttsx3 (SAPI5 Native Engine)
+Reporting & Visualization
+FPDF2, Matplotlib
+5. Key Files & Structure
+cortexium/
+├── config.py                     # Global paths and system configurations
+├── main.py                       # Main application lifecycle & execution loop
+├── requirements.txt              # Core project dependencies
+├── .env                          # API credentials (Google Maps API Key)
+│
+├── core/                         # Core functional modules
+│   ├── ar_projector.py           # 3D perspective AR chevrons & HUD drawing engine
+│   ├── audio_alerts.py           # Threaded priority TTS speech manager
+│   ├── behavior_analyzer.py      # Lateral lane offset & stability analyzer
+│   ├── distance_estimator.py     # Monocular distance & collision risk estimator
+│   ├── driver_context.py         # In-cabin driver presence validator
+│   ├── feedback_display.py       # Legacy / full-frame diagnostic HUD components
+│   ├── GoogleRouteEngine.py      # Google Maps API directions client & route polyline
+│   ├── lane_detector.py          # Canny edge & Hough transform lane detector
+│   ├── nav_director.py           # GPS coordinate-to-maneuver state director
+│   ├── report_generator.py       # Automated PDF driving safety report builder
+│   ├── rule_engine.py            # Safety scoring rules & maneuver penalty overrides
+│   ├── session_logger.py         # Frame-by-frame telemetry and metrics recorder
+│   ├── session_summary.py        # Terminal session aggregator
+│   ├── trend_analyzer.py         # Multi-session safety regression analysis
+│   ├── vehicle_detector.py       # YOLOv8 vehicle inference wrapper
+│   └── video_input.py            # Video capture and stream interface
+│
+├── data/                         # Datasets, route telemetry & sample video files
+│   ├── telemetry.csv             # OCR-extracted latitude, longitude, speed & heading
+│   └── sample_videos/            # Dashcam video recordings for offline testing
+│
+├── tools/                        # Utility scripts
+│   └── extract_telemetry.py      # EasyOCR pipeline for extracting GPS from dashcams
+│
+└── utils/                        # Mathematical & smoothing helper utilities
+    └── smoothing.py              # Exponential moving average score smoother
+

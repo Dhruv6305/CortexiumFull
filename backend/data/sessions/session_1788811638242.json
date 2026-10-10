@@ -1,0 +1,102 @@
+{
+  "session_id": "session_1788811638242",
+  "started_at": 1788791839.777434,
+  "ended_at": 1788791857.794151,
+  "total_events": 20,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "teddy bear",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "fdeeb616-3b37-4e82-a627-9f6a62a4917d",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811639.771,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b77805b4-3481-42a5-8497-8ff4277810db",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811641.271,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6929b40c-5fca-451a-83b8-77f6c1b37803",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811642.764,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4a9427f7-5214-4635-8ccd-bbb4a777cead",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811644.264,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2065b36e-4f42-4819-af3e-5de175f616dc",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811645.764,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6718d3d4-32f3-4671-bb1e-146cad6eb6e0",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811647.265,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "97a93556-b2fa-4842-96aa-95fc024d73a9",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811648.764,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "07caf9b6-f254-4a2a-a8b0-35b3cb4c9a57",
+      "person_name": "Arya",
+      "session_id": "session_1788811638242",
+      "timestamp": 1788811650.264,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-07T20:07:31.685623",
+      "speaker": "Arya",
+      "text": "nahin kar raha sirf yah",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-07T20:07:36.227902",
+      "speaker": "Unknown",
+      "text": "kya Tatti hai bhai",
+      "emotion": "neutral"
+    }
+  ]
+}

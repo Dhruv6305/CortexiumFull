@@ -1,0 +1,176 @@
+{
+  "session_id": "session_1791138267156",
+  "started_at": 1791118468.747888,
+  "ended_at": 1791118543.023893,
+  "total_events": 32,
+  "persons_seen": [
+    "Dhruv",
+    "Aarya",
+    "Dhruv Chudasma"
+  ],
+  "objects_seen": [
+    "person",
+    "cell phone",
+    "tv"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "f5731fe8-7414-443b-8c0f-270cca6d7b6c",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138270.222,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e0c03a48-ca83-4a2c-9014-60fd7e5427f9",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138282.209,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e152debe-fe66-4bba-9e48-08e1a6e2dce6",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138268.73,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "45eba36e-cdcb-4df1-a1f4-05781f26fbce",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138283.711,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ef1a3af8-8180-4e75-89b2-fe9af4b8ca47",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138271.707,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "556718d3-eb0b-42a1-8a2b-e7c0e9fcba07",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138273.216,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "857996f2-971f-486d-87d3-0ed01674c1e9",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138274.726,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "955f7f07-563f-419d-8d77-a761cf6bed5a",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138285.226,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fed05645-3307-43e0-b9b6-a34214b63e47",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138276.225,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fab860c7-c8c8-4477-aeb6-3d44eafea7d4",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138277.711,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6019ddf1-fee9-4560-9b0a-fce4b3af62ac",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138280.711,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5d6caedf-879b-4f9a-ba2d-f044b1be7a6e",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138279.211,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a062b2df-c4fc-405e-8b1b-20566a13e347",
+      "person_name": "Dhruv",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138286.722,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6d48a525-99bb-4f89-8e50-5eaadc12e91a",
+      "person_name": "Aarya",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138288.224,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "722abc10-72df-4b08-a1bc-c9f10b76c0bb",
+      "person_name": "Aarya",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138289.714,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "89f4007c-811d-4b1d-9d8f-2bc44aa831f9",
+      "person_name": "Dhruv Chudasma",
+      "session_id": "session_1791138267156",
+      "timestamp": 1791138291.212,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T18:26:48.057081",
+      "speaker": "Dhruv",
+      "text": "hey I am Dhruv chudasma",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:26:48.253567",
+      "speaker": "Dhruv",
+      "text": "thank you are recognising me",
+      "emotion": "neutral"
+    }
+  ]
+}

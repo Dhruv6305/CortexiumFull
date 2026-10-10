@@ -1,0 +1,16 @@
+{
+  "person": "Arya",
+  "session_id": "session_1790933662391",
+  "session_code": "2026-10-02_S001",
+  "date": "2026-10-02",
+  "started_at": "2026-10-02T15:05:05.808048",
+  "ended_at": "2026-10-02T15:05:05.808048",
+  "summary": "Arya greeted someone with a simple \"hello,\" indicating a brief interaction. The conversation lacked deeper discussion or decision-making. Her message suggested a casual or initial exchange.",
+  "transcript": [
+    "hello"
+  ],
+  "entry_count": 1,
+  "clean_count": 1,
+  "generated_at": "2026-10-02T09:35:43.364646",
+  "llm_used": true
+}

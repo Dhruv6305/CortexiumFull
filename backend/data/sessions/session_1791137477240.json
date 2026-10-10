@@ -1,0 +1,151 @@
+{
+  "session_id": "session_1791137477240",
+  "started_at": 1791117678.865113,
+  "ended_at": 1791117732.88022,
+  "total_events": 26,
+  "persons_seen": [
+    "From Kj",
+    "Making",
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "5984df40-28d8-41f8-ad24-54f55c21d9e1",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137478.816,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1e73e77c-4874-434c-8440-0edb91637aba",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137480.286,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "961bba3b-5d00-4843-8c5d-78a97206689c",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137481.804,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6fd9f19d-b2f7-4266-ac49-30662a300d07",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137483.294,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a988e09c-4c74-444e-a47f-3f9c70a8ac37",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137484.835,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ce99ac43-6ced-4c19-bca6-1eaff9d4b6ed",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137486.301,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "860c45c4-f96e-45ae-a909-b59b756be5cf",
+      "person_name": "From Kj",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137487.844,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "30502e42-d22a-4fd0-bd77-7fb1c56384ae",
+      "person_name": "Making",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137489.292,
+      "emotion": null,
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "23b31071-8193-4ff4-b7f3-0d6a38f10542",
+      "person_name": "Making",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137489.292,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c13949e8-55c7-4d23-a3af-eb9555d557f4",
+      "person_name": "Dhruv",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137491.054,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "82d99c8b-465b-441e-a180-a4f010400472",
+      "person_name": "Making",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137492.313,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bfad8e03-1fa5-4fd8-a712-0deae3bd68c8",
+      "person_name": "Making",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137495.318,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "81de4086-1052-4f37-ae47-91a7acd1e72f",
+      "person_name": "Making",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137496.816,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "035db462-b78e-4eea-abcd-81f003cacaec",
+      "person_name": "Making",
+      "session_id": "session_1791137477240",
+      "timestamp": 1791137493.805,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T18:11:37.422989",
+      "speaker": "From Kj",
+      "text": "hey I am Dhruv",
+      "emotion": "neutral"
+    }
+  ]
+}

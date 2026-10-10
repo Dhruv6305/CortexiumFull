@@ -1,0 +1,53 @@
+{
+  "session_id": "session_1791136507605",
+  "started_at": 1791116709.177764,
+  "ended_at": 1791116754.114894,
+  "total_events": 0,
+  "persons_seen": [],
+  "objects_seen": [],
+  "encounters": [],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T17:55:26.649079",
+      "speaker": "Dhruv Chasma",
+      "text": "hello my name is Dhruv Chasma",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:55:26.790754",
+      "speaker": "Dhruv",
+      "text": "hello my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:55:27.594183",
+      "speaker": "Unknown",
+      "text": "HCF you recognise me right now",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:55:34.643226",
+      "speaker": "Unknown",
+      "text": "protected to UNESCO align face for registration",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:55:40.640485",
+      "speaker": "Unknown",
+      "text": "desi desi",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:55:46.500996",
+      "speaker": "Unknown",
+      "text": "text WhatsApp messages",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T17:55:53.920438",
+      "speaker": "Unknown",
+      "text": "it's in decision right now",
+      "emotion": "neutral"
+    }
+  ]
+}

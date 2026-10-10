@@ -1,0 +1,112 @@
+{
+  "session_id": "session_1790939293860",
+  "started_at": 1790919495.393361,
+  "ended_at": 1790919529.342775,
+  "total_events": 30,
+  "persons_seen": [
+    "Arya",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "tie",
+    "cake",
+    "backpack",
+    "chair",
+    "dining table"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "86c4e53a-c12f-4f01-92e6-cb78c035d6f5",
+      "person_name": "Arya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939296.89,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e90da27f-1d09-4fc6-8de8-f7e967fd8143",
+      "person_name": "Arya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939299.885,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e0b959f6-13ca-4401-b105-ea6278d81c32",
+      "person_name": "Arya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939304.387,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c7d890a4-fa86-481b-83da-af4d115ef824",
+      "person_name": "Aarya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939304.387,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "86ff6754-ceb4-403c-b44b-9469ef87e892",
+      "person_name": "Arya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939307.396,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "100f9308-a290-4eea-869e-2862042b718d",
+      "person_name": "Aarya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939308.895,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9412950c-6779-45cd-81e9-073fe3e3a055",
+      "person_name": "Aarya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939316.384,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "09b01395-2d5f-4963-9cfb-a40ce8dac385",
+      "person_name": "Arya",
+      "session_id": "session_1790939293860",
+      "timestamp": 1790939322.385,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-02T11:08:42.594177",
+      "speaker": "Aarya",
+      "text": "so",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-02T11:08:42.596983",
+      "speaker": "Arya",
+      "text": "English walking",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-02T11:08:42.600019",
+      "speaker": "Arya",
+      "text": "the local AI models",
+      "emotion": "neutral"
+    }
+  ]
+}

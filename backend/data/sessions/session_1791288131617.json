@@ -1,0 +1,47 @@
+{
+  "session_id": "session_1791288131617",
+  "started_at": 1791268333.206161,
+  "ended_at": null,
+  "total_events": 0,
+  "persons_seen": [],
+  "objects_seen": [],
+  "encounters": [],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-06T12:02:57.585340",
+      "speaker": "Dhruv",
+      "text": "hello my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:02:57.646398",
+      "speaker": "Unknown",
+      "text": "did you recognise my",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:02:58.369999",
+      "speaker": "Unknown",
+      "text": "did you get the introduction",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:03:15.500916",
+      "speaker": "Dhruv",
+      "text": "my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:03:15.507925",
+      "speaker": "Unknown",
+      "text": "Aman bro why are you not working",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T12:03:37.186302",
+      "speaker": "Arya",
+      "text": "I am not Arya I am Dhruv",
+      "emotion": "neutral"
+    }
+  ]
+}

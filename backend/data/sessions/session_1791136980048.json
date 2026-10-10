@@ -1,0 +1,55 @@
+{
+  "session_id": "session_1791136980048",
+  "started_at": 1791117181.69634,
+  "ended_at": 1791117231.549386,
+  "total_events": 2,
+  "persons_seen": [
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "c5cf0470-63de-40e9-bafc-d67128104e5c",
+      "person_name": "Aarya",
+      "session_id": "session_1791136980048",
+      "timestamp": 1791136984.645,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T18:03:50.112311",
+      "speaker": "Dhruv",
+      "text": "hey my name is Dhruv",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:03:50.210864",
+      "speaker": "Unknown",
+      "text": "working properly",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:03:50.301233",
+      "speaker": "Unknown",
+      "text": "desi desi",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:03:50.335445",
+      "speaker": "Unknown",
+      "text": "bhakti",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:03:51.502092",
+      "speaker": "Unknown",
+      "text": "quickly and the session now so I can tested at",
+      "emotion": "neutral"
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "session_id": "session_1787690188049",
+  "started_at": 1787670389.891788,
+  "ended_at": 1787670440.54687,
+  "total_events": 66,
+  "persons_seen": [
+    "Deleting Something"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "teddy bear"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "6cc1b399-8713-4270-87a4-63ceeb4a8658",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690189.575,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "05cca7e3-04c1-45a8-a96f-715f966376b8",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690191.069,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7df2bc2b-9e7c-4846-aef2-32d328bc7fd6",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690192.577,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0d6d2960-f3bf-4d75-b8da-c96dca09bc13",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690194.071,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f1c66f94-b716-48d9-a932-be833788244d",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690195.57,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "87087c5c-6fac-4536-b38b-4b0890e01fb3",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690197.07,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "67518ef5-ca22-4996-bba7-234181902aad",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690198.577,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a8967e30-eabe-40ab-b0aa-e028e2f713f5",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690200.07,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e854a67b-c6ca-473a-b777-8e11eb62dc36",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690201.571,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "158f141e-1a4d-4bfa-937d-d84b1d0a5977",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690203.078,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2090f0ca-7b62-45b3-92dd-0cd746285a7d",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690204.578,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5d52d14e-7a37-4345-98b3-9c95280b5839",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690206.078,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "32c496f2-e629-4997-a04b-bf2b927606a9",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690207.571,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "94bbe6a1-1398-4e4c-b614-f1b51e5c6a86",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690209.071,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2267bb54-363c-4f1e-b08e-c8fc7447a2d4",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690212.071,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0f858242-5c72-4617-873e-6b37726e591c",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690213.572,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e03286b5-70b7-4d4b-83d3-bf311101ccfb",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690215.071,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bf2dce11-4fa7-4f13-8e18-a8efcf0c5cf9",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690216.578,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "325f43ee-d537-4c14-9832-230e016d6a06",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690218.072,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0d2f78b1-c2b2-47bb-a487-1545cd206a0a",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690219.573,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "37af6e00-ba0d-4313-8868-3c6816740f06",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690221.073,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e93b8cfe-7ff1-4a49-ae15-c2fc0e0a6544",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690222.572,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "58823b0b-59cd-4a2e-8711-21899984f4f3",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690224.072,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b4dde8ed-2915-4b37-86d8-d09dddc2b380",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690225.573,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "97c61b8e-fd7e-4389-8ddf-c2f1f9b890fe",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690227.074,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c6f31a86-4038-42bf-8403-6bdd11fbcac2",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690228.574,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7ecf1adb-46ee-44e3-b536-db0551c68fb4",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690230.073,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "43be3940-60e0-4b54-8a18-405a1d84d865",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690231.574,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "03596d09-8c33-4b20-a60c-57a895361ac0",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690233.075,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bbaf0c09-5836-468c-965c-4567a12cea31",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690234.576,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a69c095b-a2fa-4d07-9b87-c7a485042097",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690237.571,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4902d5f4-4bb5-4411-b595-c0c3c124891b",
+      "person_name": "Deleting Something",
+      "session_id": "session_1787690188049",
+      "timestamp": 1787690239.069,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    "user: what was the last conversation",
+    "user: School here we are making yep latest",
+    "user: it is detecting it is working and it's great so currently we are going to do DSA and then that we are going to solve 300 lead code questions and then we are going to move forward to another websites to practice and it will help us to up skill ourselves and the Lander new jobs"
+  ]
+}

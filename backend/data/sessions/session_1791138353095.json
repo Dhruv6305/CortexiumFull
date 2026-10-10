@@ -1,0 +1,23 @@
+{
+  "session_id": "session_1791138353095",
+  "started_at": 1791118555.824466,
+  "ended_at": 1791118626.896282,
+  "total_events": 0,
+  "persons_seen": [],
+  "objects_seen": [],
+  "encounters": [],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-04T18:26:49.047718",
+      "speaker": "Dhruv",
+      "text": "hey I am dhru",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-04T18:26:49.348864",
+      "speaker": "Dhruv",
+      "text": "hey I am Dhruv",
+      "emotion": "neutral"
+    }
+  ]
+}

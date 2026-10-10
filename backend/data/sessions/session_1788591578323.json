@@ -1,0 +1,208 @@
+{
+  "session_id": "session_1788591578323",
+  "started_at": 1788571779.869034,
+  "ended_at": null,
+  "total_events": 66,
+  "persons_seen": [
+    "Arya",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "cup",
+    "chair",
+    "cell phone",
+    "toothbrush",
+    "couch",
+    "tv",
+    "book"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "dce69122-d2d5-4ed4-ba4a-3db5a3662e1c",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591584.346,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "05ab3e92-2e02-407e-b24a-737764f503c2",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591591.858,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b5552531-5c19-4bb0-b492-bbe72564b3fb",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591594.847,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "02fb2801-a1ad-4419-b6c1-22c263d7cea0",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591600.84,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a7d2b4ca-500b-4484-bbc6-2f5a986423f9",
+      "person_name": "Aarya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591603.839,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "de4ed78c-7d6e-41c1-ba0c-022a9666e489",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591612.846,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6f3b8b95-c678-4b27-8e83-1daff967de61",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591618.841,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "75b9bd1c-e69a-42da-92fb-466c545345fe",
+      "person_name": "Aarya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591627.849,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3aee298e-c245-46e9-ac3e-b340a508549f",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591629.35,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1c8c7c9a-e40d-48b1-93e0-d08122c95b8a",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591630.848,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e9969171-8822-44ea-a362-f2e45fc8c47e",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591632.349,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d36e284b-0a45-4f95-83cc-0323b0c041f8",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591633.85,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7de14806-acae-47c0-ae41-3787e1ed2647",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591636.844,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "35e087da-7ab1-44e8-87e5-f5d0243b88bc",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591638.349,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2de98a0d-a038-4e46-8503-238cac48c951",
+      "person_name": "Aarya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591645.096,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5a32d55f-63db-4002-b3c8-f401a22c1c97",
+      "person_name": "Aarya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591646.094,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "23657874-83a6-4bd5-a9a2-02fd968ae387",
+      "person_name": "Arya",
+      "session_id": "session_1788591578323",
+      "timestamp": 1788591652.096,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-05T06:59:57.584798",
+      "speaker": "Unknown",
+      "text": "what's the talk wala song",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:00:09.657935",
+      "speaker": "Aarya",
+      "text": "what was the previous generation",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:00:27.324298",
+      "speaker": "Unknown",
+      "text": "watch",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:00:43.539626",
+      "speaker": "Arya",
+      "text": "now it's not very",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-09-05T07:00:54.264301",
+      "speaker": "Unknown",
+      "text": "Agar piece of heaven",
+      "emotion": "neutral"
+    }
+  ]
+}

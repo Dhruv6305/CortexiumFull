@@ -1,0 +1,116 @@
+{
+  "session_id": "session_1789013091787",
+  "started_at": 1788993225.315961,
+  "ended_at": 1788993341.652272,
+  "total_events": 85,
+  "persons_seen": [
+    "Arya",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "tv",
+    "chair",
+    "keyboard",
+    "laptop",
+    "mouse",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "cf5f63fc-9449-40fd-9869-6adc40dfec51",
+      "person_name": "Arya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013112.818,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3f0aee90-d23f-46bf-8238-7e970fbb8b43",
+      "person_name": "Aarya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013123.334,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "31ead2d3-e909-467f-9d36-a74d6289bb92",
+      "person_name": "Aarya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013147.31,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7301c7fa-d3d9-457a-b24c-88d395538e83",
+      "person_name": "Aarya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013148.812,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3601ef89-06f3-4bc6-866e-8e2eb217b2c5",
+      "person_name": "Aarya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013150.328,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6851c5c3-ff7d-432e-9c56-6417bccf0adf",
+      "person_name": "Aarya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013153.331,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "cfd15ace-756a-4878-986e-01dfdbab472e",
+      "person_name": "Aarya",
+      "session_id": "session_1789013091787",
+      "timestamp": 1789013160.819,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-10T04:04:26.870014",
+      "speaker": "Aarya",
+      "text": "black screen by frame system Mein bhej raha hai na isliye usko thoda time lag raha hai",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:04:34.931062",
+      "speaker": "Arya",
+      "text": "like this is an objective like to detect someone from",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:05:34.157007",
+      "speaker": "Arya",
+      "text": "Kya Kya Bataun next week I have one week holiday I will find the new student how should I utilise it for",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:05:41.648702",
+      "speaker": "Arya",
+      "text": "it is capturing the conversation",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-10T04:05:49.427897",
+      "speaker": "Arya",
+      "text": "giving it to the LLM in my",
+      "emotion": "neutral"
+    }
+  ]
+}

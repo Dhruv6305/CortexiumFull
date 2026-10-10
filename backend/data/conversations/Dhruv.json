@@ -1,0 +1,107 @@
+{
+  "name": "Dhruv",
+  "entries": [
+    {
+      "timestamp": "2026-10-06T17:45:51.872228",
+      "note": "Registered person profile for Dhruv.",
+      "source": "registration",
+      "session_id": null
+    },
+    {
+      "timestamp": "2026-10-06T17:46:49.492102",
+      "note": "yep you recognise me properly now let's see if you summarise me",
+      "source": "voice",
+      "session_id": "session_1791288993765",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:46:51.151098",
+      "note": "hey did you recognise me",
+      "source": "voice",
+      "session_id": "session_1791288993765",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:46:51.571913",
+      "note": "what happened",
+      "source": "voice",
+      "session_id": "session_1791288993765",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:47:01.353313",
+      "note": "okay",
+      "source": "voice",
+      "session_id": "session_1791288993765",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:47:04.596956",
+      "note": "okay",
+      "source": "voice",
+      "session_id": "session_1791288993765",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:47:06.875237",
+      "note": "wait wait",
+      "source": "voice",
+      "session_id": "session_1791288993765",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:47:35.150383",
+      "note": "hey bro did you recognise me",
+      "source": "voice",
+      "session_id": "session_1791289044780",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:47:38.530942",
+      "note": "recognise me properly",
+      "source": "voice",
+      "session_id": "session_1791289044780",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:47:50.780872",
+      "note": "up your organisation also properly now thanks for the",
+      "source": "voice",
+      "session_id": "session_1791289044780",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-06T17:48:00.922525",
+      "note": "working",
+      "source": "voice",
+      "session_id": "session_1791289044780",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-11T01:38:54.138540",
+      "note": "is what we talk",
+      "source": "voice",
+      "session_id": "session_1791662822295",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-11T01:39:18.184141",
+      "note": "okay so you need to remember what I am saying in this is your working right now",
+      "source": "voice",
+      "session_id": "session_1791662822295",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-11T01:39:18.859748",
+      "note": "and if it does not work it's your problem not mine ok",
+      "source": "voice",
+      "session_id": "session_1791662822295",
+      "emotion": "neutral"
+    }
+  ],
+  "last_seen": "2026-10-11T01:39:18.859748",
+  "registered_via": "voice",
+  "role": "",
+  "notes": "",
+  "registered_at": "2026-10-06T17:45:51.872228"
+}

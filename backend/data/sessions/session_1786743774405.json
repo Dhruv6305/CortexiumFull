@@ -1,0 +1,128 @@
+{
+  "session_id": "session_1786743774405",
+  "started_at": 1786723975.940008,
+  "ended_at": 1786724001.585665,
+  "total_events": 24,
+  "persons_seen": [
+    "Dhaval",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "chair",
+    "couch",
+    "teddy bear",
+    "cell phone"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "7fa849c6-b436-4a72-9f23-61aed4785865",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743775.933,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "54b08aed-35a2-4d80-9404-a3a1a8ddd5b1",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743777.428,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0ee0112f-8670-4649-ad28-a6ef55345f42",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743778.92,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "811506d0-7ad0-45da-ba04-42b68fa1e93e",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743780.425,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e61209ac-2ad9-465f-a4a2-ad80420a729a",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743781.928,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f5088124-1915-4182-b5b0-57f483cbeeb0",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743783.428,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "875a85b8-20f4-47e0-98fc-9b803adee678",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743784.926,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0dc95069-d261-49d2-b715-8966c8c9fb1c",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743786.42,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a50fbb0c-13fc-43b0-8689-0b0c2dc091c7",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743787.928,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "80876ff1-0099-4ece-a2eb-7209c9b1a9ae",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743789.43,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "89da4721-6461-4fbb-80c4-77ff4ba01042",
+      "person_name": "Dhaval",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743790.928,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "168ff9c8-eb26-4c30-b6ad-0f87b479cea8",
+      "person_name": "Aarya",
+      "session_id": "session_1786743774405",
+      "timestamp": 1786743800.296,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

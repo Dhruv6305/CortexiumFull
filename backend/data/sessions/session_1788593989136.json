@@ -1,0 +1,224 @@
+{
+  "session_id": "session_1788593989136",
+  "started_at": 1788574190.674403,
+  "ended_at": null,
+  "total_events": 55,
+  "persons_seen": [
+    "Arya"
+  ],
+  "objects_seen": [
+    "person",
+    "chair",
+    "cup",
+    "bed",
+    "toothbrush",
+    "teddy bear",
+    "dining table",
+    "couch"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "908e82fb-7290-4a84-b716-9491c88b68ad",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788593993.662,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "33764f42-b500-415f-a0e0-2890637b3873",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788593999.663,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3d2dbca0-a393-4f31-8e1d-319e9d0abbd9",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594002.661,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2ca90cc8-7ec6-43e2-b82f-d8db3ccb53a9",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594002.661,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b5550f0e-a6e0-4337-88fc-987ebd1aecdc",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594004.168,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "13c8dd59-1572-4156-abf5-47953a56c830",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594005.667,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d7b03380-2245-4db0-a282-d6bcfa51f477",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594007.162,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5c974d4a-0c20-4703-b5a7-b7e519f8ccbf",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594008.654,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0ff93b1b-8fc2-44aa-bfe7-53026bf204d6",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594010.149,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "abcfc661-fc62-47b4-9b3c-7f4b0a136d33",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594011.658,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "89e719ce-a2c2-4ba7-8f28-669dde9df910",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594014.65,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3d6d3c06-1ac4-4fb1-a36a-326d47c4e23c",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594020.649,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "81ae7a8c-cdeb-4786-96ce-b3ca87ac97d2",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594023.656,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e0ba6b4f-ca38-47d6-a0f0-972eb6ed2db4",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594025.151,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8f66edb4-95ea-4185-9802-a11e5e19ece7",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594026.65,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1d1320ce-79e1-4176-b6d4-f775d63edee1",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594028.151,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6c4fda49-a1bc-4321-af3a-ce5e201a9490",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594029.661,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "080c64fc-d5e7-4265-8428-8b77900c6db4",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594031.155,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "455d2809-f2a8-47af-90a6-56bb63040de5",
+      "person_name": "Arya",
+      "session_id": "session_1788593989136",
+      "timestamp": 1788594035.657,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-09-05T07:40:08.640283",
+      "speaker": "Arya",
+      "text": "what's to the talk wala camera",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:40:12.885801",
+      "speaker": "Arya",
+      "text": "vah Devi Tower last scene",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:40:38.231248",
+      "speaker": "Arya",
+      "text": "have a detected me",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:40:41.218233",
+      "speaker": "Unknown",
+      "text": "finally detected",
+      "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-09-05T07:40:44.355060",
+      "speaker": "Unknown",
+      "text": "stock market",
+      "emotion": "neutral"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "session_id": "session_1787775524670",
+  "started_at": 1787755726.212219,
+  "ended_at": 1787755734.64163,
+  "total_events": 10,
+  "persons_seen": [
+    "Doing Right"
+  ],
+  "objects_seen": [
+    "person",
+    "bed",
+    "teddy bear"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "cb1fcf44-0ad5-4d60-9a5b-234312009bb4",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775524670",
+      "timestamp": 1787775526.206,
+      "emotion": "neutral",
+      "context": "auto-registered via voice introduction",
+      "location": null
+    },
+    {
+      "encounter_id": "40561fca-6e6f-4032-993e-2bdbd369db39",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775524670",
+      "timestamp": 1787775526.206,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5a0ceb4f-5971-47bb-98f1-6f710679892a",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775524670",
+      "timestamp": 1787775527.698,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5693cb76-833c-44bb-ab47-a34b528def02",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775524670",
+      "timestamp": 1787775529.193,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bb824a27-cc07-4dbc-8176-8776b6d158ec",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775524670",
+      "timestamp": 1787775530.692,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "662f4c4a-3db1-418f-bf17-83b0424c2627",
+      "person_name": "Doing Right",
+      "session_id": "session_1787775524670",
+      "timestamp": 1787775532.192,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}
