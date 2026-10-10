@@ -1,0 +1,98 @@
+{
+  "downtown": [
+    {
+      "start_frame": 0,
+      "end_frame": 180,
+      "type": "straight",
+      "alert": "Route to Downtown active. Keep straight."
+    },
+    {
+      "start_frame": 181,
+      "end_frame": 350,
+      "type": "turn_left",
+      "alert": "Turn Left onto 4th Avenue"
+    },
+    {
+      "start_frame": 351,
+      "end_frame": 550,
+      "type": "straight",
+      "alert": "Downtown Grid: Keep straight."
+    },
+    {
+      "start_frame": 551,
+      "end_frame": 750,
+      "type": "turn_right",
+      "alert": "Turn Right at Intersection"
+    },
+    {
+      "start_frame": 751,
+      "end_frame": 1500,
+      "type": "straight",
+      "alert": "Arrived at Destination: Downtown Office."
+    }
+  ],
+  "airport": [
+    {
+      "start_frame": 0,
+      "end_frame": 180,
+      "type": "straight",
+      "alert": "Route to Airport active. Maintain speed."
+    },
+    {
+      "start_frame": 181,
+      "end_frame": 350,
+      "type": "curve_left",
+      "alert": "Curve Left onto Highway Ramp"
+    },
+    {
+      "start_frame": 351,
+      "end_frame": 550,
+      "type": "straight",
+      "alert": "Interstate Highway. Speed Limit 60mph."
+    },
+    {
+      "start_frame": 551,
+      "end_frame": 720,
+      "type": "merge_right",
+      "alert": "Exit 15B approaching. Merge Right."
+    },
+    {
+      "start_frame": 721,
+      "end_frame": 1500,
+      "type": "straight",
+      "alert": "Arriving at Lake Stevens Terminal."
+    }
+  ],
+  "mall": [
+    {
+      "start_frame": 0,
+      "end_frame": 180,
+      "type": "straight",
+      "alert": "Route to Mall Scenic active."
+    },
+    {
+      "start_frame": 181,
+      "end_frame": 380,
+      "type": "u_turn",
+      "alert": "Loop Ahead. Prepare to Take U-Turn."
+    },
+    {
+      "start_frame": 381,
+      "end_frame": 580,
+      "type": "straight",
+      "alert": "Return Route: Proceed straight."
+    },
+    {
+      "start_frame": 581,
+      "end_frame": 780,
+      "type": "merge_left",
+      "alert": "Obstruction ahead. Merge Left."
+    },
+    {
+      "start_frame": 781,
+      "end_frame": 1500,
+      "type": "straight",
+      "alert": "Arrived at Shopping Mall parking area."
+    }
+  ]
+}

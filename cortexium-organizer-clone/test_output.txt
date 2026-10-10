@@ -1,0 +1,22 @@
+[A] Baseline load:       PASS  is_loaded=True
+[B] Baseline predict:    PASS  laptop -> 'table'  conf=0.948
+[C] Single-candidate:    PASS  cup -> 'desk'  conf=0.990
+[D] Empty candidates:    PASS  returned (None, 0.0)
+[E] Priority logic:      PASS  personalized='sofa'  baseline='sofa'
+[F] Reset to baseline:   PASS  rules cleared, model intact, predictor reloads
+[G] FeatureExtractor:    PASS  13 keys correct
+[H] server.py structure: PASS  all 7 structure checks pass
+[I] ml_pipeline.py:      PASS  all 6 checks pass
+
+====================================================
+  INTEGRATION TESTS: 9/9 passed
+    [A_load]  PASS
+    [B_predict]  PASS
+    [C_single]  PASS
+    [D_empty]  PASS
+    [E_priority]  PASS
+    [F_reset]  PASS
+    [G_features]  PASS
+    [H_server]  PASS
+    [I_pipeline]  PASS
+====================================================

@@ -18,6 +18,7 @@ __pycache__/
 *.so
 .pytest_cache/
 catboost_info/
+**/catboost_info/
 
 # Node.js & Frontend Dependencies
 node_modules/
@@ -48,10 +49,17 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Large Video Files exceeding GitHub 100MB limit
-cortexium/data/sample_videos/NavTesting_2.mp4
-cortexium/data/sample_videos/NavTesting_3.mp4
+# Large Media & Video Files (>50MB / >100MB)
+*.mp4
+*.avi
+*.mov
+*.mkv
+data/sample_videos/*.mp4
+**/sample_videos/*.mp4
+!**/sample_videos/.gitkeep
 
-# Generated Session Reports
+# Generated Session Reports & Crops
+*.pdf
 cortexium/session_report_*.pdf
 cortexium/data/debug_crops/
+**/debug_crops/

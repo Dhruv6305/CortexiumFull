@@ -1,0 +1,235 @@
+{
+  "surface_classes": [
+    "bed",
+    "bench",
+    "cabinet",
+    "chair",
+    "couch",
+    "counter",
+    "countertop",
+    "desk",
+    "dining table",
+    "drawer",
+    "floor",
+    "ground",
+    "rack",
+    "shelf",
+    "sofa",
+    "table"
+  ],
+  "object_col": "object",
+  "surface_col": "surface",
+  "numeric_features": [
+    "object_w",
+    "object_h",
+    "surface_w",
+    "surface_h",
+    "center_distance_x",
+    "center_distance_y"
+  ],
+  "cat_feature_indices": [
+    0
+  ],
+  "obj_feature_means": {
+    "backpack": {
+      "object_w": 85.38,
+      "object_h": 84.52,
+      "surface_w": 237.38,
+      "surface_h": 133.48,
+      "center_distance_x": 68.05,
+      "center_distance_y": 43.57
+    },
+    "bag": {
+      "object_w": 116.56,
+      "object_h": 117.31,
+      "surface_w": 338.22,
+      "surface_h": 219.66,
+      "center_distance_x": 87.33,
+      "center_distance_y": 79.17
+    },
+    "book": {
+      "object_w": 90.93,
+      "object_h": 55.9,
+      "surface_w": 274.76,
+      "surface_h": 187.76,
+      "center_distance_x": 72.53,
+      "center_distance_y": 54.07
+    },
+    "bottle": {
+      "object_w": 29.32,
+      "object_h": 67.35,
+      "surface_w": 385.13,
+      "surface_h": 186.58,
+      "center_distance_x": 102.45,
+      "center_distance_y": 55.52
+    },
+    "bowl": {
+      "object_w": 84.86,
+      "object_h": 50.1,
+      "surface_w": 341.14,
+      "surface_h": 205.62,
+      "center_distance_x": 77.76,
+      "center_distance_y": 56.71
+    },
+    "box": {
+      "object_w": 83.38,
+      "object_h": 71.42,
+      "surface_w": 255.8,
+      "surface_h": 169.28,
+      "center_distance_x": 88.41,
+      "center_distance_y": 70.92
+    },
+    "camera": {
+      "object_w": 82.77,
+      "object_h": 64.46,
+      "surface_w": 466.15,
+      "surface_h": 239.54,
+      "center_distance_x": 89.23,
+      "center_distance_y": 64.0
+    },
+    "cell phone": {
+      "object_w": 78.0,
+      "object_h": 64.73,
+      "surface_w": 330.55,
+      "surface_h": 264.09,
+      "center_distance_x": 87.64,
+      "center_distance_y": 38.86
+    },
+    "computer": {
+      "object_w": 106.42,
+      "object_h": 96.68,
+      "surface_w": 346.11,
+      "surface_h": 182.26,
+      "center_distance_x": 80.0,
+      "center_distance_y": 61.16
+    },
+    "cup": {
+      "object_w": 42.04,
+      "object_h": 56.27,
+      "surface_w": 392.65,
+      "surface_h": 180.04,
+      "center_distance_x": 83.92,
+      "center_distance_y": 42.27
+    },
+    "glass": {
+      "object_w": 101.0,
+      "object_h": 73.62,
+      "surface_w": 356.69,
+      "surface_h": 220.69,
+      "center_distance_x": 59.59,
+      "center_distance_y": 73.66
+    },
+    "handbag": {
+      "object_w": 100.25,
+      "object_h": 75.88,
+      "surface_w": 284.0,
+      "surface_h": 234.12,
+      "center_distance_x": 58.62,
+      "center_distance_y": 53.25
+    },
+    "keyboard": {
+      "object_w": 210.74,
+      "object_h": 80.53,
+      "surface_w": 379.74,
+      "surface_h": 180.32,
+      "center_distance_x": 61.5,
+      "center_distance_y": 32.0
+    },
+    "laptop": {
+      "object_w": 161.75,
+      "object_h": 129.55,
+      "surface_w": 382.35,
+      "surface_h": 243.8,
+      "center_distance_x": 124.7,
+      "center_distance_y": 72.72
+    },
+    "monitor": {
+      "object_w": 154.06,
+      "object_h": 135.5,
+      "surface_w": 355.33,
+      "surface_h": 189.11,
+      "center_distance_x": 80.86,
+      "center_distance_y": 99.97
+    },
+    "mouse": {
+      "object_w": 50.62,
+      "object_h": 39.62,
+      "surface_w": 444.77,
+      "surface_h": 215.77,
+      "center_distance_x": 114.77,
+      "center_distance_y": 47.92
+    },
+    "mug": {
+      "object_w": 107.58,
+      "object_h": 109.17,
+      "surface_w": 445.33,
+      "surface_h": 208.17,
+      "center_distance_x": 83.62,
+      "center_distance_y": 41.75
+    },
+    "pen": {
+      "object_w": 57.69,
+      "object_h": 36.77,
+      "surface_w": 396.23,
+      "surface_h": 225.69,
+      "center_distance_x": 55.5,
+      "center_distance_y": 43.54
+    },
+    "pencil": {
+      "object_w": 62.8,
+      "object_h": 56.8,
+      "surface_w": 416.4,
+      "surface_h": 196.6,
+      "center_distance_x": 122.6,
+      "center_distance_y": 37.3
+    },
+    "phone": {
+      "object_w": 61.61,
+      "object_h": 60.39,
+      "surface_w": 320.28,
+      "surface_h": 184.67,
+      "center_distance_x": 98.33,
+      "center_distance_y": 64.31
+    },
+    "plate": {
+      "object_w": 163.83,
+      "object_h": 88.91,
+      "surface_w": 325.3,
+      "surface_h": 173.13,
+      "center_distance_x": 86.83,
+      "center_distance_y": 67.02
+    },
+    "remote": {
+      "object_w": 51.74,
+      "object_h": 44.53,
+      "surface_w": 390.68,
+      "surface_h": 211.21,
+      "center_distance_x": 101.05,
+      "center_distance_y": 45.29
+    },
+    "scissors": {
+      "object_w": 100.25,
+      "object_h": 82.5,
+      "surface_w": 413.25,
+      "surface_h": 268.42,
+      "center_distance_x": 54.58,
+      "center_distance_y": 56.88
+    },
+    "tablet": {
+      "object_w": 157.2,
+      "object_h": 100.6,
+      "surface_w": 457.0,
+      "surface_h": 348.4,
+      "center_distance_x": 41.7,
+      "center_distance_y": 62.7
+    },
+    "toy": {
+      "object_w": 108.62,
+      "object_h": 80.38,
+      "surface_w": 369.75,
+      "surface_h": 248.56,
+      "center_distance_x": 98.75,
+      "center_distance_y": 61.41
+    }
+  }
+}

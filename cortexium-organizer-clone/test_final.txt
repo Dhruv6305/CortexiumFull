@@ -1,0 +1,40 @@
+RC=1
+
+============================================================
+  CORTEXIUM � PERSONALIZED MODEL TRAINING
+============================================================
+  Samples  : 709  |  Train: 567  |  Test: 142
+  Pos/Neg  : 498 / 211
+  Accuracy : 0.9085   Precision: 0.9337
+  Recall   : 0.8860   Macro F1:  0.9001
+  ROC-AUC  : 0.9639   PR-AUC:   0.9717
+[T1] syntax ml_pipeline.py: PASS
+[T1] syntax server.py: PASS
+[T2] imports: PASS
+[T3] baseline load: PASS  path=e:\Afreen\SEM VII\cortexium-organizer\models\baseline\catboost_baseline.cbm
+[T4] baseline predict: PASS  laptop->'table'  prob=1.000
+[T5] features 13 keys: PASS
+[T6] personalized retrain: FAIL  'charmap' codec can't encode character '\u2192' in position 11: character maps to <undefined>
+[T7] personalized predict: PASS  cup->'table'  prob=0.998
+[T8] baseline unchanged: PASS  hash=1b4464da9294...
+[T9] active metrics (personalized): PASS  type=personalized
+[T10] reset: PASS  personalized removed, baseline intact and loadable
+[T11] active metrics (baseline after reset): PASS  type=baseline
+[T12] server.py structure: PASS  (12 checks)
+
+======================================================
+  FINAL TESTS: 12/13 passed
+    [T1_syntax_ml_pipeline.py            ]  PASS
+    [T1_syntax_server.py                 ]  PASS
+    [T2_imports                          ]  PASS
+    [T3_baseline_load                    ]  PASS
+    [T4_baseline_predict                 ]  PASS
+    [T5_features                         ]  PASS
+    [T6_retrain                          ]  FAIL
+    [T7_pers_predict                     ]  PASS
+    [T8_baseline_unchanged               ]  PASS
+    [T9_active_metrics_pers              ]  PASS
+    [T10_reset                           ]  PASS
+    [T11_active_metrics_baseline         ]  PASS
+    [T12_server_structure                ]  PASS
+======================================================

@@ -1,0 +1,125 @@
+{
+  "total_samples": 695,
+  "train_samples": 556,
+  "test_samples": 139,
+  "n_classes": 5,
+  "classes": [
+    "__none__",
+    "bed",
+    "chair",
+    "sofa",
+    "table"
+  ],
+  "accuracy": 0.9784,
+  "precision": 0.9793,
+  "recall": 0.9784,
+  "f1_score": 0.9782,
+  "confusion_matrix": [
+    [
+      38,
+      1,
+      1,
+      0,
+      1
+    ],
+    [
+      0,
+      14,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      23,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      59
+    ]
+  ],
+  "classification_report": {
+    "__none__": {
+      "precision": 1.0,
+      "recall": 0.926829268292683,
+      "f1-score": 0.9620253164556962,
+      "support": 41.0
+    },
+    "bed": {
+      "precision": 0.9333333333333333,
+      "recall": 1.0,
+      "f1-score": 0.9655172413793104,
+      "support": 14.0
+    },
+    "chair": {
+      "precision": 0.9583333333333334,
+      "recall": 1.0,
+      "f1-score": 0.9787234042553191,
+      "support": 23.0
+    },
+    "sofa": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2.0
+    },
+    "table": {
+      "precision": 0.9833333333333333,
+      "recall": 1.0,
+      "f1-score": 0.9915966386554622,
+      "support": 59.0
+    },
+    "accuracy": 0.9784172661870504,
+    "macro avg": {
+      "precision": 0.975,
+      "recall": 0.9853658536585366,
+      "f1-score": 0.9795725201491574,
+      "support": 139.0
+    },
+    "weighted avg": {
+      "precision": 0.97931654676259,
+      "recall": 0.9784172661870504,
+      "f1-score": 0.9782382685794137,
+      "support": 139.0
+    }
+  },
+  "cross_val_mean": 0.9612,
+  "cross_val_std": 0.026,
+  "cross_val_scores": [
+    0.9568,
+    0.9928,
+    0.9856,
+    0.9496,
+    0.9209
+  ],
+  "feature_importance": {
+    "object_class": 0.0527,
+    "surface_class": 0.2971,
+    "object_conf": 0.0166,
+    "object_area_ratio": 0.0434,
+    "surface_area_ratio": 0.0757,
+    "area_ratio": 0.081,
+    "overlap_ratio": 0.1891,
+    "dx_normalized": 0.0357,
+    "dy_normalized": 0.0469,
+    "euclidean_dist_normalized": 0.0613,
+    "obj_center_x_in_surface": 0.061,
+    "obj_center_y_in_surface": 0.0118,
+    "vertical_position_ratio": 0.0275
+  },
+  "avg_prediction_confidence": 0.9035,
+  "last_retrain_time": "12:02:37"
+}

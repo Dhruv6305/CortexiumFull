@@ -1,0 +1,62 @@
+{
+  "formulation": "binary",
+  "all_features": [
+    "object_class",
+    "surface_class",
+    "object_conf",
+    "object_area_ratio",
+    "surface_area_ratio",
+    "area_ratio",
+    "overlap_ratio",
+    "dx_normalized",
+    "dy_normalized",
+    "euclidean_dist_normalized",
+    "obj_center_x_in_surface",
+    "obj_center_y_in_surface",
+    "vertical_position_ratio"
+  ],
+  "cat_features": [
+    "object_class",
+    "surface_class"
+  ],
+  "cat_feature_indices": [
+    0,
+    1
+  ],
+  "numeric_features": [
+    "object_conf",
+    "object_area_ratio",
+    "surface_area_ratio",
+    "area_ratio",
+    "overlap_ratio",
+    "dx_normalized",
+    "dy_normalized",
+    "euclidean_dist_normalized",
+    "obj_center_x_in_surface",
+    "obj_center_y_in_surface",
+    "vertical_position_ratio"
+  ],
+  "target": "label",
+  "threshold": 0.5,
+  "frame_w_assumed": 1000.0,
+  "frame_h_assumed": 1000.0,
+  "surface_vocabulary": [
+    "bed",
+    "bench",
+    "cabinet",
+    "chair",
+    "couch",
+    "counter",
+    "countertop",
+    "desk",
+    "dining table",
+    "drawer",
+    "floor",
+    "ground",
+    "rack",
+    "shelf",
+    "sofa",
+    "table"
+  ],
+  "note": "At live inference: call extract_features(object, candidate_surface, ...) for each YOLO-detected surface, get predict_proba, pick candidate with highest P(label=1). Identical to ml_pipeline.py PlacementPredictor.predict."
+}

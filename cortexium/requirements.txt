@@ -1,0 +1,12 @@
+opencv-python
+ultralytics
+numpy
+pyttsx3
+fpdf2
+matplotlib
+easyocr
+polyline
+requests
+python-dotenv
+pandas
+tqdm

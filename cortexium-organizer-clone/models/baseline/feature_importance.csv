@@ -1,0 +1,14 @@
+feature,importance
+surface_area_ratio,36.52703446713465
+overlap_ratio,11.00856913509904
+dy_normalized,8.35556974009402
+surface_class,8.262869858641363
+euclidean_dist_normalized,6.706371095615636
+vertical_position_ratio,6.31083419356374
+dx_normalized,5.081832773686933
+object_class,4.584192372779328
+area_ratio,3.755243967031844
+obj_center_x_in_surface,3.3547965443863963
+obj_center_y_in_surface,3.1425067024240416
+object_area_ratio,2.9101791495429437
+object_conf,0.0

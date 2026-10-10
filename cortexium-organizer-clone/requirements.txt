@@ -1,0 +1,14 @@
+# Cortexium XR — Python backend dependencies
+# Install with: pip install -r requirements.txt
+
+# Web server
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+
+# Computer vision & ML
+ultralytics>=8.2.0
+opencv-python>=4.9.0
+numpy>=1.26.0
+pandas>=2.2.0
+scikit-learn>=1.4.0
+catboost>=1.2.0
