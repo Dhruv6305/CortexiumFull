@@ -54,7 +54,9 @@ class VehiclePipeline:
     def __init__(self):
         self.sample_videos_dir = _CORTEXIUM_MODULE_DIR / "data" / "sample_videos"
         self.sample_videos_dir.mkdir(parents=True, exist_ok=True)
-        self.active_video_name = "Dashcam_Video.mp4"
+        self.uploads_dir = _CORTEXIUM_MODULE_DIR / "data" / "uploads"
+        self.uploads_dir.mkdir(parents=True, exist_ok=True)
+        self.active_video_name = "NavVideoForTesting.mp4"
         self.active_video_path = str(self.sample_videos_dir / self.active_video_name)
         self.telemetry_path = str(_CORTEXIUM_MODULE_DIR / "data" / "telemetry.csv")
         self.telemetry_df = None
@@ -106,17 +108,26 @@ class VehiclePipeline:
         else:
             python_cmd = sys.executable
 
-        rel_video = f"data/sample_videos/{self.active_video_name}"
-        try:
-            rel_telemetry = os.path.relpath(self.telemetry_path, str(_CORTEXIUM_MODULE_DIR))
-        except Exception:
-            rel_telemetry = "data/telemetry.csv"
+        # Check whether active video is in dedicated uploads or sample_videos folder
+        if (self.uploads_dir / self.active_video_name).exists():
+            rel_video = f"data/uploads/{self.active_video_name}"
+        else:
+            rel_video = f"data/sample_videos/{self.active_video_name}"
+
+        telemetry_arg = []
+        rel_telemetry = None
+        if self.telemetry_path and os.path.exists(self.telemetry_path):
+            try:
+                rel_telemetry = os.path.relpath(self.telemetry_path, str(_CORTEXIUM_MODULE_DIR))
+                telemetry_arg = ["--telemetry", rel_telemetry]
+            except Exception:
+                telemetry_arg = []
 
         # Use cmd.exe /c start to open a new interactive console window on Windows
         if os.name == 'nt':
-            cmd = ["cmd.exe", "/c", "start", "CORTEXIUM OS", python_cmd, "main.py", "--source", rel_video, "--telemetry", rel_telemetry]
+            cmd = ["cmd.exe", "/c", "start", "CORTEXIUM OS", python_cmd, "main.py", "--source", rel_video] + telemetry_arg
         else:
-            cmd = [python_cmd, "main.py", "--source", rel_video, "--telemetry", rel_telemetry]
+            cmd = [python_cmd, "main.py", "--source", rel_video] + telemetry_arg
 
         print(f"[VehiclePipeline] Launching Cortexium main.py: {' '.join(cmd)}")
 
@@ -167,7 +178,9 @@ class VehiclePipeline:
             print(f"[VehiclePipeline] Telemetry load warning: {e}")
 
     def set_active_video(self, video_name: str, telemetry_name: Optional[str] = None):
-        video_file = self.sample_videos_dir / video_name
+        video_file = self.uploads_dir / video_name
+        if not video_file.exists():
+            video_file = self.sample_videos_dir / video_name
         if not video_file.exists():
             raise FileNotFoundError(f"Video file '{video_name}' not found")
 
@@ -175,21 +188,43 @@ class VehiclePipeline:
         self.active_video_path = str(video_file)
 
         # Match corresponding telemetry CSV if available
+        matched_telemetry = None
         if telemetry_name:
             t_path = _CORTEXIUM_MODULE_DIR / "data" / telemetry_name
             if t_path.exists():
-                self.telemetry_path = str(t_path)
-                self._load_telemetry()
+                matched_telemetry = t_path
+        elif "NavVideoForTesting" in video_name:
+            t_path = _CORTEXIUM_MODULE_DIR / "data" / "telemetry.csv"
+            if t_path.exists():
+                matched_telemetry = t_path
         elif "NavTesting_2" in video_name:
             t_path = _CORTEXIUM_MODULE_DIR / "data" / "telemetry_nav2.csv"
             if t_path.exists():
-                self.telemetry_path = str(t_path)
-                self._load_telemetry()
+                matched_telemetry = t_path
         elif "NavTesting_3" in video_name:
             t_path = _CORTEXIUM_MODULE_DIR / "data" / "telemetry_nav3.csv"
             if t_path.exists():
-                self.telemetry_path = str(t_path)
-                self._load_telemetry()
+                matched_telemetry = t_path
+        elif "Dashcam_Video" in video_name:
+            matched_telemetry = None
+        else:
+            stem = Path(video_name).stem
+            for cand in [
+                _CORTEXIUM_MODULE_DIR / "data" / f"{stem}.csv",
+                _CORTEXIUM_MODULE_DIR / "data" / f"telemetry_{stem}.csv",
+                self.uploads_dir / f"{stem}.csv"
+            ]:
+                if cand.exists():
+                    matched_telemetry = cand
+                    break
+
+        if matched_telemetry:
+            self.telemetry_path = str(matched_telemetry)
+            self._load_telemetry()
+        else:
+            self.telemetry_path = None
+            self.telemetry_df = None
+            self.telemetry_timestamps = None
 
         # Reset capture
         if self.cap is not None:
@@ -198,7 +233,84 @@ class VehiclePipeline:
 
         self.start_time = time.time()
         self.frame_count = 0
-        return {"active_video": video_name, "telemetry_path": self.telemetry_path}
+        return {"active_video": video_name, "telemetry_path": self.telemetry_path, "has_telemetry": bool(matched_telemetry)}
+
+    def get_telemetry_for_video(self, video_name: Optional[str] = None):
+        target = video_name or self.active_video_name
+        
+        # Match telemetry path for the target video
+        t_path = None
+        if "NavVideoForTesting" in target:
+            candidate = _CORTEXIUM_MODULE_DIR / "data" / "telemetry.csv"
+            if candidate.exists():
+                t_path = candidate
+        elif "NavTesting_2" in target:
+            candidate = _CORTEXIUM_MODULE_DIR / "data" / "telemetry_nav2.csv"
+            if candidate.exists():
+                t_path = candidate
+        elif "NavTesting_3" in target:
+            candidate = _CORTEXIUM_MODULE_DIR / "data" / "telemetry_nav3.csv"
+            if candidate.exists():
+                t_path = candidate
+        elif "Dashcam_Video" in target:
+            t_path = None
+        else:
+            stem = Path(target).stem
+            for cand in [
+                _CORTEXIUM_MODULE_DIR / "data" / f"{stem}.csv",
+                _CORTEXIUM_MODULE_DIR / "data" / f"telemetry_{stem}.csv",
+                self.uploads_dir / f"{stem}.csv"
+            ]:
+                if cand.exists():
+                    t_path = cand
+                    break
+
+        if not t_path or not t_path.exists():
+            return {
+                "has_telemetry": False,
+                "video_name": target,
+                "message": f"No telemetry data exists for {target}."
+            }
+
+        try:
+            df = pd.read_csv(t_path)
+            df = df.fillna(0)
+            
+            duration = 0.0
+            if "timestamp_sec" in df.columns and len(df) > 0:
+                duration = round(float(df["timestamp_sec"].max() - df["timestamp_sec"].min()), 1)
+            
+            speed_col = None
+            for c in ["speed_kmh", "speed", "speed_mph"]:
+                if c in df.columns:
+                    speed_col = c
+                    break
+            
+            max_speed = 0.0
+            avg_speed = 0.0
+            if speed_col:
+                max_speed = round(float(df[speed_col].max()), 1)
+                avg_speed = round(float(df[speed_col].mean()), 1)
+
+            records = df.head(500).to_dict(orient="records")
+            
+            return {
+                "has_telemetry": True,
+                "video_name": target,
+                "telemetry_file": t_path.name,
+                "total_records": len(df),
+                "duration_sec": duration,
+                "max_speed": max_speed,
+                "avg_speed": avg_speed,
+                "columns": list(df.columns),
+                "records": records
+            }
+        except Exception as e:
+            return {
+                "has_telemetry": False,
+                "video_name": target,
+                "message": f"Could not parse telemetry file: {e}"
+            }
 
     def generate_mjpeg_stream(self):
         if not os.path.exists(self.active_video_path):
@@ -384,7 +496,7 @@ async def vehicle_status():
         "telemetry_synced": getattr(vehicle_pipeline, 'telemetry_df', None) is not None,
         "current_score": getattr(vehicle_pipeline, 'current_score', 100),
         "frame_count": getattr(vehicle_pipeline, 'frame_count', 0),
-        "active_video": getattr(vehicle_pipeline, 'active_video_name', 'Dashcam_Video.mp4'),
+        "active_video": getattr(vehicle_pipeline, 'active_video_name', 'NavVideoForTesting.mp4'),
         "is_process_running": is_running,
         "process_pid": pid,
     }
@@ -438,23 +550,33 @@ async def select_video(data: SelectVideoData):
 
 @router.post("/upload-video")
 async def upload_video(file: UploadFile = File(...)):
-    """Upload a custom driving video file."""
-    if not file.filename.lower().endswith((".mp4", ".avi", ".mov")):
-        raise HTTPException(400, "Only video files (.mp4, .avi, .mov) are allowed")
+    """Upload a custom driving video file to dedicated uploads folder."""
+    filename_lower = file.filename.lower()
+    if not (filename_lower.endswith(".mp4") or filename_lower.endswith(".avi") or filename_lower.endswith(".mov")):
+        raise HTTPException(400, "Only driving video files (.mp4, .avi, .mov) are allowed")
 
-    target_path = vehicle_pipeline.sample_videos_dir / file.filename
+    MAX_FILE_SIZE = 500 * 1024 * 1024  # 500MB limit
+    target_path = vehicle_pipeline.uploads_dir / file.filename
     try:
         contents = await file.read()
+        if len(contents) > MAX_FILE_SIZE:
+            raise HTTPException(400, "File exceeds maximum size limit of 500MB")
+
         with open(target_path, "wb") as f:
             f.write(contents)
         
         # Set as active video
         vehicle_pipeline.set_active_video(file.filename)
+        size_mb = round(len(contents) / (1024 * 1024), 1)
         return {
             "success": True,
             "filename": file.filename,
-            "message": f"Video '{file.filename}' uploaded and set as active source."
+            "size_mb": size_mb,
+            "is_uploaded": True,
+            "message": f"Video '{file.filename}' uploaded to dedicated uploads folder and set as active source."
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(500, detail=f"Failed to save uploaded video: {e}")
 
@@ -474,6 +596,12 @@ async def get_vehicle_telemetry(elapsed: Optional[float] = None):
     if elapsed is None:
         elapsed = time.time() - vehicle_pipeline.start_time
     return vehicle_pipeline.get_synced_telemetry(elapsed)
+
+
+@router.get("/telemetry-data")
+async def get_video_telemetry_data(video_name: Optional[str] = None):
+    """Retrieve full telemetry dataset and summary statistics for specified or active driving video."""
+    return vehicle_pipeline.get_telemetry_for_video(video_name)
 
 
 @router.post("/process-frame")
