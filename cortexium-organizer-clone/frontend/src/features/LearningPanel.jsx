@@ -28,12 +28,12 @@ export function LearningPanel({ learningData, modelStatus }) {
           <BrainCircuit className="w-4 h-4 text-slate-300" />
           <span className="text-sm font-semibold text-slate-100">Adaptive Learning</span>
         </div>
-        <span className={`flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full border ${
+        <span className={`flex items-center gap-1.5 text-[10px] font-medium px-2 py-0.5 rounded-full border ${
           isTraining
-            ? 'bg-orange-50 border-orange-200 text-orange-600'
-            : 'bg-gray-50 border-gray-200 text-slate-400'
+            ? 'bg-amber-500/10 border-amber-500/25 text-amber-300'
+            : 'bg-white/[0.04] border-white/[0.08] text-slate-300'
         }`}>
-          <span className={`w-1 h-1 rounded-full ${isTraining ? 'bg-orange-400 animate-pulse' : 'bg-gray-400'}`} />
+          <span className={`w-1.5 h-1.5 rounded-full ${isTraining ? 'bg-amber-400 animate-pulse' : 'bg-emerald-400'}`} />
           {isTraining ? 'Training…' : (modelStatus || 'Ready')}
         </span>
       </div>
@@ -42,7 +42,7 @@ export function LearningPanel({ learningData, modelStatus }) {
       <div className="flex-1">
         <StatRow label="Learned Relationships"     value={learningData?.totalRelationships ?? 0} />
         <StatRow label="Total Training Samples"    value={learningData?.datasetSize ?? 0} />
-        <StatRow label="New Samples (this session)" value={newSamples} accentClass="text-green-600" />
+        <StatRow label="New Samples (this session)" value={newSamples} accentClass="text-emerald-400" />
         <StatRow
           label="Last Retraining"
           value={learningData?.lastRetrainTime || 'Never'}

@@ -13,40 +13,32 @@
 
 @layer base {
   :root {
-    /* ── Cortexium XR Unified Color Tokens (Stitch-generated) ── */
-    --cx-background:         #080c12;
-    --cx-surface:            #10141a;
-    --cx-surface-low:        #181c22;
-    --cx-surface-container:  #1c2026;
-    --cx-surface-high:       #262a31;
-    --cx-surface-highest:    #31353c;
+    /* ── Cortexium XR Master Design Tokens (Dashboard & Vehicle Unified) ── */
+    --cx-background:         #0b0f17;
+    --cx-surface:            rgba(18, 24, 38, 0.72);
+    --cx-surface-low:        #0e131f;
+    --cx-surface-container:  #121826;
+    --cx-surface-high:       #182030;
+    --cx-surface-highest:    #222a3d;
 
-    --cx-primary:            #e1fdff;
-    --cx-primary-glow:       #00f2ff;
-    --cx-on-primary:         #00363a;
+    --cx-primary:            #f8fafc;
+    --cx-primary-glow:       #22d3ee;
+    --cx-on-primary:         #0b0f17;
 
-    --cx-secondary:          #4edea3;
+    --cx-secondary:          #34d399;
     --cx-amber:              #f59e0b;
     --cx-rose:               #f43f5e;
-    --cx-purple:             #d2bbff;
+    --cx-purple:             #a78bfa;
 
-    --cx-on-surface:         #dfe2eb;
-    --cx-on-surface-muted:   #b9cacb;
-    --cx-outline:            #849495;
-    --cx-outline-variant:    #3a494b;
-
-    /* Legacy aliases kept for backward compat */
-    --cyan-glow:             6, 182, 212;
-    --blue-deep:             37, 99, 235;
-    --navy-base:             8, 12, 18;
-    --emerald-signal:        52, 211, 153;
-    --amber-warn:            245, 158, 11;
-    --rose-alert:            244, 63, 94;
+    --cx-on-surface:         #f8fafc;
+    --cx-on-surface-muted:   #94a3b8;
+    --cx-outline:            rgba(255, 255, 255, 0.08);
+    --cx-outline-variant:    rgba(255, 255, 255, 0.04);
 
     /* Typography */
     --font-hud:     'JetBrains Mono', ui-monospace, monospace;
-    --font-body:    'Inter', ui-sans-serif, system-ui;
-    --font-display: 'Space Grotesk', 'Orbitron', monospace;
+    --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   * {
@@ -58,13 +50,6 @@
     font-family: var(--font-body);
     background-color: var(--cx-background);
     color: var(--cx-on-surface);
-
-    /* Stitch-spec grid overlay */
-    background-image:
-      linear-gradient(rgba(0, 242, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 242, 255, 0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
-
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -81,43 +66,27 @@
 
 @layer components {
 
-  /* ── HUD Panel — Stitch glassmorphic panel ──────────────────── */
+  /* ── HUD Panel — Calm glassmorphic surface matching Dashboard ── */
   .hud-panel {
     @apply backdrop-blur-xl border rounded-2xl p-3.5;
-    background: rgba(16, 20, 26, 0.45);
+    background: rgba(18, 24, 38, 0.72);
     border-color: rgba(255, 255, 255, 0.08);
-    border-top-color: rgba(255, 255, 255, 0.13);
-    box-shadow:
-      0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
-      0 0 0 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
 
   .hud-panel:hover {
     border-color: rgba(255, 255, 255, 0.12);
-    background: rgba(16, 20, 26, 0.60);
-    backdrop-filter: blur(40px);
+    background: rgba(18, 24, 38, 0.85);
   }
 
-  /* ── Scan Line ─────────────────────────────────────────────── */
+  /* ── Scan Line & Cyber Grid (Removed sci-fi overlays) ───────── */
   .scan-line {
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 3px,
-      rgba(0, 242, 255, 0.012) 3px,
-      rgba(0, 242, 255, 0.012) 4px
-    );
+    display: none;
     pointer-events: none;
   }
 
-  /* ── Cyber Grid ─────────────────────────────────────────────── */
   .cyber-grid {
-    background-image:
-      linear-gradient(rgba(0, 242, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 242, 255, 0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
+    background-image: none;
   }
 
   /* ── Status Dot ─────────────────────────────────────────────── */
@@ -126,8 +95,6 @@
   }
   .status-dot.online {
     background: var(--cx-secondary);
-    animation: face-pulse 2.5s ease-in-out infinite;
-    box-shadow: 0 0 6px rgba(78, 222, 163, 0.8);
   }
   .status-dot.offline {
     background: var(--cx-rose);
@@ -176,25 +143,23 @@
   }
   .hud-btn-primary {
     @apply hud-btn;
-    background: rgba(0, 242, 255, 0.12);
-    color: var(--cx-primary-glow);
-    border-color: rgba(0, 242, 255, 0.25);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.06);
+    background: rgba(34, 211, 238, 0.10);
+    color: #22d3ee;
+    border-color: rgba(34, 211, 238, 0.25);
   }
   .hud-btn-primary:hover {
-    background: rgba(0, 242, 255, 0.20);
-    border-color: rgba(0, 242, 255, 0.45);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+    background: rgba(34, 211, 238, 0.18);
+    border-color: rgba(34, 211, 238, 0.40);
   }
   .hud-btn-success {
     @apply hud-btn;
-    background: rgba(78, 222, 163, 0.10);
-    color: var(--cx-secondary);
-    border-color: rgba(78, 222, 163, 0.25);
+    background: rgba(52, 211, 153, 0.10);
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.25);
   }
   .hud-btn-success:hover {
-    background: rgba(78, 222, 163, 0.18);
-    border-color: rgba(78, 222, 163, 0.45);
+    background: rgba(52, 211, 153, 0.18);
+    border-color: rgba(52, 211, 153, 0.40);
   }
   .hud-btn-danger {
     @apply hud-btn;
@@ -204,7 +169,7 @@
   }
   .hud-btn-danger:hover {
     background: rgba(244, 63, 94, 0.18);
-    border-color: rgba(244, 63, 94, 0.45);
+    border-color: rgba(244, 63, 94, 0.40);
   }
 
   /* ── Scrollbar ─────────────────────────────────────────────── */
@@ -219,27 +184,12 @@
            font-bold font-mono tracking-wide border;
   }
 
-  /* ── Holographic shimmer ────────────────────────────────────── */
-  .holo-shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255,255,255,0.05) 40%,
-      rgba(255,255,255,0.10) 50%,
-      rgba(255,255,255,0.05) 60%,
-      transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: holo-shimmer 4s linear infinite;
-  }
-
-  /* ── Status Badge (Stitch spec) ─────────────────────────────── */
+  /* ── Status Badge ──────────────────────────────────────────── */
   .badge-active {
-    background: rgba(0, 242, 255, 0.10);
-    border: 1px solid rgba(0, 242, 255, 1);
-    box-shadow: 0 0 4px rgba(0, 242, 255, 0.6);
-    color: var(--cx-primary-glow);
-    padding: 3px 10px; border-radius: 4px;
+    background: rgba(34, 211, 238, 0.10);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    color: #22d3ee;
+    padding: 3px 10px; border-radius: 6px;
     font-family: var(--font-hud); font-size: 9px;
     letter-spacing: 0.12em; text-transform: uppercase;
   }

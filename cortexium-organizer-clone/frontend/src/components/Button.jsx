@@ -3,31 +3,31 @@ import { cn } from '../utils/cn';
 
 const variants = {
   ghost:
-    'bg-white/8 hover:bg-white/12 border-white/10 hover:border-white/20 text-slate-200 hover:text-white',
+    'bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.08] hover:border-white/[0.15] text-slate-300 hover:text-white',
 
   green:
-    'bg-green-500/15 hover:bg-green-500/25 border-green-400/25 hover:border-green-400/40 text-green-200',
+    'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/25 hover:border-emerald-500/40 text-emerald-300 font-semibold shadow-sm',
 
   orange:
-    'bg-orange-500/15 hover:bg-orange-500/25 border-orange-400/25 hover:border-orange-400/40 text-orange-200',
+    'bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/25 hover:border-amber-500/40 text-amber-300 font-semibold shadow-sm',
 
   red:
-    'bg-red-500/15 hover:bg-red-500/25 border-red-400/25 hover:border-red-400/40 text-red-200',
+    'bg-rose-500/10 hover:bg-rose-500/20 border-rose-500/25 hover:border-rose-500/40 text-rose-300',
 
   white:
-    'bg-white/8 hover:bg-white/12 border-white/10 hover:border-white/20 text-white',
+    'bg-white/[0.06] hover:bg-white/[0.12] border-white/[0.1] hover:border-white/[0.2] text-white',
 
   primary:
-    'bg-orange-500/15 hover:bg-orange-500/25 border-orange-400/25 text-orange-200',
+    'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/25 text-emerald-300',
 
   secondary:
-    'bg-white/8 hover:bg-white/12 border-white/10 text-slate-200',
+    'bg-white/[0.04] hover:bg-white/[0.08] border-white/[0.08] text-slate-300',
 
   danger:
-    'bg-red-500/15 hover:bg-red-500/25 border-red-400/25 text-red-200',
+    'bg-rose-500/10 hover:bg-rose-500/20 border-rose-500/25 text-rose-300',
 
   success:
-    'bg-green-500/15 hover:bg-green-500/25 border-green-400/25 text-green-200',
+    'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/25 text-emerald-300',
 };
 
 export function Button({ children, onClick, variant = 'ghost', className, icon: Icon, disabled = false }) {

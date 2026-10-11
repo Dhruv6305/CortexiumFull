@@ -5,13 +5,13 @@ export function GlassCard({ children, className, accent }) {
   return (
     <div
     className={cn(
-      'relative overflow-hidden rounded-3xl p-5 border border-white/5 backdrop-blur-2xl bg-white/[0.035] shadow-xl',
+      'relative overflow-hidden rounded-2xl p-5 border border-white/[0.08] backdrop-blur-xl bg-[#121826]/75 shadow-xl',
       className
     )}
     style={{
-      borderColor: accent ? `${accent}40` : 'rgba(255,255,255,0.05)',
+      borderColor: accent ? `${accent}35` : 'rgba(255,255,255,0.08)',
       boxShadow:
-        '0 10px 35px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.06)',
+        '0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05)',
     }}
     >
       {/* Subtle top-edge highlight */}

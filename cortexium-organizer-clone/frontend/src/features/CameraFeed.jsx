@@ -97,13 +97,13 @@ export function CameraFeed({ streamUrl, isConnected, mode, cameraStatus, modelSt
       <div
         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
           mode === "learn"
-            ? "bg-orange-500/20 border-orange-400/40 text-orange-200"
-            : "bg-green-500/20 border-green-400/40 text-green-200"
+            ? "bg-amber-500/15 border-amber-500/30 text-amber-300"
+            : "bg-emerald-500/15 border-emerald-500/30 text-emerald-300"
         }`}
       >
         <span
           className={`w-2 h-2 rounded-full ${
-            mode === "learn" ? "bg-orange-400 animate-pulse" : "bg-green-400"
+            mode === "learn" ? "bg-amber-400 animate-pulse" : "bg-emerald-400"
           }`}
         />
         {mode === "learn" ? "Learn Mode Active" : "Predict Mode Active"}
@@ -111,15 +111,11 @@ export function CameraFeed({ streamUrl, isConnected, mode, cameraStatus, modelSt
 
       {/* Camera */}
       <div
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
-          cameraStatus === "Connected"
-            ? "bg-white/10 border-white/10 text-slate-200"
-            : "bg-white/10 border-white/10 text-slate-200"
-        }`}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] text-xs font-medium text-slate-300"
       >
         <span
           className={`w-1.5 h-1.5 rounded-full ${
-            cameraStatus === "Connected" ? "bg-green-400" : "bg-red-400"
+            cameraStatus === "Connected" ? "bg-emerald-400" : "bg-rose-400"
           }`}
         />
         Camera {cameraStatus}

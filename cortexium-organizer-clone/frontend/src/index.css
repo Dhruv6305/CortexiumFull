@@ -8,48 +8,42 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Cortexium XR Unified Color Tokens (Stitch-generated) ── */
-  --color-cx-background:        #080c12;
-  --color-cx-surface:           #10141a;
-  --color-cx-surface-low:       #181c22;
-  --color-cx-surface-container: #1c2026;
-  --color-cx-surface-high:      #262a31;
-  --color-cx-surface-highest:   #31353c;
+  /* ── Cortexium XR Unified Color Tokens (Dashboard Master) ── */
+  --color-cx-background:        #0b0f17;
+  --color-cx-surface:           rgba(18, 24, 38, 0.75);
+  --color-cx-surface-low:       #0e131f;
+  --color-cx-surface-container: #121826;
+  --color-cx-surface-high:      #182030;
+  --color-cx-surface-highest:   #222a3d;
 
-  --color-cx-primary:           #e1fdff;
-  --color-cx-primary-glow:      #00f2ff;
-  --color-cx-secondary:         #4edea3;
+  --color-cx-primary:           #f8fafc;
+  --color-cx-primary-glow:      #22d3ee;
+  --color-cx-secondary:         #34d399;
   --color-cx-amber:             #f59e0b;
   --color-cx-rose:              #f43f5e;
-  --color-cx-purple:            #d2bbff;
+  --color-cx-purple:            #a78bfa;
 
-  --color-cx-on-surface:        #dfe2eb;
-  --color-cx-muted:             #b9cacb;
-  --color-cx-outline:           #849495;
+  --color-cx-on-surface:        #f8fafc;
+  --color-cx-muted:             #94a3b8;
+  --color-cx-outline:           rgba(255, 255, 255, 0.08);
 
   /* Legacy brand colors (kept for existing component class usage) */
-  --color-brand-orange:   #f97316;
-  --color-brand-green:    #4edea3;
+  --color-brand-orange:   #f59e0b;
+  --color-brand-green:    #34d399;
   --color-brand-red:      #f43f5e;
-  --color-brand-white:    #e1fdff;
-  --color-brand-blue:     #3b82f6;
-  --color-brand-cyan:     #00f2ff;
-  --color-brand-purple:   #d2bbff;
+  --color-brand-white:    #f8fafc;
+  --color-brand-blue:     #38bdf8;
+  --color-brand-cyan:     #22d3ee;
+  --color-brand-purple:   #a78bfa;
 }
 
 @layer base {
   body {
     @apply antialiased font-sans;
     font-feature-settings: "kern" 1, "liga" 1;
-    background-color: #080c12;
-    color: #dfe2eb;
+    background-color: #0b0f17;
+    color: #f8fafc;
     min-height: 100vh;
-
-    /* Stitch-spec neural grid overlay (matches central dashboard) */
-    background-image:
-      linear-gradient(rgba(0, 242, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 242, 255, 0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
   }
 
   * {
@@ -77,23 +71,21 @@
 }
 
 @layer utilities {
-  /* ── Stitch glassmorphic panel (upgraded from original) ── */
+  /* ── Calm glassmorphic panel matching Dashboard ── */
   .glass {
-    background: rgba(16, 20, 26, 0.45);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    background: rgba(18, 24, 38, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top-color: rgba(255, 255, 255, 0.13);
     border-radius: 16px;
   }
 
-  /* Stronger glass for header (Stitch Level 2 surface) */
+  /* Stronger glass for header */
   .glass-strong {
-    background: rgba(16, 20, 26, 0.70);
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-top-color: rgba(255, 255, 255, 0.18);
+    background: rgba(14, 19, 31, 0.90);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   /* Inset shadow for depth */

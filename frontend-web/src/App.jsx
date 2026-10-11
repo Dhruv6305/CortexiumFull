@@ -20,6 +20,7 @@ import {
   History, ChevronDown, ChevronUp, Scan, ScanFace, Signal, FileText, X
 } from 'lucide-react'
 import PeopleDB from './PeopleDB.jsx'
+import CollapsibleNavbar from './CollapsibleNavbar.jsx'
 
 // ─────────────────────────────────────────────
 //  Three.js Background — subtle neural field
@@ -1673,18 +1674,12 @@ export default function App() {
   const primaryPerson = detectedPersons[0]
 
   return (
-    <div className="min-h-screen lg:h-screen w-screen flex flex-col bg-[#080c12] text-white selection:bg-cyan-500/20 overflow-y-auto lg:overflow-hidden">
+    <div className="h-screen w-screen flex overflow-hidden bg-[#0b0f17] text-white selection:bg-cyan-500/20">
+      {/* ── Shared Collapsible Left Navbar ── */}
+      <CollapsibleNavbar currentModule="social" />
 
-      {/* Neural Particle Background */}
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 5] }}>
-          <NeuralField />
-          <ambientLight intensity={0.2} />
-        </Canvas>
-      </div>
-
-      {/* Subtle grid */}
-      <div className="absolute inset-0 z-0 cyber-grid opacity-20 pointer-events-none" />
+      {/* ── Main App Content ── */}
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-y-auto lg:overflow-hidden bg-[#0b0f17] relative">
 
       {/* ─── HEADER ─── */}
       <motion.header
@@ -1692,7 +1687,7 @@ export default function App() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
         className="relative z-10 px-4 md:px-6 py-2.5 md:h-14 flex flex-wrap md:flex-nowrap justify-between items-center gap-2
-                   bg-black/40 backdrop-blur-2xl border-b border-white/[0.07]"
+                   bg-[#0E131F]/90 backdrop-blur-2xl border-b border-white/[0.08]"
       >
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -1700,15 +1695,14 @@ export default function App() {
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
               <BrainCircuit className="text-white" size={16} />
             </div>
-            {backendOnline && <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#080c12] animate-pulse" />}
+            {backendOnline && <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0b0f17] animate-pulse" />}
           </div>
           <div>
-            <h1 className="text-[13px] font-bold tracking-[0.12em] font-mono text-transparent bg-clip-text
-                           bg-gradient-to-r from-cyan-400 to-blue-300">
+            <h1 className="text-[13px] font-bold tracking-[0.12em] font-mono text-slate-100">
               CORTEXIUM 2.0
             </h1>
-            <span className="text-[7px] font-mono text-slate-700 uppercase tracking-[0.25em]">
-              Ambient Intelligence
+            <span className="text-[7px] font-mono text-slate-400 uppercase tracking-[0.25em]">
+              Social Intelligence
             </span>
           </div>
         </div>
@@ -2086,6 +2080,7 @@ export default function App() {
       </footer>
 
       {/* No popup — conversation card is inline on the camera view */}
+      </div>
     </div>
   )
 }

@@ -5,23 +5,23 @@ import { ScanSearch } from 'lucide-react';
 function StatusDot({ status }) {
   if (status === 'Correct') {
     return (
-      <span className="inline-flex items-center gap-1 text-green-700 text-xs font-medium">
-        <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Correct
+      <span className="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-medium">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Correct
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 text-red-600 text-xs font-medium">
-      <span className="w-1.5 h-1.5 rounded-full bg-red-500" /> Misplaced
+    <span className="inline-flex items-center gap-1.5 text-rose-400 text-xs font-medium">
+      <span className="w-1.5 h-1.5 rounded-full bg-rose-400" /> Misplaced
     </span>
   );
 }
 
 export function DetectedObjectsTable({ objects }) {
   return (
-    <GlassCard className="flex flex-col h-full" accent="#f97316">
-      <div className="flex items-center gap-1 mb-4">
-        <ScanSearch className="w-4 h-4 text-orange-500" />
+    <GlassCard className="flex flex-col h-full" accent="#22d3ee">
+      <div className="flex items-center gap-1.5 mb-4">
+        <ScanSearch className="w-4 h-4 text-cyan-400" />
         <span className="text-sm font-semibold text-slate-100">Alternate Surface Suggestions</span>
         {objects?.length > 0 && (
           <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full text-slate-400"

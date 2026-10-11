@@ -17,16 +17,16 @@ export function Header({ mode = 'Predict', cameraStatus = 'Disconnected', modelS
     <header
       className="sticky top-0 z-50 flex flex-wrap md:flex-nowrap items-center justify-between px-4 md:px-6 py-2.5 md:py-3 gap-3"
       style={{
-      background: "rgba(255,255,255,0.08)",
-      backdropFilter: "blur(22px)",
-      WebkitBackdropFilter: "blur(22px)",
-      borderBottom: "1px solid rgba(255,255,255,0.08)"
+        background: "rgba(14, 19, 31, 0.90)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.08)"
       }}
     >
       {/* Brand */}
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-xl flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #f97316, #fb923c)', boxShadow: '0 2px 8px rgba(249,115,22,0.3)' }}>
+        <div className="w-8 h-8 rounded-xl flex items-center justify-center shadow-md"
+          style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }}>
           <Brain className="w-4 h-4 text-white" />
         </div>
         <div>
