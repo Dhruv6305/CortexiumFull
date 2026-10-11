@@ -16,6 +16,14 @@ export function CameraFeed({ streamUrl, isConnected, mode, cameraStatus, modelSt
     }
   }, []);
 
+  const [streamKey, setStreamKey] = React.useState(() => Date.now());
+
+  React.useEffect(() => {
+    if (isConnected) {
+      setStreamKey(Date.now());
+    }
+  }, [isConnected]);
+
   React.useEffect(() => {
     const handler = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener('fullscreenchange', handler);
@@ -50,7 +58,8 @@ export function CameraFeed({ streamUrl, isConnected, mode, cameraStatus, modelSt
       >
         {isConnected ? (
           <img
-            src={streamUrl}
+            key={streamKey}
+            src={`${streamUrl}?t=${streamKey}`}
             alt="Live YOLO annotated feed"
             className="w-full h-full object-contain"
             style={{ display: 'block' }}
@@ -86,18 +95,18 @@ export function CameraFeed({ streamUrl, isConnected, mode, cameraStatus, modelSt
 
       {/* Mode */}
       <div
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
+        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
           mode === "learn"
-            ? "bg-white/10 border-white/10 text-slate-200"
-            : "bg-white/10 border-white/10 text-slate-200"
+            ? "bg-orange-500/20 border-orange-400/40 text-orange-200"
+            : "bg-green-500/20 border-green-400/40 text-green-200"
         }`}
       >
         <span
-          className={`w-1.5 h-1.5 rounded-full ${
-            mode === "learn" ? "bg-orange-400" : "bg-slate-300"
+          className={`w-2 h-2 rounded-full ${
+            mode === "learn" ? "bg-orange-400 animate-pulse" : "bg-green-400"
           }`}
         />
-        {mode === "learn" ? "Learn Mode" : "Predict Mode"}
+        {mode === "learn" ? "Learn Mode Active" : "Predict Mode Active"}
       </div>
 
       {/* Camera */}

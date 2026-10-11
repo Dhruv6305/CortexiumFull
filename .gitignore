@@ -63,3 +63,11 @@ data/sample_videos/*.mp4
 cortexium/session_report_*.pdf
 cortexium/data/debug_crops/
 **/debug_crops/
+
+# Local backups & helper scripts
+backup_modules/
+backup_theme_work/
+powershell.cmd
+**/powershell.cmd
+imagesForReference/
+dashboard/public/media/real-*.png

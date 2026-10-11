@@ -11,7 +11,7 @@ import { Button } from '../components/Button';
  *   - DroidCam:                http://<ip>:4747/video
  *   - RTSP stream:             rtsp://…
  */
-function IPCameraModal({ currentSource, onSave, onClose }) {
+function IPCameraModal({ currentSource, cameraActive, onSave, onClose }) {
   const [value, setValue] = useState(
     // Pre-fill: if current source is a plain integer, show it as-is;
     // if it's a URL, strip to just the host:port for easier editing
@@ -151,7 +151,7 @@ function IPCameraModal({ currentSource, onSave, onClose }) {
             }}
           >
             <Check className="w-3.5 h-3.5" />
-            {saving ? 'Saving…' : 'Save & Reconnect'}
+            {saving ? 'Saving…' : (cameraActive ? 'Save & Reconnect' : 'Save Source')}
           </button>
         </div>
       </div>
@@ -180,17 +180,15 @@ export function Controls({ onAction, mode, cameraActive, cameraSource, onCameraS
     },
     {
       id: 'learn_mode',
-      label: 'Learn Mode',
+      label: isLearn ? 'Learn Mode (Active)' : 'Learn Mode',
       icon: BrainCircuit,
-      variant: isLearn ? 'white' : 'ghost',
-      disabled: isLearn,
+      variant: isLearn ? 'orange' : 'ghost',
     },
     {
       id: 'predict_mode',
-      label: 'Predict Mode',
+      label: !isLearn ? 'Predict Mode (Active)' : 'Predict Mode',
       icon: Activity,
       variant: !isLearn ? 'green' : 'ghost',
-      disabled: !isLearn,
     },
     {
       id: 'reset_learning',
@@ -235,7 +233,7 @@ export function Controls({ onAction, mode, cameraActive, cameraSource, onCameraS
         >
           <Wifi className="w-3.5 h-3.5" />
           IP Camera
-          {cameraSource && cameraSource !== '0' && (
+          {cameraSource && String(cameraSource) !== '0' && (
             <span className="ml-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold"
               style={{ background: 'rgba(34,211,238,0.18)', color: 'rgb(34,211,238)' }}>
               IP
@@ -247,6 +245,7 @@ export function Controls({ onAction, mode, cameraActive, cameraSource, onCameraS
       {showIPModal && (
         <IPCameraModal
           currentSource={cameraSource}
+          cameraActive={cameraActive}
           onSave={onCameraSourceChange}
           onClose={() => setShowIPModal(false)}
         />

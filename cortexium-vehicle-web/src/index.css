@@ -1,105 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,500;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --font-hud: 'Chakra Petch', sans-serif;
-  --font-sans: 'Inter', sans-serif;
-  --color-hud-cyan: #00f0ff;
-  --color-hud-emerald: #10b981;
-  --color-hud-amber: #f59e0b;
-  --color-hud-rose: #f43f5e;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-bg-base: #0b0f17;
+  --color-card-bg: rgba(18, 24, 38, 0.72);
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-accent-teal: #22d3ee;
+  --color-accent-emerald: #34d399;
+  --color-accent-amber: #f59e0b;
+  --color-accent-rose: #f43f5e;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #030712;
+  background-color: var(--color-bg-base);
   color: #f8fafc;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-.font-hud {
-  font-family: var(--font-hud);
-}
-
-/* Glassmorphic Panel Styling */
-.hud-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+/* Calm Glassmorphic Surface */
+.glass-panel {
+  background: rgba(18, 24, 38, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
 }
 
-.hud-panel-alert {
-  background: rgba(153, 27, 27, 0.25);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(244, 63, 94, 0.5);
-  box-shadow: 0 0 20px rgba(244, 63, 94, 0.2);
-}
-
-/* Glowing text & border utils */
-.glow-cyan {
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
-}
-
-.glow-emerald {
-  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-}
-
-.glow-rose {
-  text-shadow: 0 0 12px rgba(244, 63, 94, 0.8);
-}
-
-.border-glow-cyan {
-  border-color: rgba(0, 240, 255, 0.5);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
-}
-
-/* Scanline / HUD grid effects */
-.hud-grid-overlay {
-  background-image: 
-    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
-}
-
-.hud-scanline {
-  position: relative;
-  overflow: hidden;
-}
-
-.hud-scanline::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(0, 240, 255, 0.04) 51%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-}
-
-/* Reticle pulsing animation */
-@keyframes pulse-reticle {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
-}
-
-.animate-reticle {
-  animation: pulse-reticle 2s infinite ease-in-out;
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
 }
 
 /* Custom scrollbars */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.8); }
-::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0, 240, 255, 0.6); }
+::-webkit-scrollbar-track { background: rgba(11, 15, 23, 0.8); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }

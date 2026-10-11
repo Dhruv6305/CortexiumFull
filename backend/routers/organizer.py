@@ -116,13 +116,22 @@ SURFACES = ["dining table", "table", "chair", "couch", "bench", "bed"]
 # ─────────────────────────────────────────────
 class OrganizerState:
     def __init__(self):
-        self.lock = threading.Lock()
-        self.camera_lock = threading.Lock()
+        self.lock = threading.RLock()
+        self.camera_lock = threading.RLock()
         # Camera
         self.camera_active = False
         self.cap: Optional[cv2.VideoCapture] = None
-        # Camera source (mirrors the module-level CAMERA_SOURCE, updated via API)
+        # Camera source (mirrors the module-level CAMERA_SOURCE, or loads from saved camera_config.json)
         self.camera_source: Union[int, str] = CAMERA_SOURCE
+        try:
+            cfg_path = os.path.join(str(_ORGANIZER_DIR), "camera_config.json")
+            if os.path.exists(cfg_path):
+                with open(cfg_path, "r") as f:
+                    saved_s = json.load(f).get("source", "")
+                    if saved_s != "":
+                        self.camera_source = int(saved_s) if str(saved_s).isdigit() else saved_s
+        except Exception:
+            pass
         # Mode
         self.mode = "predict"
         # Model status
@@ -150,8 +159,17 @@ class OrganizerState:
         self.last_jpeg: Optional[bytes] = None
         # Auto-retrain tracking
         self.new_samples_since_retrain: int = 0
-        self.retrain_threshold: int = 5
+        self.retrain_threshold: int = 20
         self.last_retrain_time: str = "Never"
+        self.dataset_size: int = 0
+        self.update_dataset_size()
+
+    def update_dataset_size(self):
+        try:
+            with open(USAGE_DATA_PATH, "r") as f:
+                self.dataset_size = max(0, sum(1 for _ in f) - 1)
+        except Exception:
+            self.dataset_size = 0
 
     def safe_release_camera(self):
         """Thread-safe release of the camera capture to prevent FFmpeg C assertion race conditions."""
@@ -182,8 +200,11 @@ class OrganizerState:
             self.learned_rules = {}
 
     def save_learned_rules(self):
-        with open(LEARNED_RULES_PATH, "w") as f:
-            json.dump(self.learned_rules, f, indent=2)
+        try:
+            with open(LEARNED_RULES_PATH, "w") as f:
+                json.dump(self.learned_rules, f, indent=2)
+        except Exception:
+            pass
 
     def get_snapshot(self) -> dict:
         with self.lock:
@@ -195,6 +216,12 @@ class OrganizerState:
             retrain_threshold = self.retrain_threshold
             last_retrain = self.last_retrain_time
             camera_source = self.camera_source
+            total_relationships = len(self.learned_rules)
+            dataset_size = self.dataset_size
+            curr_mode = self.mode
+            curr_camera_active = self.camera_active
+            curr_model_status = self.model_status
+            surfaces_count = len(self.surface_boxes)
 
         # Strip internal-only fields before sending to frontend
         objects_for_ws = [{k: v for k, v in o.items() if k != "box"} for o in objects]
@@ -211,19 +238,11 @@ class OrganizerState:
                     **{k: v for k, v in o.items() if k != "box"},
                     "recommendedSurface": o.get("predictedSurface", ""),
                     "explanation": (
-                        f"Historical data shows {o.get('name', '')} is usually "
-                        f"placed on the {o.get('predictedSurface', '')}."
+                        f"Learned relationship shows {o.get('name', '')} belongs on "
+                        f"the {o.get('predictedSurface', '')}."
                     ),
                 }
                 break
-
-        total_relationships = len(self.learned_rules)
-        dataset_size = 0
-        try:
-            with open(USAGE_DATA_PATH, "r") as f:
-                dataset_size = max(0, sum(1 for _ in f) - 1)
-        except FileNotFoundError:
-            pass
 
         learning_data = {
             "totalRelationships": total_relationships,
@@ -249,16 +268,20 @@ class OrganizerState:
             "misplacedObject": misplaced_obj,
             "stats": {
                 "totalObjects": len(objects),
-                "totalSurfaces": len(self.surface_boxes),
+                "totalTracked": len(objects),
+                "totalSurfaces": surfaces_count,
                 "correctlyPlaced": correctly_placed,
+                "correctCount": correctly_placed,
                 "misplaced": misplaced,
+                "misplacedCount": misplaced,
                 "fps": round(fps, 1),
                 "inferenceTime": round(inference_ms, 1),
+                "inferenceTimeMs": round(inference_ms, 1),
                 "avgConfidence": avg_conf,
             },
-            "mode": self.mode,
-            "cameraActive": self.camera_active,
-            "modelStatus": self.model_status,
+            "mode": curr_mode,
+            "cameraActive": curr_camera_active,
+            "modelStatus": curr_model_status,
             "activeModel": active_model,
             "learningData": learning_data,
             "metrics": metrics_data,
@@ -364,11 +387,11 @@ def _detector_thread():
 
         if not ret or frame is None:
             consecutive_failures += 1
-            if consecutive_failures >= 30:  # ~3 seconds of failed reads before attempting background reconnect
+            if consecutive_failures >= 60:  # ~6 seconds of failed reads before attempting background reconnect
                 consecutive_failures = 0
                 reconnect_attempts += 1
-                if reconnect_attempts <= 3:
-                    org_state.log_event("warning", f"Camera read stutter. Attempting background reconnect ({reconnect_attempts}/3)...")
+                if reconnect_attempts <= 5:
+                    org_state.log_event("warning", f"Camera read stutter. Attempting background reconnect ({reconnect_attempts}/5)...")
                     with org_state.camera_lock:
                         if org_state.cap is not None:
                             try:
@@ -377,6 +400,8 @@ def _detector_thread():
                                 pass
                             org_state.cap = None
                         source = org_state.camera_source
+                        if isinstance(source, str) and (source.startswith("http://") or source.startswith("https://") or source.startswith("rtsp://")):
+                            os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "timeout;8000000|stimeout;8000000|rtsp_transport;tcp"
                         new_cap = cv2.VideoCapture(source)
                         if not isinstance(source, str) or not (source.startswith("http://") or source.startswith("https://")):
                             new_cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -449,6 +474,11 @@ def _detector_thread():
             else:
                 surface_boxes = dict(org_state.last_surface_boxes)
 
+        # Default workspace surface: if no explicit surface was detected (or no "table"),
+        # provide a fallback "table" covering the lower 75% of the frame (desk surface)
+        if not surface_boxes or "table" not in surface_boxes:
+            surface_boxes["table"] = (0, int(h * 0.25), w, h)
+
         # ── Parse objects (non-surfaces) ──
         for r in results:
             for box in r.boxes:
@@ -462,33 +492,55 @@ def _detector_thread():
 
                 obj_box = (x1, y1, x2, y2)
 
-                # Determine current surface (best overlap)
+                # Determine current surface: check specific furniture first, then workspace table
                 current_surface = None
                 best_overlap = 0.0
                 for sname, sbox in surface_boxes.items():
+                    if sname == "table" and sbox == (0, int(h * 0.25), w, h):
+                        continue
                     ov = overlap_ratio(obj_box, sbox)
-                    if ov > best_overlap:
+                    if ov > 0.15 and ov > best_overlap:
                         best_overlap = ov
                         current_surface = sname
 
+                # If not inside any detected furniture, check workspace table
+                if current_surface is None and "table" in surface_boxes:
+                    table_box = surface_boxes["table"]
+                    if overlap_ratio(obj_box, table_box) > 0.15:
+                        current_surface = "table"
+
                 # ── Learn mode: record this placement ──
                 if mode == "learn" and current_surface is not None:
+                    rule_changed = False
                     with org_state.lock:
-                        org_state.learned_rules[label] = current_surface
+                        prev_rule = org_state.learned_rules.get(label)
+                        if prev_rule != current_surface:
+                            rule_changed = True
+                            org_state.learned_rules[label] = current_surface
+                            learned_rules[label] = current_surface
+
+                    if rule_changed:
                         org_state.save_learned_rules()
+                        org_state.log_event("success", f"Learned rule: {label} belongs on {current_surface}")
+
+                    # Throttle disk sample logging to rule changes and every 15 frames (~0.5s)
+                    if rule_changed or (fc % 15 == 0):
                         try:
+                            sbox_to_log = surface_boxes.get(current_surface, (0, int(h * 0.25), w, h))
                             org_state.data_collector.log_sample(
                                 label,
                                 current_surface,
                                 obj_box,
-                                surface_boxes[current_surface],
+                                sbox_to_log,
                                 det_conf,
                                 frame.shape[:2],
                                 is_positive=True,
                             )
-                            org_state.new_samples_since_retrain += 1
-                        except Exception as _le:
-                            print(f"[OrgDetector] log_sample error: {_le}")
+                            with org_state.lock:
+                                org_state.new_samples_since_retrain += 1
+                                org_state.dataset_size += 1
+                        except Exception:
+                            pass
 
                         # Negative samples for other surfaces
                         for other_name, other_box in surface_boxes.items():
@@ -506,11 +558,14 @@ def _detector_thread():
                                 except Exception:
                                     pass
 
-                        # Auto-retrain check
-                        should_retrain = (
+                    # Auto-retrain check
+                    should_retrain = False
+                    with org_state.lock:
+                        if (
                             org_state.new_samples_since_retrain >= org_state.retrain_threshold
                             and org_state.model_status == "Ready"
-                        )
+                        ):
+                            should_retrain = True
                     if should_retrain:
                         org_state.log_event(
                             "info",
@@ -518,11 +573,7 @@ def _detector_thread():
                         )
                         _trigger_retrain()
 
-                # FIX Bug 2: use four-tier prediction logic matching server.py
-                # TIER 1: learned_rule       — user-observed placements
-                # TIER 2: personalized_model — CatBoost trained on usage_data.csv
-                # TIER 3: baseline_model     — immutable CatBoost (Visual Genome)
-                # TIER 4: default_rule       — hardcoded fallback table
+                # ── Predict expected surface (four-tier priority) ──
                 expected_surface = None
                 prediction_source = "default_rule"
 
@@ -540,8 +591,8 @@ def _detector_thread():
                         if predicted is not None:
                             expected_surface = predicted
                             prediction_source = "personalized_model"
-                    except Exception as _pe:
-                        print(f"[OrgDetector] personalized predict error: {_pe}")
+                    except Exception:
+                        pass
 
                 # Tier 3 — CatBoost baseline (static general knowledge)
                 if expected_surface is None and org_state.baseline_predictor.is_loaded and surface_boxes:
@@ -552,35 +603,36 @@ def _detector_thread():
                         if predicted is not None:
                             expected_surface = predicted
                             prediction_source = "baseline_model"
-                    except Exception as _be:
-                        print(f"[OrgDetector] baseline predict error: {_be}")
+                    except Exception:
+                        pass
 
                 # Tier 4 — hardcoded DEFAULT_RULES
                 if expected_surface is None:
-                    expected_surface = DEFAULT_RULES.get(label)
-                    if expected_surface:
-                        prediction_source = "default_rule"
+                    expected_surface = DEFAULT_RULES.get(label, "table")
+                    prediction_source = "default_rule"
 
                 # ── Determine placement status ──
                 is_correct = False
-                if expected_surface and expected_surface in surface_boxes:
-                    if overlap_ratio(obj_box, surface_boxes[expected_surface]) > 0.3:
-                        is_correct = True
+                if mode == "learn":
+                    is_correct = True
                 elif expected_surface and current_surface == expected_surface:
                     is_correct = True
+                elif expected_surface and expected_surface in surface_boxes:
+                    if overlap_ratio(obj_box, surface_boxes[expected_surface]) > 0.15:
+                        is_correct = True
 
                 detected.append({
                     "name": label,
                     "confidence": round(det_conf, 3),
-                    "currentSurface": current_surface or "Unknown",
-                    "predictedSurface": expected_surface or "Unknown",
+                    "currentSurface": current_surface or "unknown",
+                    "predictedSurface": expected_surface or "table",
                     "status": "Correct" if is_correct else "Misplaced",
                     "predictionSource": prediction_source,
                     "box": (x1, y1, x2, y2),
                 })
 
-                # Log misplacement event
-                if not is_correct and expected_surface:
+                # Log misplacement event (only in predict mode)
+                if not is_correct and expected_surface and mode != "learn":
                     org_state.log_event(
                         "warning",
                         f"{label} detected on {current_surface or 'unknown'} "
@@ -597,6 +649,8 @@ def _detector_thread():
         # ── Draw annotations ──
         annotated = frame.copy()
         for sname, sbox in surface_boxes.items():
+            if sname == "table" and sbox == (0, int(h * 0.25), w, h):
+                continue
             cv2.rectangle(annotated, sbox[:2], sbox[2:], (255, 255, 0), 2)
             cv2.putText(annotated, f"[{sname}]", (sbox[0], max(sbox[1] - 4, 12)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2)
@@ -607,9 +661,13 @@ def _detector_thread():
                 continue
             bx1, by1, bx2, by2 = box
             color = (0, 255, 0) if obj["status"] == "Correct" else (0, 0, 255)
+            if mode == "learn":
+                color = (0, 200, 255)  # Cyan/Amber during learn mode
             cv2.rectangle(annotated, (bx1, by1), (bx2, by2), color, 2)
             src_tag = obj.get("predictionSource", "")[:3].upper()
-            tag = (f"{obj['name']} OK [{src_tag}]"
+            tag = (f"{obj['name']} [LEARN->{obj['currentSurface']}]"
+                   if mode == "learn"
+                   else f"{obj['name']} OK [{src_tag}]"
                    if obj["status"] == "Correct"
                    else f"{obj['name']}->{obj['predictedSurface']} [{src_tag}]")
             tag_y = max(by1 - 6, 12)
@@ -618,10 +676,7 @@ def _detector_thread():
             cv2.putText(annotated, tag, (bx1 + 1, tag_y),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1)
 
-        with org_state.lock:
-            mode_copy = org_state.mode
-
-        cv2.putText(annotated, f"MODE: {mode_copy.upper()}", (10, 25),
+        cv2.putText(annotated, f"MODE: {mode.upper()}", (10, 25),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
         cv2.putText(annotated, f"FPS: {fps:.1f}", (10, 50),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), 1)
@@ -631,22 +686,10 @@ def _detector_thread():
             with org_state.lock:
                 org_state.last_jpeg = buf.tobytes()
 
-        # ── Broadcast via WebSocket ──
+        # ── Broadcast full live snapshot via WebSocket ──
         if org_state.ws_clients and MAIN_EVENT_LOOP:
-            payload = {
-                "type": "frame",
-                "objects": detected,
-                "surfaceBoxes": {k: list(v) for k, v in surface_boxes.items()},
-                "fps": round(fps, 1),
-                "mode": mode_copy,
-                "stats": {
-                    "totalTracked": len(detected),
-                    "misplacedCount": sum(1 for o in detected if o["status"] == "Misplaced"),
-                    "correctCount": sum(1 for o in detected if o["status"] == "Correct"),
-                    "inferenceTimeMs": round(inference_ms, 1),
-                },
-            }
-            asyncio.run_coroutine_threadsafe(_org_broadcast(payload), MAIN_EVENT_LOOP)
+            snapshot = org_state.get_snapshot()
+            asyncio.run_coroutine_threadsafe(_org_broadcast(snapshot), MAIN_EVENT_LOOP)
 
         time.sleep(0.03)  # cap loop at ~30 fps
 
@@ -754,6 +797,17 @@ async def org_set_camera_source(body: dict):
         new_source: Union[int, str] = int(raw)
     else:
         new_source = raw
+        # If user entered an IP address like "192.168.1.100:8080" without http://, prepend http://
+        if not (new_source.startswith("http://") or new_source.startswith("https://") or new_source.startswith("rtsp://")):
+            if ":" in new_source and not os.path.exists(new_source):
+                new_source = f"http://{new_source}"
+
+        # If it is an HTTP/HTTPS stream URL without a video path endpoint, auto-append /video
+        if new_source.startswith("http://") or new_source.startswith("https://"):
+            url_clean = new_source.rstrip("/")
+            url_lower = url_clean.lower()
+            if not any(url_lower.endswith(ep) for ep in ("/video", "/videofeed", "/mjpegfeed", ".mjpg", ".mjpeg")):
+                new_source = f"{url_clean}/video"
 
     with org_state.lock:
         was_running = org_state.camera_active
@@ -765,19 +819,35 @@ async def org_set_camera_source(body: dict):
     global CAMERA_SOURCE
     CAMERA_SOURCE = new_source
 
-    # Auto-reconnect if camera was running or auto_start requested
-    if was_running or body.get("auto_start", True):
+    # Persist camera source to disk so it survives restarts
+    try:
+        with open(CAMERA_CONFIG_PATH, "w") as f:
+            json.dump({"source": str(new_source)}, f)
+    except Exception:
+        pass
+
+    # Auto-reconnect ONLY if camera was already running, or if auto_start was explicitly requested as true
+    should_auto_start = was_running or body.get("auto_start") is True
+    if should_auto_start:
         res = org_start_camera()
         if isinstance(res, JSONResponse):
             return res
         return {
             "status": "ok",
             "source": str(new_source),
-            "was_running": True,
+            "was_running": was_running,
             "message": f"Camera source updated to {new_source} and reconnected successfully.",
         }
 
     org_state.log_event("info", f"Camera source updated to: {new_source}")
+
+    # Broadcast updated source to WebSocket clients immediately
+    if MAIN_EVENT_LOOP and MAIN_EVENT_LOOP.is_running():
+        try:
+            asyncio.run_coroutine_threadsafe(_org_broadcast(org_state.get_snapshot()), MAIN_EVENT_LOOP)
+        except Exception:
+            pass
+
     return {
         "status": "ok",
         "source": str(new_source),
@@ -790,23 +860,45 @@ async def org_set_camera_source(body: dict):
 def org_start_camera():
     """Open the camera capture (local webcam or IP camera URL)."""
     with org_state.camera_lock:
-        if org_state.camera_active and org_state.cap is not None and org_state.cap.isOpened():
-            return {"status": "already_running", "message": "Camera is already active."}
-
-        source = org_state.camera_source
-
-        # For IP/RTSP streams, configure FFmpeg timeouts so connection attempts fail fast (3s) instead of blocking for 60s
-        if isinstance(source, str) and (source.startswith("http://") or source.startswith("https://") or source.startswith("rtsp://")):
-            os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "timeout;3000000|stimeout;3000000|rtsp_transport;tcp"
-
+        # If camera was previously running or open, cleanly release it first to ensure a fresh connection
         if org_state.cap is not None:
             try:
                 org_state.cap.release()
             except Exception:
                 pass
             org_state.cap = None
+        org_state.camera_active = False
 
-        cap = cv2.VideoCapture(source)
+        source = org_state.camera_source
+
+        # Ensure source is normalized if it is a string URL
+        if isinstance(source, str) and not source.isdigit():
+            # If user entered an IP address like "192.168.1.100:8080" without http://, prepend http://
+            if not (source.startswith("http://") or source.startswith("https://") or source.startswith("rtsp://")):
+                if ":" in source and not os.path.exists(source):
+                    source = f"http://{source}"
+
+            # If it is an HTTP/HTTPS stream URL without a video path endpoint, auto-append /video
+            if source.startswith("http://") or source.startswith("https://"):
+                url_clean = source.rstrip("/")
+                url_lower = url_clean.lower()
+                if not any(url_lower.endswith(ep) for ep in ("/video", "/videofeed", "/mjpegfeed", ".mjpg", ".mjpeg")):
+                    source = f"{url_clean}/video"
+
+            org_state.camera_source = source
+
+        # For IP/RTSP streams, configure FFmpeg timeouts (8s) so connection attempts don't fail on brief Wi-Fi jitter
+        if isinstance(source, str) and (source.startswith("http://") or source.startswith("https://") or source.startswith("rtsp://")):
+            os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "timeout;8000000|stimeout;8000000|rtsp_transport;tcp"
+
+        if isinstance(source, int) or (isinstance(source, str) and source.isdigit()):
+            cam_idx = int(source)
+            cap = cv2.VideoCapture(cam_idx, cv2.CAP_DSHOW)
+            if not cap.isOpened():
+                cap = cv2.VideoCapture(cam_idx)
+        else:
+            cap = cv2.VideoCapture(source)
+
         if not isinstance(source, str) or not (source.startswith("http://") or source.startswith("https://")):
             cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
@@ -821,18 +913,25 @@ def org_start_camera():
                     "message": (
                         f"Cannot open camera source: {source!r}. "
                         "For local webcam: make sure it is connected. "
-                        "For IP camera: check the IP address, ensure phone/device is on the same network, "
-                        "and that IP Webcam app is running."
+                        "For IP camera: check the IP address, ensure phone is on the same network, "
+                        "and that the IP Webcam app is running ('Start server')."
                     ),
                 },
             )
 
         org_state.cap = cap
         org_state.camera_active = True
+        with org_state.lock:
+            org_state.last_jpeg = None
 
     source_label = f"index {source}" if isinstance(source, int) else f"IP stream {source}"
     org_state.log_event("success", f"Camera connected ({source_label}).")
-    return {"status": "ok", "message": f"Camera started ({source_label})."}
+
+    # Broadcast immediately so WebSocket clients don't have to wait up to 2 seconds
+    if MAIN_EVENT_LOOP and MAIN_EVENT_LOOP.is_running():
+        asyncio.run_coroutine_threadsafe(_org_broadcast(org_state.get_snapshot()), MAIN_EVENT_LOOP)
+
+    return {"status": "ok", "message": f"Camera started ({source_label}).", "source": str(source)}
 
 
 @router.post("/camera/stop")
@@ -842,8 +941,14 @@ def org_stop_camera():
     with org_state.lock:
         org_state.detected_objects = []
         org_state.surface_boxes = {}
+        org_state.last_jpeg = None
 
     org_state.log_event("info", "Camera stopped.")
+
+    # Broadcast immediately
+    if MAIN_EVENT_LOOP and MAIN_EVENT_LOOP.is_running():
+        asyncio.run_coroutine_threadsafe(_org_broadcast(org_state.get_snapshot()), MAIN_EVENT_LOOP)
+
     return {"status": "ok", "message": "Camera stopped."}
 
 
@@ -894,9 +999,17 @@ async def org_set_mode(body: dict):
 
     with org_state.lock:
         org_state.mode = new_mode
+        org_state.load_learned_rules()
 
     org_state.log_event("info", f"Mode switched to: {new_mode.upper()}")
-    return {"status": "ok", "mode": new_mode}
+
+    # Broadcast immediately to all connected clients
+    try:
+        await _org_broadcast(org_state.get_snapshot())
+    except Exception:
+        pass
+
+    return {"status": "ok", "mode": new_mode, "learnedRulesCount": len(org_state.learned_rules)}
 
 
 @router.post("/retrain")
@@ -934,6 +1047,14 @@ def org_reset_learning():
             pass
 
     org_state.log_event("info", "Learning reset. Baseline model active.")
+
+    # Broadcast immediately to all connected clients
+    if MAIN_EVENT_LOOP and MAIN_EVENT_LOOP.is_running():
+        try:
+            asyncio.run_coroutine_threadsafe(_org_broadcast(org_state.get_snapshot()), MAIN_EVENT_LOOP)
+        except Exception:
+            pass
+
     return {"status": "ok", "message": "Learned rules cleared. Baseline model active."}
 
 

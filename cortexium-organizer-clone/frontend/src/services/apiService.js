@@ -28,8 +28,22 @@ export const api = {
   },
 
   // Camera controls
-  startCamera:   () => fetch(`${BASE}/camera/start`, { method: 'POST' }).then(r => r.json()),
-  stopCamera:    () => fetch(`${BASE}/camera/stop`,  { method: 'POST' }).then(r => r.json()),
+  startCamera: async () => {
+    const res = await fetch(`${BASE}/camera/start`, { method: 'POST' });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.status === 'error') {
+      throw new Error(data.message || data.error || `Failed to start camera (HTTP ${res.status})`);
+    }
+    return data;
+  },
+  stopCamera: async () => {
+    const res = await fetch(`${BASE}/camera/stop`, { method: 'POST' });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.status === 'error') {
+      throw new Error(data.message || data.error || `Failed to stop camera (HTTP ${res.status})`);
+    }
+    return data;
+  },
 
   // IP Camera source management
   getCameraSource: () =>
@@ -43,11 +57,18 @@ export const api = {
     }).then(r => r.json()),
 
   // Mode switching
-  setMode: (mode) => fetch(`${BASE}/mode`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ mode }),
-  }).then(r => r.json()),
+  setMode: async (mode) => {
+    const res = await fetch(`${BASE}/mode`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mode }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.status === 'error') {
+      throw new Error(data.error || `Failed to set mode to ${mode}`);
+    }
+    return data;
+  },
 
   // Learning controls
   retrainModel:  () => fetch(`${BASE}/retrain`, { method: 'POST' }).then(r => r.json()),
@@ -98,19 +119,19 @@ export function useLiveStream() {
     ws.onmessage = (e) => {
       try {
         const d = JSON.parse(e.data);
-        setData({
-          objects:         d.objects         ?? [],
-          events:          d.events          ?? [],
-          misplacedObject: d.misplacedObject ?? null,
-          mode:            d.mode            ?? 'predict',
-          cameraActive:    d.cameraActive    ?? false,
-          modelStatus:     d.modelStatus     ?? 'Ready',
-          activeModel:     d.activeModel     ?? 'baseline_model',
-          stats:           d.stats           ?? DEFAULT_STATE.stats,
-          learningData:    d.learningData    ?? null,
-          metrics:         d.metrics         ?? null,
-          cameraSource:    d.cameraSource    ?? '0',
-        });
+        setData((prev) => ({
+          objects:         d.objects         ?? prev.objects,
+          events:          d.events          ?? prev.events,
+          misplacedObject: d.misplacedObject !== undefined ? d.misplacedObject : prev.misplacedObject,
+          mode:            d.mode            ?? prev.mode,
+          cameraActive:    d.cameraActive    !== undefined ? d.cameraActive : prev.cameraActive,
+          modelStatus:     d.modelStatus     ?? prev.modelStatus,
+          activeModel:     d.activeModel     ?? prev.activeModel,
+          stats:           d.stats           ?? prev.stats,
+          learningData:    d.learningData    !== undefined ? d.learningData : prev.learningData,
+          metrics:         d.metrics         !== undefined ? d.metrics : prev.metrics,
+          cameraSource:    d.cameraSource    ?? prev.cameraSource,
+        }));
       } catch { /* ignore */ }
     };
 

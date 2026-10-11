@@ -1,0 +1,77 @@
+{
+  "session_id": "session_1791731307035",
+  "started_at": 1791711508.370743,
+  "ended_at": 1791711616.276742,
+  "total_events": 12,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "clock"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "36f4ff42-fae8-4a01-8d44-e3d132f8cea1",
+      "person_name": "Dhruv",
+      "session_id": "session_1791731307035",
+      "timestamp": 1791731308.909,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e00d47c1-3a6d-42e5-98aa-9f7fb61272f4",
+      "person_name": "Dhruv",
+      "session_id": "session_1791731307035",
+      "timestamp": 1791731308.608,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "db7fafb6-12c0-49ec-aebf-bcc75865a2f6",
+      "person_name": "Dhruv",
+      "session_id": "session_1791731307035",
+      "timestamp": 1791731309.214,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "175be864-1506-4ac1-bf15-48cadfe3ec52",
+      "person_name": "Dhruv",
+      "session_id": "session_1791731307035",
+      "timestamp": 1791731308.307,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "76aa1ddc-35d1-4d4b-bfd4-6bd94fd643c3",
+      "person_name": "Dhruv",
+      "session_id": "session_1791731307035",
+      "timestamp": 1791731309.491,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "251bb08d-4e78-46f7-8afb-234e3526ec4a",
+      "person_name": "Dhruv",
+      "session_id": "session_1791731307035",
+      "timestamp": 1791731309.886,
+      "emotion": null,
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-11T15:09:06.869294",
+      "speaker": "Unknown",
+      "text": "hey can you recognise me",
+      "emotion": "neutral"
+    }
+  ]
+}
