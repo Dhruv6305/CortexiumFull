@@ -17,7 +17,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 
-from ..ai.llm_client import llm_client
+from ..ai.llm_client import llm_client, is_valid_person_name
 from ..auth.supabase_auth import get_current_user
 from ..routers.ws_hub import connection_manager
 from ..core.session_manager import session_manager
@@ -60,16 +60,20 @@ async def process_transcription(data: TranscriptionData, current_user=Depends(ge
     to the current session only.
     """
     system_prompt = (
-        "You are the Cortexium 2.0 NLP engine. "
+        "You are the Cortexium 2.0 NLP engine.\n"
         "Analyze the transcription and return ONLY a JSON object with these fields:\n"
-        '- "name": string or null — person name if someone is introducing themselves\n'
+        '- "name": string or null — person name IF AND ONLY IF a human is explicitly introducing themselves by their personal name (e.g. "My name is Sarah", "Call me Alex").\n'
         '- "intent": string or null — one of: "navigation", "question", "greeting", "registration", "other"\n'
-        '- "confidence": float 0-1 — your confidence in the name extraction\n'
+        '- "confidence": float 0-1 — confidence in the name extraction\n\n'
+        "CRITICAL RULES:\n"
+        "- NEVER extract names from questions, conversational statements, or status remarks (e.g. 'is this working good', 'this is working', 'I am doing well', 'this is great'). For all of these, 'name' MUST BE null.\n"
+        "- Words like 'Working', 'Good', 'Fine', 'Great', 'Testing', 'Cool', 'Test' are NEVER names.\n\n"
         "Examples:\n"
         "'I am John' -> {\"name\": \"John\", \"intent\": \"greeting\", \"confidence\": 0.95}\n"
-        "'Hello, my name is Dr. Sarah' -> {\"name\": \"Sarah\", \"intent\": \"greeting\", \"confidence\": 0.9}\n"
+        "'Hello, my name is Dr. Sarah' -> {\"name\": \"Sarah\", \"intent\": \"greeting\", \"confidence\": 0.95}\n"
+        "'Is this working good' -> {\"name\": null, \"intent\": \"question\", \"confidence\": 0.0}\n"
+        "'This is working good' -> {\"name\": null, \"intent\": \"other\", \"confidence\": 0.0}\n"
         "'The weather is nice' -> {\"name\": null, \"intent\": \"other\", \"confidence\": 0.0}\n"
-        "'Let\\'s go to the library' -> {\"name\": null, \"intent\": \"navigation\", \"confidence\": 0.85}\n"
         "Return ONLY the JSON object, no additional text."
     )
 
@@ -91,6 +95,11 @@ async def process_transcription(data: TranscriptionData, current_user=Depends(ge
     except Exception as e:
         print(f"[Audio] LLM parse error: {e}. Raw: {response_text}")
 
+    # Validate that extracted name is a genuine human name
+    if extracted_name and not is_valid_person_name(extracted_name, data.text):
+        print(f"[Audio] Filtered out invalid name candidate '{extracted_name}' from input: '{data.text}'")
+        extracted_name = None
+
     # ── Build the full list of persons to save to ────────────────────────────
     # Merge multi-person list + legacy single-person field, deduplicated
     all_persons: List[str] = []
@@ -104,26 +113,31 @@ async def process_transcription(data: TranscriptionData, current_user=Depends(ge
         all_persons.append(data.detected_person.strip())
 
     # If an introduction name was extracted, auto-register camera face image and notify WS
-    if extracted_name:
-        try:
-            from ..cv.model_loader import model_loader
-            latest = getattr(model_loader, "latest_frame", None)
-            if latest is not None:
-                print(f"[Audio] Auto-registering camera face image for voice intro '{extracted_name}'")
-                reg_res = model_loader.register_person(latest, extracted_name)
-                if reg_res.get("success"):
-                    await connection_manager.broadcast({
-                        "event_type": "person_registered",
-                        "timestamp": datetime.utcnow().timestamp(),
-                        "session_id": data.session_id,
-                        "data": {"name": extracted_name},
-                    })
-        except Exception as err:
-            print(f"[Audio] Failed to auto-register face image for '{extracted_name}': {err}")
-
-    # If an introduction name was extracted and no face is recognized yet, use it
-    if extracted_name and not all_persons:
-        all_persons.append(extracted_name)
+    # CRITICAL: ONLY auto-register if:
+    # 1. We have a valid human name candidate with high confidence (>= 0.85)
+    # 2. Intent is explicit greeting or registration
+    # 3. AND NO KNOWN PERSON IS ALREADY DETECTED! If someone is already recognized in frame,
+    #    their speech must NEVER auto-register a new person!
+    if extracted_name and confidence >= 0.85 and intent in ("registration", "greeting"):
+        if not all_persons:
+            try:
+                from ..cv.model_loader import model_loader
+                latest = getattr(model_loader, "latest_frame", None)
+                if latest is not None:
+                    print(f"[Audio] Auto-registering camera face image for voice intro '{extracted_name}'")
+                    reg_res = model_loader.register_person(latest, extracted_name)
+                    if reg_res.get("success"):
+                        all_persons.append(extracted_name)
+                        await connection_manager.broadcast({
+                            "event_type": "person_registered",
+                            "timestamp": datetime.utcnow().timestamp(),
+                            "session_id": data.session_id,
+                            "data": {"name": extracted_name},
+                        })
+            except Exception as err:
+                print(f"[Audio] Failed to auto-register face image for '{extracted_name}': {err}")
+    else:
+        extracted_name = None
 
     # ── Session fallback if face detection flickered during speech ───────────
     if not all_persons and data.session_id:

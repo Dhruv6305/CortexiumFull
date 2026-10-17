@@ -1,0 +1,52 @@
+{
+  "session_id": "session_1791745055513",
+  "started_at": 1791725257.373567,
+  "ended_at": null,
+  "total_events": 4,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "3c1f09f1-977f-4521-852c-ab40167122b0",
+      "person_name": "Dhruv",
+      "session_id": "session_1791745055513",
+      "timestamp": 1791745057.326,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "8ee9370e-bda5-4c5f-a6b2-4c3f01397f31",
+      "person_name": "Dhruv",
+      "session_id": "session_1791745055513",
+      "timestamp": 1791745061.414,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-11T18:57:52.709885",
+      "speaker": "Dhruv",
+      "text": "hello how r u",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T18:57:52.775492",
+      "speaker": "Dhruv",
+      "text": "hello",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T18:57:52.931484",
+      "speaker": "Dhruv",
+      "text": "turant capture kar raha hai dekh",
+      "emotion": "sad"
+    }
+  ]
+}

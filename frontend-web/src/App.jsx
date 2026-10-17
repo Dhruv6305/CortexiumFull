@@ -17,7 +17,8 @@ import {
   AlertCircle, Settings, Bell, Waves, User, Clock, Globe, Database,
   MessageSquare, TrendingUp, AlertTriangle, Wifi, WifiOff, RefreshCw,
   Terminal, ChevronRight, Sparkles, BarChart3, Play, StopCircle,
-  History, ChevronDown, ChevronUp, Scan, ScanFace, Signal, FileText, X
+  History, ChevronDown, ChevronUp, Scan, ScanFace, Signal, FileText, X,
+  FlipHorizontal
 } from 'lucide-react'
 import PeopleDB from './PeopleDB.jsx'
 import CollapsibleNavbar from './CollapsibleNavbar.jsx'
@@ -434,6 +435,10 @@ export default function App() {
   // Conversation overlay — triggered by voice command (face-anchored)
   // { personName, summary, lastSeen, role, sessionCount, loading } | null
   const [faceCard, setFaceCard] = useState(null)
+  const [isMirrored, setIsMirrored] = useState(true)
+  const isMirroredRef = useRef(true)
+  useEffect(() => { isMirroredRef.current = isMirrored }, [isMirrored])
+  const inFlightRef = useRef(false)
 
   // ── Refs ──
   const videoRef = useRef(null)
@@ -509,6 +514,78 @@ export default function App() {
     return () => { clearTimeout(reconnectTimer); wsRef.current?.close() }
   }, [])
 
+  const handleRecognizedPersons = useCallback((persons) => {
+    (persons || []).forEach(p => {
+      if (p.name && !seenPersonsThisSession.current.has(p.name)) {
+        seenPersonsThisSession.current.add(p.name)
+        // Instant visual feedback: show face card immediately with loading state
+        setFaceCard(prev => {
+          if (prev && prev.personName === p.name) return prev
+          return {
+            personName: p.name,
+            summary: `Retrieving background and past session summary for ${p.name}...`,
+            loading: true,
+            mode: 'previous',
+            autoShown: true,
+          }
+        })
+        const sid = sessionId.current
+        fetch(`${API}/api/persons/${encodeURIComponent(p.name)}/last-session?session_id=${sid}`)
+          .then(r => r.ok ? r.json() : null)
+          .then(async data => {
+            if (data?.found && data.summary) {
+              setFaceCard({
+                personName: p.name,
+                summary: data.summary,
+                sessionCode: data.session_code,
+                date: data.date,
+                startedAt: data.started_at,
+                loading: false,
+                mode: 'previous',
+                autoShown: true,
+              })
+            } else {
+              // Fallback: fetch person profile summary
+              try {
+                const sumRes = await fetch(`${API}/api/persons/${encodeURIComponent(p.name)}/summary`)
+                const sumData = await sumRes.json()
+                if (sumData?.summary) {
+                  setFaceCard({
+                    personName: p.name,
+                    summary: sumData.summary,
+                    sessionCode: null,
+                    date: sumData.last_seen_str || 'Recently',
+                    loading: false,
+                    mode: 'previous',
+                    autoShown: true,
+                  })
+                  return
+                }
+              } catch { /* ok */ }
+              setFaceCard({
+                personName: p.name,
+                summary: `Recognized ${p.name} from database. Ready to record conversation for this session.`,
+                sessionCode: null,
+                loading: false,
+                mode: 'current',
+                autoShown: true,
+              })
+            }
+          })
+          .catch(() => {
+            setFaceCard({
+              personName: p.name,
+              summary: `Recognized ${p.name} from database.`,
+              sessionCode: null,
+              loading: false,
+              mode: 'current',
+              autoShown: true,
+            })
+          })
+      }
+    })
+  }, [])
+
   const handleWSEvent = useCallback((event) => {
     switch (event.event_type) {
       case 'frame_processed': {
@@ -527,34 +604,7 @@ export default function App() {
             return { ...p, emotion: matched?.dominant_emotion || null }
           })
           setDetectedPersons(enriched)
-          // ── Auto-fetch previous session on FIRST recognition this session ──
-          enriched.forEach(p => {
-            if (p.name && !seenPersonsThisSession.current.has(p.name)) {
-              seenPersonsThisSession.current.add(p.name)
-              // Quietly fetch their last completed session summary for context
-              fetch(`${API}/api/persons/${encodeURIComponent(p.name)}/last-session?session_id=${sessionId.current}`)
-                .then(r => r.ok ? r.json() : null)
-                .then(data => {
-                  if (data?.found && data.summary) {
-                    setFaceCard(prev => {
-                      // Only auto-show if no card is already open
-                      if (prev) return prev
-                      return {
-                        personName: p.name,
-                        summary: data.summary,
-                        sessionCode: data.session_code,
-                        date: data.date,
-                        startedAt: data.started_at,
-                        loading: false,
-                        mode: 'previous',  // flag as previous-session context
-                        autoShown: true,
-                      }
-                    })
-                  }
-                })
-                .catch(() => { /* silent — non-critical */ })
-            }
-          })
+          handleRecognizedPersons(enriched)
         } else if (d.identity) {
           // Legacy fallback: single identity
           const name = d.identity
@@ -681,26 +731,37 @@ export default function App() {
 
   const captureFrame = useCallback(async () => {
     if (!videoRef.current || !canvasRef.current || !backendOnline || !sessionStarted) return
+    if (inFlightRef.current) return  // Drop tick if previous frame is still processing!
+
     const video = videoRef.current
     const canvas = canvasRef.current
     if (video.readyState < video.HAVE_ENOUGH_DATA) return
 
-    const ctx = canvas.getContext('2d')
-    canvas.width = video.videoWidth || 320
-    canvas.height = video.videoHeight || 240
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    const frame_b64 = canvas.toDataURL('image/jpeg', 0.7)
-
-    frameCountRef.current++
-    const now = Date.now()
-    if (now - lastFpsUpdate.current > 1000) {
-      setFrameRate(Math.round(frameCountRef.current * 1000 / (now - lastFpsUpdate.current)))
-      frameCountRef.current = 0
-      lastFpsUpdate.current = now
-    }
-
+    inFlightRef.current = true
     try {
-      await fetch(`${API}/api/vision/frame`, {
+      const ctx = canvas.getContext('2d')
+      // ── Downscale to max 480×270 for fast encode + lower backend load ──
+      // Full resolution (1280×720) creates a ~50KB JPEG and takes ~300ms round-trip.
+      // At 480×270 the JPEG is ~10KB, backend sees the same face at adequate detail,
+      // and effective FPS roughly doubles (backend is the bottleneck, not capture speed).
+      const srcW = video.videoWidth  || 640
+      const srcH = video.videoHeight || 480
+      const MAX_DIM = 480
+      const scale = Math.min(1.0, MAX_DIM / Math.max(srcW, srcH))
+      canvas.width  = Math.round(srcW * scale)
+      canvas.height = Math.round(srcH * scale)
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+      const frame_b64 = canvas.toDataURL('image/jpeg', 0.65)
+
+      frameCountRef.current++
+      const now = Date.now()
+      if (now - lastFpsUpdate.current > 1000) {
+        setFrameRate(Math.round(frameCountRef.current * 1000 / (now - lastFpsUpdate.current)))
+        frameCountRef.current = 0
+        lastFpsUpdate.current = now
+      }
+
+      const res = await fetch(`${API}/api/vision/frame`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -709,16 +770,51 @@ export default function App() {
           timestamp: Date.now() / 1000,
           name: pendingName || undefined,
         }),
-        signal: AbortSignal.timeout(4000),
+        signal: AbortSignal.timeout(3500),
       })
+      if (res.ok) {
+        const d = await res.json()
+        if (d.detected_objects) setDetectedObjects(d.detected_objects)
+        if (d.face_analysis) setFaceAnalysis(d.face_analysis)
+        if (d.persons !== undefined) {
+          const enriched = (d.persons || []).map(p => {
+            const matched = (d.face_analysis || []).find(f => {
+              if (!f.region || !p.region) return false
+              // Scale coordinates back to video dimensions for overlay rendering
+              const px = p.region.x / scale
+              const py = p.region.y / scale
+              const fx = f.region.x / scale
+              const fy = f.region.y / scale
+              const dx = Math.abs((fx + f.region.w / scale / 2) - (px + p.region.w / scale / 2))
+              const dy = Math.abs((fy + f.region.h / scale / 2) - (py + p.region.h / scale / 2))
+              return dx < 80 && dy < 80
+            })
+            // Scale regions back up to original video resolution for correct overlay positioning
+            const scaleRegion = (r) => r ? { x: Math.round(r.x / scale), y: Math.round(r.y / scale), w: Math.round(r.w / scale), h: Math.round(r.h / scale) } : r
+            return { ...p, region: scaleRegion(p.region), emotion: matched?.dominant_emotion || null }
+          })
+          setDetectedPersons(enriched)
+          handleRecognizedPersons(enriched)
+        }
+        // Also scale face_analysis regions back for overlay
+        if (d.face_analysis && scale < 1.0) {
+          setFaceAnalysis(d.face_analysis.map(f => ({
+            ...f,
+            region: f.region ? { x: Math.round(f.region.x / scale), y: Math.round(f.region.y / scale), w: Math.round(f.region.w / scale), h: Math.round(f.region.h / scale) } : f.region,
+          })))
+        }
+      }
     } catch (err) {
       if (err.name !== 'TimeoutError') console.error('[Frame] Error:', err)
+    } finally {
+      inFlightRef.current = false
     }
-  }, [backendOnline, pendingName, sessionStarted])
+  }, [backendOnline, pendingName, sessionStarted, handleRecognizedPersons])
 
   useEffect(() => {
     clearInterval(frameTimerRef.current)
-    frameTimerRef.current = setInterval(captureFrame, 300)
+    // Poll at 120ms intervals — fast enough for smooth overlay, backend will drop frames it can't keep up with
+    frameTimerRef.current = setInterval(captureFrame, 120)
     return () => clearInterval(frameTimerRef.current)
   }, [captureFrame])
 
@@ -791,15 +887,18 @@ export default function App() {
         ctx.clearRect(0, 0, vw, vh)
 
         smoothBoxesRef.current.forEach(box => {
-          box.curX += (box.targetX - box.curX) * 0.35
-          box.curY += (box.targetY - box.curY) * 0.35
-          box.curW += (box.targetW - box.curW) * 0.35
-          box.curH += (box.targetH - box.curH) * 0.35
+          box.curX += (box.targetX - box.curX) * 0.65
+          box.curY += (box.targetY - box.curY) * 0.65
+          box.curW += (box.targetW - box.curW) * 0.65
+          box.curH += (box.targetH - box.curH) * 0.65
 
-          const x = box.curX
-          const y = box.curY
+          const rawX = box.curX
+          const rawY = box.curY
           const w = box.curW
           const h = box.curH
+          const mirrored = isMirroredRef.current
+          const x = mirrored ? (vw - rawX - w) : rawX
+          const y = rawY
 
           if (box.isKnown) {
             const emotion = box.emotion || ''
@@ -926,6 +1025,8 @@ export default function App() {
     if (isAlwaysOn) {
       setIsAlwaysOn(false)
       ambientActiveRef.current = false
+      clearTimeout(interimTimerRef.current)
+      lastInterimRef.current = ''
       try { recognitionRef.current?.abort() } catch { /* ok */ }
     } else {
       setIsAlwaysOn(true)
@@ -934,9 +1035,21 @@ export default function App() {
   }
 
   // ── Robust ambient voice capture ──────────────────────────────────────────
-  // Uses non-continuous mode + manual restart to avoid Chrome's silent-hang bug.
-  // onerror restarts on recoverable errors (no-speech, aborted) but not on
-  // fatal ones (not-allowed, service-not-allowed) to prevent infinite loops.
+  // continuous = true:  mic stays held open — Chrome's tab indicator stays solid
+  //                     (no flicker between utterances). This is what we want.
+  // continuous = false: Chrome releases + re-acquires the mic between utterances,
+  //                     causing the tab mic icon to flicker and audio to drop.
+  //
+  // Latency strategy: Chrome's continuous VAD waits ~1-2s of silence before
+  // firing isFinal. We solve this with a 750ms interim-stability timer:
+  // if the interim transcript hasn't changed for 750ms we treat it as final
+  // ourselves and call recognition.stop() to flush it cleanly.
+  // recognition.stop() (NOT abort) triggers isFinal on the current utterance,
+  // fires onend, and we restart — mic stays warm, no flicker.
+  const interimTimerRef = useRef(null)
+  const lastInterimRef  = useRef('')
+  const lastInterimSnapRef = useRef('')  // snapshot used by the timer closure
+
   const startVoiceCapture = () => {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SR) {
@@ -948,42 +1061,53 @@ export default function App() {
 
     // Abort any in-flight recognition before creating a new one
     try { recognitionRef.current?.abort() } catch { /* ok */ }
+    clearTimeout(interimTimerRef.current)
 
     const recognition = new SR()
-    recognition.continuous = true
+    // CONTINUOUS = TRUE — mic stays open, no flicker
+    recognition.continuous     = true
     recognition.interimResults = true
-    recognition.lang = 'en-US'
+    recognition.lang           = 'en-US'
     recognition.maxAlternatives = 1
 
     recognition.onstart = () => {
       setIsRecording(true)
       setInterimText('')
+      lastInterimRef.current = ''
+      lastInterimSnapRef.current = ''
     }
 
     recognition.onend = () => {
       setIsRecording(false)
+      clearTimeout(interimTimerRef.current)
+      // Drain any remaining interim text that never got a isFinal
+      const pending = lastInterimRef.current.trim()
+      if (pending) {
+        setTranscription(pending)
+        setInterimText('')
+        lastInterimRef.current = ''
+        lastInterimSnapRef.current = ''
+        processFinalVoice(pending)
+      }
+      // Restart to keep listening — the recognition object is spent after onend
       if (ambientActiveRef.current) {
+        // Small delay only to let Chrome's audio stack settle (avoids AbortError on fast restart)
         setTimeout(() => {
-          if (ambientActiveRef.current) {
-            try { recognition.start() } catch { startVoiceCapture() }
-          }
-        }, 300)
+          if (ambientActiveRef.current) startVoiceCapture()
+        }, 80)
       }
     }
 
     // Recoverable errors: restart. Fatal errors: stop ambient mode.
     recognition.onerror = (e) => {
       setIsRecording(false)
+      clearTimeout(interimTimerRef.current)
       const RECOVERABLE = ['no-speech', 'aborted', 'audio-capture']
       if (RECOVERABLE.includes(e.error)) {
-        // no-speech is normal silence — restart quietly
         if (ambientActiveRef.current) {
-          setTimeout(() => {
-            if (ambientActiveRef.current) startVoiceCapture()
-          }, 500)
+          setTimeout(() => { if (ambientActiveRef.current) startVoiceCapture() }, 150)
         }
       } else {
-        // Fatal: not-allowed, service-not-allowed, etc.
         console.error('[Voice] Fatal STT error:', e.error)
         setIsAlwaysOn(false)
         ambientActiveRef.current = false
@@ -994,11 +1118,15 @@ export default function App() {
     }
 
     recognition.onresult = (event) => {
+      clearTimeout(interimTimerRef.current)
       let interim = ''
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i]
         if (result.isFinal) {
           const final = result[0].transcript.trim()
+          clearTimeout(interimTimerRef.current)
+          lastInterimRef.current = ''
+          lastInterimSnapRef.current = ''
           if (final) {
             setTranscription(final)
             setInterimText('')
@@ -1007,6 +1135,21 @@ export default function App() {
         } else {
           interim += result[0].transcript
           setInterimText(interim)
+          lastInterimRef.current = interim
+          // Interim early-fire: if interim text is stable for 750ms, treat as final.
+          // We call recognition.stop() — this flushes the current utterance as isFinal
+          // and fires onend, which then restarts recognition cleanly.
+          // The mic stays warm in Chrome (no release + re-acquire) because stop()
+          // is a graceful flush, not an emergency abort.
+          const snapshot = interim
+          lastInterimSnapRef.current = snapshot
+          interimTimerRef.current = setTimeout(() => {
+            // Only fire if the interim text hasn't changed since we set the timer
+            if (lastInterimSnapRef.current === snapshot && lastInterimRef.current.trim()) {
+              // stop() causes Chrome to finalize the utterance → triggers isFinal + onend
+              try { recognition.stop() } catch { /* ok */ }
+            }
+          }, 750)
         }
       }
     }
@@ -1017,7 +1160,7 @@ export default function App() {
     } catch (err) {
       console.error('[Voice] start() failed:', err)
       if (ambientActiveRef.current) {
-        setTimeout(() => { if (ambientActiveRef.current) startVoiceCapture() }, 1000)
+        setTimeout(() => { if (ambientActiveRef.current) startVoiceCapture() }, 500)
       }
     }
   }
@@ -1905,8 +2048,14 @@ export default function App() {
           ) : (
             /* Live Camera Feed */
             <>
-              <video ref={videoRef} autoPlay playsInline muted
-                className="absolute inset-0 w-full h-full object-cover" />
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-200"
+                style={{ transform: isMirrored ? 'scaleX(-1)' : 'none' }}
+              />
               <canvas ref={canvasRef} className="hidden" />
               {/* Face Overlay */}
               <canvas
@@ -1922,11 +2071,26 @@ export default function App() {
               <div className="absolute bottom-4 left-4 w-6 h-6 border-l border-b border-cyan-500/30" />
               <div className="absolute bottom-4 right-4 w-6 h-6 border-r border-b border-cyan-500/30" />
               {/* Status badges */}
-              {frameRate > 0 && (
-                <div className="absolute top-5 left-5 px-2 py-1 bg-black/50 rounded text-[8px] font-mono text-cyan-500 backdrop-blur-sm">
-                  {frameRate} fps
-                </div>
-              )}
+              <div className="absolute top-5 left-5 flex items-center gap-2 pointer-events-auto">
+                {frameRate > 0 && (
+                  <div className="px-2 py-1 bg-black/50 rounded text-[8px] font-mono text-cyan-500 backdrop-blur-sm border border-cyan-500/20">
+                    {frameRate} fps
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIsMirrored(prev => !prev)}
+                  className={`px-2.5 py-1 rounded text-[8px] font-mono border backdrop-blur-sm transition-all flex items-center gap-1.5 cursor-pointer ${
+                    isMirrored
+                      ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.15)]'
+                      : 'bg-black/60 border-white/10 text-slate-400 hover:text-white'
+                  }`}
+                  title="Toggle Mirror Mode for camera orientation"
+                >
+                  <FlipHorizontal size={10} />
+                  <span>{isMirrored ? 'MIRROR: ON' : 'MIRROR: OFF'}</span>
+                </button>
+              </div>
               <div className="absolute top-5 right-5 flex items-center gap-1.5 px-2.5 py-1
                               bg-black/50 rounded-full border border-emerald-500/20 backdrop-blur-sm">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />

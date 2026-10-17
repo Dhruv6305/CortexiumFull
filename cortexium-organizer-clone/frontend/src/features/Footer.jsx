@@ -13,7 +13,7 @@ export function Footer() {
       <div className="flex items-center gap-4">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-green-500" style={{ boxShadow: '0 0 4px #22c55e' }} />
-          YOLOv8s
+          YOLOv8
         </span>
         <span>CatBoost</span>
         <span>FastAPI + WebSocket</span>

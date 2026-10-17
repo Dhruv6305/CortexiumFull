@@ -46,14 +46,23 @@ _PKL_CACHE = _FACE_DB_PATH / f"representations_{ARCFACE_MODEL.lower()}.pkl"
 
 
 class ModelLoader:
-    """Singleton CV model manager for YOLOv8 + DeepFace (ArcFace)."""
+    """Singleton CV model manager for YOLOv8 + DeepFace (ArcFace) with fast spatial tracking."""
 
     _instance = None
     yolo_model = None
     deepface_ready = False
 
-    # TTL cache for identify_persons — per crop hash
-    _identity_cache: dict = {}   # crop_hash -> ({name, confidence}, timestamp)
+    # Spatial face tracks: track_id -> {
+    #   "name": str, "confidence": float,
+    #   "cx": float, "cy": float, "w": float, "h": float,
+    #   "last_seen": float, "last_verified": float,
+    #   "emotion_data": dict, "last_emo_time": float
+    # }
+    _face_tracks: dict = {}
+    _next_track_id: int = 1
+
+    # TTL cache for identify_persons — per crop hash fallback
+    _identity_cache: dict = {}
     _CACHE_TTL_SEC = 6.0
 
     def __new__(cls):
@@ -82,13 +91,27 @@ class ModelLoader:
         except Exception as e:
             print(f"[ModelLoader] Warning: Could not ensure OpenCV haarcascade: {e}")
 
+    def _warmup_models(self):
+        """Pre-warm DeepFace ArcFace & Emotion models on startup to avoid first-frame latency."""
+        if not DEEPFACE_INSTALLED:
+            return
+        try:
+            dummy = np.zeros((112, 112, 3), dtype=np.uint8)
+            # Warm up ArcFace embedding network
+            DeepFace.represent(dummy, model_name=ARCFACE_MODEL, detector_backend="skip", enforce_detection=False)
+            # Warm up Emotion classifier
+            DeepFace.analyze(dummy, actions=["emotion"], detector_backend="skip", enforce_detection=False, silent=True)
+            print("[ModelLoader] ArcFace + Emotion models pre-warmed successfully ✓")
+        except Exception as e:
+            print(f"[ModelLoader] Warmup notice (non-fatal): {e}")
+
     def _load_models(self):
         # Ensure data directories exist
         _FACE_DB_PATH.mkdir(parents=True, exist_ok=True)
         _THUMBNAILS_PATH.mkdir(parents=True, exist_ok=True)
         self.face_db_path = str(_FACE_DB_PATH)
 
-        # Ensure OpenCV cascades exist for DeepFace
+        # Ensure OpenCV cascades exist
         self._ensure_cv2_haarcascade()
 
         # --- YOLOv8 ---
@@ -110,6 +133,7 @@ class ModelLoader:
         if DEEPFACE_INSTALLED:
             self.deepface_ready = True
             print(f"[ModelLoader] DeepFace ready ✓ | Model: {ARCFACE_MODEL} | Threshold: {ARCFACE_THRESHOLD}")
+            self._warmup_models()
         else:
             print("[ModelLoader] DeepFace not available.")
 
@@ -137,109 +161,28 @@ class ModelLoader:
             return []
 
     # ------------------------------------------------------------------
-    # Face Analysis (Emotion / Age / Gender) — supports multiple faces
+    # Fast Face Crop Extraction (Downscaled Haar Cascade ~10ms)
     # ------------------------------------------------------------------
-
-    def recognize_faces(self, frame: np.ndarray) -> list:
-        """Run DeepFace analysis for emotion, age, gender on ALL faces in frame."""
-        if not DEEPFACE_INSTALLED:
-            return []
-        for backend in ["fastmtcnn", "ssd", "opencv"]:
-            try:
-                results = DeepFace.analyze(
-                    frame,
-                    actions=["emotion", "age", "gender"],
-                    enforce_detection=False,
-                    detector_backend=backend,
-                    silent=True,
-                )
-                clean = []
-                for r in results:
-                    gender_scores = r.get("gender", {})
-                    dom_gender = r.get("dominant_gender", "")
-                    region = r.get("region", {})
-                    clean.append({
-                        "dominant_emotion": str(r.get("dominant_emotion") or ""),
-                        "age": int(r["age"]) if r.get("age") is not None else None,
-                        "dominant_gender": str(dom_gender),
-                        "gender_confidence": round(float(gender_scores.get(dom_gender, 0)), 3),
-                        "emotion": {k: round(float(v), 3) for k, v in r.get("emotion", {}).items()},
-                        "region": {
-                            "x": int(region.get("x", 0)),
-                            "y": int(region.get("y", 0)),
-                            "w": int(region.get("w", 0)),
-                            "h": int(region.get("h", 0)),
-                        },
-                    })
-                if clean:
-                    return clean
-            except Exception:
-                continue
-        return []
-
-    # ------------------------------------------------------------------
-    # Multi-Person Identification (with TTL cache per face crop)
-    # ------------------------------------------------------------------
-
-    def identify_persons(self, frame: np.ndarray) -> list:
-        """
-        Identify ALL persons visible in the frame using ArcFace.
-        Returns a list of dicts: [{name, bbox, confidence, emotion}]
-        Uses per-crop TTL cache to avoid hammering DeepFace every frame.
-        """
-        self.latest_frame = frame
-        if not DEEPFACE_INSTALLED:
-            return []
-
-        # Step 1: Extract all face bounding boxes
-        face_crops = self._extract_face_crops(frame)
-        if not face_crops:
-            return []
-
-        now = time.time()
-        results = []
-
-        for crop_img, region in face_crops:
-            # Cheap hash of the crop for cache lookup
-            try:
-                tiny = cv2.resize(crop_img, (16, 16))
-                crop_key = hash(tiny.tobytes())
-            except Exception:
-                crop_key = id(crop_img)
-
-            # Check cache
-            if crop_key in self._identity_cache:
-                cached_result, cached_time = self._identity_cache[crop_key]
-                if now - cached_time < self._CACHE_TTL_SEC:
-                    if cached_result:
-                        results.append({**cached_result, "region": region})
-                    continue
-
-            # Run ArcFace identification on this face crop
-            identity_result = self._run_arcface_find(crop_img)
-            self._identity_cache[crop_key] = (identity_result, now)
-
-            if identity_result:
-                results.append({**identity_result, "region": region})
-
-        # Evict stale cache entries
-        self._identity_cache = {
-            k: v for k, v in self._identity_cache.items()
-            if now - v[1] < self._CACHE_TTL_SEC * 2
-        }
-
-        return results
 
     def _extract_face_crops(self, frame: np.ndarray) -> list:
         """
         Extract face crops from frame.
-        Uses fast OpenCV Haar Cascade detection first (~5ms),
-        with fallback to DeepFace detector backends and YOLOv8 head crops.
+        Uses downscaled OpenCV Haar Cascade (~10ms) with fallback to DeepFace & YOLO.
         Returns list of (crop_img, region_dict) tuples.
         """
         crops = []
+        h, w = frame.shape[:2]
+        if h == 0 or w == 0:
+            return []
 
-        # Attempt 1: Fast OpenCV Haar Cascade Classifier (~5ms)
+        # Downscale for ultra-fast face detection (max 640px)
+        scale = 1.0
+        if max(h, w) > 640:
+            scale = 640.0 / max(h, w)
+            small = cv2.resize(frame, (int(w * scale), int(h * scale)))
+        else:
+            small = frame
+
         CascadeClassifier = getattr(cv2, 'CascadeClassifier', None)
         if CascadeClassifier is not None:
             try:
@@ -252,80 +195,285 @@ class ModelLoader:
                         self._face_cascade = None
 
                 if self._face_cascade and not self._face_cascade.empty():
-                    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                    faces = self._face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4, minSize=(30, 30))
-                    for (x, y, w, h) in faces:
-                        pad = int(min(w, h) * 0.1)
-                        x1 = max(0, x - pad)
-                        y1 = max(0, y - pad)
-                        x2 = min(frame.shape[1], x + w + pad)
-                        y2 = min(frame.shape[0], y + h + pad)
+                    gray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
+                    faces = self._face_cascade.detectMultiScale(
+                        gray, scaleFactor=1.1, minNeighbors=4, minSize=(24, 24)
+                    )
+                    for (sx, sy, sw, sh) in faces:
+                        fx = int(sx / scale)
+                        fy = int(sy / scale)
+                        fw = int(sw / scale)
+                        fh = int(sh / scale)
+
+                        pad = int(min(fw, fh) * 0.12)
+                        x1 = max(0, fx - pad)
+                        y1 = max(0, fy - pad)
+                        x2 = min(w, fx + fw + pad)
+                        y2 = min(h, fy + fh + pad)
                         crop = frame[y1:y2, x1:x2]
                         if crop.size > 0:
-                            crops.append((crop, {"x": int(x), "y": int(y), "w": int(w), "h": int(h)}))
+                            crops.append((crop, {"x": fx, "y": fy, "w": fw, "h": fh}))
                     if crops:
                         return crops
             except Exception:
                 pass
 
-        # Attempt 2: Try DeepFace extract_faces with opencv or fastmtcnn
+        # Attempt 2: Try DeepFace extract_faces on downscaled image
         if DEEPFACE_INSTALLED:
-            for backend in ["opencv", "ssd", "fastmtcnn"]:
+            for backend in ["opencv", "ssd"]:
                 try:
                     faces = DeepFace.extract_faces(
-                        frame,
+                        small,
                         enforce_detection=False,
                         detector_backend=backend,
-                        align=True,
+                        align=False,
                     )
                     for face in faces:
-                        confidence = face.get("confidence", 0)
-                        if confidence < 0.3:
+                        if face.get("confidence", 0) < 0.35:
                             continue
                         region = face.get("facial_area", face.get("region", {}))
-                        x = int(region.get("x", 0))
-                        y = int(region.get("y", 0))
-                        w = int(region.get("w", 0))
-                        h = int(region.get("h", 0))
-                        if w < 20 or h < 20:
+                        fx = int(region.get("x", 0) / scale)
+                        fy = int(region.get("y", 0) / scale)
+                        fw = int(region.get("w", 0) / scale)
+                        fh = int(region.get("h", 0) / scale)
+                        if fw < 20 or fh < 20:
                             continue
-                        pad = int(min(w, h) * 0.1)
-                        x1 = max(0, x - pad)
-                        y1 = max(0, y - pad)
-                        x2 = min(frame.shape[1], x + w + pad)
-                        y2 = min(frame.shape[0], y + h + pad)
+                        pad = int(min(fw, fh) * 0.1)
+                        x1 = max(0, fx - pad)
+                        y1 = max(0, fy - pad)
+                        x2 = min(w, fx + fw + pad)
+                        y2 = min(h, fy + fh + pad)
                         crop = frame[y1:y2, x1:x2]
                         if crop.size > 0:
-                            crops.append((crop, {"x": x, "y": y, "w": w, "h": h}))
+                            crops.append((crop, {"x": fx, "y": fy, "w": fw, "h": fh}))
                     if crops:
                         return crops
                 except Exception:
                     continue
 
-        # Attempt 3: Fallback to YOLOv8 person bounding box crops
+        # Attempt 3: Fallback to YOLOv8 person head crops
         if not crops and self.yolo_model is not None:
             try:
-                results = self.yolo_model(frame, verbose=False)
+                results = self.yolo_model(small, verbose=False)
                 for r in results:
                     for box in r.boxes:
                         cls_name = self.yolo_model.names[int(box.cls)]
                         conf = float(box.conf)
                         if cls_name == "person" and conf > 0.4:
-                            xyxy = box.xyxy[0].tolist()
-                            x1, y1, x2, y2 = int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])
-                            w, h = x2 - x1, y2 - y1
-                            if w >= 30 and h >= 30:
-                                head_h = int(h * 0.45)
-                                head_crop = frame[y1:min(frame.shape[0], y1 + head_h), max(0, x1):min(frame.shape[1], x2)]
+                            b = box.xyxy[0].tolist()
+                            x1 = int(b[0] / scale)
+                            y1 = int(b[1] / scale)
+                            x2 = int(b[2] / scale)
+                            y2 = int(b[3] / scale)
+                            bw, bh = x2 - x1, y2 - y1
+                            if bw >= 30 and bh >= 30:
+                                head_h = int(bh * 0.45)
+                                head_crop = frame[y1:min(h, y1 + head_h), max(0, x1):min(w, x2)]
                                 if head_crop.size > 0:
-                                    side = int(min(w, h) * 0.42)
-                                    face_x = x1 + int((w - side) / 2)
-                                    face_y = y1 + int(h * 0.05)
+                                    side = int(min(bw, bh) * 0.42)
+                                    face_x = x1 + int((bw - side) / 2)
+                                    face_y = y1 + int(bh * 0.05)
                                     crops.append((head_crop, {"x": face_x, "y": face_y, "w": side, "h": side}))
             except Exception as e:
                 print(f"[ModelLoader] YOLO fallback crop error: {e}")
 
         return crops
+
+    # ------------------------------------------------------------------
+    # Face Analysis (Emotion / Age / Gender) with direct crop analysis
+    # ------------------------------------------------------------------
+
+    def recognize_faces(self, frame: np.ndarray, crops: list = None) -> list:
+        """
+        Run emotion analysis on faces in frame.
+        Uses fast crop analysis with detector_backend='skip' (~30ms)
+        and caches results per tracked face for 2.0s to avoid unnecessary re-inference.
+        """
+        if not DEEPFACE_INSTALLED:
+            return []
+
+        if crops is None:
+            crops = self._extract_face_crops(frame)
+        if not crops:
+            return []
+
+        now = time.time()
+        results = []
+
+        for crop_img, region in crops:
+            cx = region["x"] + region["w"] / 2.0
+            cy = region["y"] + region["h"] / 2.0
+
+            # Check if there is an active track with recent emotion (< 2.0s)
+            cached_emo = None
+            matched_tid = None
+            for tid, track in self._face_tracks.items():
+                dist = ((cx - track["cx"]) ** 2 + (cy - track["cy"]) ** 2) ** 0.5
+                if dist < region["w"] * 0.9:
+                    matched_tid = tid
+                    if "emotion_data" in track and (now - track.get("last_emo_time", 0)) < 4.0:
+                        cached_emo = track["emotion_data"]
+                    break
+
+            if cached_emo:
+                results.append({**cached_emo, "region": region})
+            else:
+                # Fast direct analysis on the face crop
+                try:
+                    analysis = DeepFace.analyze(
+                        crop_img,
+                        actions=["emotion"],
+                        enforce_detection=False,
+                        detector_backend="skip",
+                        silent=True,
+                    )
+                    if analysis and len(analysis) > 0:
+                        r = analysis[0]
+                        dom_emo = str(r.get("dominant_emotion") or "neutral")
+                        emo_data = {
+                            "dominant_emotion": dom_emo,
+                            "age": None,
+                            "dominant_gender": "unknown",
+                            "gender_confidence": 1.0,
+                            "emotion": {k: round(float(v), 3) for k, v in r.get("emotion", {}).items()},
+                        }
+                        if matched_tid is not None:
+                            self._face_tracks[matched_tid]["emotion_data"] = emo_data
+                            self._face_tracks[matched_tid]["last_emo_time"] = now
+
+                        results.append({**emo_data, "region": region})
+                    else:
+                        results.append({
+                            "dominant_emotion": "neutral",
+                            "emotion": {"neutral": 1.0},
+                            "region": region,
+                        })
+                except Exception:
+                    results.append({
+                        "dominant_emotion": "neutral",
+                        "emotion": {"neutral": 1.0},
+                        "region": region,
+                    })
+
+        return results
+
+    # ------------------------------------------------------------------
+    # Multi-Person Identification (Fast Spatial Tracking + Warm ArcFace)
+    # ------------------------------------------------------------------
+
+    def identify_persons(self, frame: np.ndarray, face_crops: list = None) -> list:
+        """
+        Identify ALL persons visible in frame using ArcFace + Spatial Tracking.
+        Frames with active face tracks return instantly (~10-30ms).
+        New faces are identified via ArcFace (~300ms) and registered into tracks.
+        """
+        self.latest_frame = frame
+        if not DEEPFACE_INSTALLED:
+            return []
+
+        if face_crops is None:
+            face_crops = self._extract_face_crops(frame)
+        if not face_crops:
+            now = time.time()
+            self._face_tracks = {tid: t for tid, t in self._face_tracks.items() if now - t["last_seen"] < 2.5}
+            return []
+
+        now = time.time()
+        # Clean stale tracks older than 3 seconds
+        self._face_tracks = {tid: t for tid, t in self._face_tracks.items() if now - t["last_seen"] < 3.0}
+
+        results = []
+        unmatched_crops = []
+
+        for crop_img, region in face_crops:
+            cx = region["x"] + region["w"] / 2.0
+            cy = region["y"] + region["h"] / 2.0
+            bw = region["w"]
+
+            # Match against existing tracks by spatial proximity
+            best_tid = None
+            min_dist = float("inf")
+            for tid, track in self._face_tracks.items():
+                dist = ((cx - track["cx"]) ** 2 + (cy - track["cy"]) ** 2) ** 0.5
+                if dist < bw * 0.9 and dist < min_dist:
+                    min_dist = dist
+                    best_tid = tid
+
+            if best_tid is not None:
+                track = self._face_tracks[best_tid]
+                # Update track position & seen time
+                track["cx"] = cx
+                track["cy"] = cy
+                track["w"] = region["w"]
+                track["h"] = region["h"]
+                track["last_seen"] = now
+
+                # If track was verified recently (< 5.0s), return identity immediately (0ms ArcFace!)
+                if now - track.get("last_verified", 0) < 5.0 and track.get("name"):
+                    results.append({
+                        "name": track["name"],
+                        "confidence": track.get("confidence", 0.9),
+                        "region": region,
+                    })
+                    continue
+                else:
+                    # Re-verify track
+                    unmatched_crops.append((crop_img, region, best_tid))
+            else:
+                # Brand new face
+                unmatched_crops.append((crop_img, region, None))
+
+        # Run ArcFace identification for new or re-verifying faces
+        for crop_img, region, existing_tid in unmatched_crops:
+            identity_result = self._run_arcface_find(crop_img)
+            name = identity_result["name"] if identity_result else None
+            conf = identity_result["confidence"] if identity_result else 0.0
+
+            cx = region["x"] + region["w"] / 2.0
+            cy = region["y"] + region["h"] / 2.0
+
+            if existing_tid is not None:
+                tid = existing_tid
+            else:
+                tid = self._next_track_id
+                self._next_track_id += 1
+
+            self._face_tracks[tid] = {
+                "name": name,
+                "confidence": conf,
+                "cx": cx,
+                "cy": cy,
+                "w": region["w"],
+                "h": region["h"],
+                "last_seen": now,
+                "last_verified": now,
+            }
+
+            if name:
+                results.append({
+                    "name": name,
+                    "confidence": conf,
+                    "region": region,
+                })
+
+        return results
+
+    # ------------------------------------------------------------------
+    # Unified Fast Face Pipeline (extracts crops once, returns both)
+    # ------------------------------------------------------------------
+
+    def analyze_faces_fast(self, frame: np.ndarray) -> tuple[list, list]:
+        """
+        Unified fast face pipeline:
+        Extracts face crops once, runs spatial tracking identification and crop emotion.
+        Returns (persons, faces).
+        """
+        crops = self._extract_face_crops(frame)
+        if not crops:
+            return [], []
+        persons = self.identify_persons(frame, face_crops=crops)
+        faces = self.recognize_faces(frame, crops=crops)
+        return persons, faces
 
     def _run_arcface_find(self, face_crop: np.ndarray) -> dict | None:
         """
@@ -341,15 +489,20 @@ class ModelLoader:
             if not face_images:
                 return None
 
-            # Invalidate PKL cache if new images were added
-            if _PKL_CACHE.exists():
-                pkl_time = _PKL_CACHE.stat().st_mtime
-                newest = max(
+            # Invalidate PKL caches if any face image is newer than any pkl
+            pkl_files = list(_FACE_DB_PATH.glob("*.pkl"))
+            if pkl_files:
+                min_pkl_time = min(p.stat().st_mtime for p in pkl_files)
+                newest_img = max(
                     (_FACE_DB_PATH / f).stat().st_mtime for f in face_images
                 )
-                if newest > pkl_time:
-                    _PKL_CACHE.unlink()
-                    print("[ModelLoader] Invalidated ArcFace cache (new face added)")
+                if newest_img > min_pkl_time:
+                    for p in pkl_files:
+                        try:
+                            p.unlink()
+                        except Exception:
+                            pass
+                    print("[ModelLoader] Invalidated DeepFace PKL cache (new face detected)")
 
             results = DeepFace.find(
                 img_path=face_crop,
@@ -420,19 +573,20 @@ class ModelLoader:
                        sorted(_FACE_DB_PATH.glob(f"{safe_name}*.png"))
             idx = len(existing)
             suffix = f"_{idx}" if idx > 0 else ""
-            file_path = _FACE_DB_PATH / f"{safe_name}{suffix}.jpg"
-            cv2.imwrite(str(file_path), frame)
-
-            # Save thumbnail from face crop or head region
-            thumb_path = _THUMBNAILS_PATH / f"{safe_name}_thumb.jpg"
+            # Extract face crop to ensure DB contains clean face images for skip-detector
             face_crops = self._extract_face_crops(frame)
             if face_crops:
-                crop_img, region = face_crops[0]
-                thumb = cv2.resize(crop_img, (80, 80))
-                cv2.imwrite(str(thumb_path), thumb)
+                save_img, region = face_crops[0]
             else:
-                thumb = cv2.resize(frame, (80, 80))
-                cv2.imwrite(str(thumb_path), thumb)
+                save_img = frame
+
+            file_path = _FACE_DB_PATH / f"{safe_name}{suffix}.jpg"
+            cv2.imwrite(str(file_path), save_img)
+
+            # Save thumbnail from face crop
+            thumb_path = _THUMBNAILS_PATH / f"{safe_name}_thumb.jpg"
+            thumb = cv2.resize(save_img, (80, 80))
+            cv2.imwrite(str(thumb_path), thumb)
 
             # Also ensure conversation JSON profile exists for this person
             from ..routers.persons import append_conversation_entry

@@ -1,0 +1,183 @@
+{
+  "session_id": "session_1791742468089",
+  "started_at": 1791722669.275666,
+  "ended_at": 1791722712.962612,
+  "total_events": 30,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "cell phone",
+    "clock"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "b4176398-3113-4390-9d99-b7f51f6f8773",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742469.236,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "63f34118-4bd0-410b-b8a7-c1e75591511f",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742472.512,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bb354075-a5dc-4239-b3f2-20cd8fc5bd46",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742474.094,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "216f67b9-1762-41a2-9967-e4ee381d0cc5",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742476.601,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5be2c52c-2263-454e-9dca-8731b9d35193",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742477.533,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "d548c417-bc34-4ab1-afd0-5ba6a7a30273",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742480.569,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "26167d0e-d9b3-4a0f-8a23-8ee4560f6f22",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742481.837,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4afde641-2824-49a9-ac07-feec56d59585",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742484.026,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7770234d-7edf-4a32-ad93-10845e9e3c07",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742485.264,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "281c0703-a693-411b-a864-3201826311a4",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742487.232,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "658593eb-f0b9-4a70-a7aa-ff0de74363eb",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742489.378,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "181972ad-155a-4090-b7ec-cc059dae8530",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742492.398,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ed3aebb2-bc6c-4b14-b426-9af2d7c37afa",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742494.027,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "5f30eae7-c592-49b6-a0ff-fc43cc895c91",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742501.204,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e04cdecb-aa9f-464a-8165-c9a3a4274100",
+      "person_name": "Dhruv",
+      "session_id": "session_1791742468089",
+      "timestamp": 1791742497.624,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-11T18:14:41.688647",
+      "speaker": "Dhruv",
+      "text": "hey how are you",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-11T18:14:42.376962",
+      "speaker": "Dhruv",
+      "text": "say how are you",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-11T18:14:47.288372",
+      "speaker": "Dhruv",
+      "text": "okay so now I think",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-11T18:14:52.143028",
+      "speaker": "Dhruv",
+      "text": "this is working good",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-11T18:15:07.174865",
+      "speaker": "Dhruv",
+      "text": "working girl I mean",
+      "emotion": "sad"
+    }
+  ]
+}

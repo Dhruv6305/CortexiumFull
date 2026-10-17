@@ -1,1 +1,11 @@
-{}
+{
+  "person": "bed",
+  "laptop": "bed",
+  "teddy bear": "bed",
+  "book": "bed",
+  "tv": "bed",
+  "keyboard": "table",
+  "remote": "table",
+  "cell phone": "table",
+  "mouse": "bed"
+}

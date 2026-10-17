@@ -1,0 +1,301 @@
+{
+  "session_id": "session_1791746568882",
+  "started_at": 1791726770.624043,
+  "ended_at": 1791726869.479859,
+  "total_events": 48,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "bird",
+    "clock",
+    "wine glass"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "3885b312-ed15-4a93-a8be-5545dff08274",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746570.601,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "33058cb3-b868-4298-9ccb-756e57b2aead",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746574.238,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3dbfbef6-0fb9-45f5-9b02-3bea29b8b2c3",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746577.792,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6c76c13f-dd65-4786-b1d1-2c14ea8d0951",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746581.444,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9a3c2608-0a3e-4f74-868d-4ae615aa5cf2",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746585.008,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f42572a9-edd8-4793-b4e5-60390aa13fe5",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746588.664,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "029e0567-aa40-491b-b827-fd2a4b4aba74",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746592.24,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e5ff4752-2d29-4d3f-9cec-e228bf594f12",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746595.951,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2359aaf9-aed4-4c9c-909e-bc2e0d7d5494",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746599.902,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fed63402-1096-4cbc-8069-074082430dcc",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746603.486,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "990508d4-e687-40dd-81f2-c15a5aadada5",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746607.149,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "18aa291a-ddee-4d57-b9ad-035cbb61ff14",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746610.685,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7ab15d33-4321-4d74-8d23-df16ce8ba87b",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746614.311,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "13087789-611d-4c8f-8ff8-1c8b7cbc43a3",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746617.894,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ddc84076-bb83-46ed-b243-55695b00b28b",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746621.536,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0107e7aa-c6f2-4446-8dca-cf61c1560fc7",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746625.108,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "bd19563d-a9a2-4e1b-b8a4-b6d5aee8aa67",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746628.68,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1949f6a2-049f-44c5-99a1-1a9c35a6c0b9",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746632.308,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2d50efa2-248d-46be-80e5-f0c16291e976",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746635.905,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1257ffef-efa6-4e50-8912-521fdd0c6e6f",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746639.526,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3de7c34c-3add-4b95-af39-00bb797a9ebc",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746643.133,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3654f0a0-5af1-4c36-9c46-40c9c370bf17",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746646.705,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "78b8b6d4-937b-4048-ab01-500b89d6065e",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746650.29,
+      "emotion": "happy",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7d51f86f-6134-44de-9ff4-fc807717a1de",
+      "person_name": "Dhruv",
+      "session_id": "session_1791746568882",
+      "timestamp": 1791746653.921,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-11T19:23:10.167969",
+      "speaker": "Dhruv",
+      "text": "Yo Yo Mere Jigar Ke chhallo how are you",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-11T19:23:17.158901",
+      "speaker": "Dhruv",
+      "text": "voice",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T19:23:24.521941",
+      "speaker": "Dhruv",
+      "text": "Kuchh To timer Laga Ke Rakha Hai",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T19:23:28.944097",
+      "speaker": "Dhruv",
+      "text": "voice",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-11T19:23:42.132360",
+      "speaker": "Dhruv",
+      "text": "okay okay",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T19:23:54.330237",
+      "speaker": "Dhruv",
+      "text": "when you tell me what okay",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-11T19:23:59.118364",
+      "speaker": "Dhruv",
+      "text": "select band kar deta hun",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T19:24:05.121601",
+      "speaker": "Dhruv",
+      "text": "ho gaya ho gaya barabar Hai Pipal Mein check kar lete ho",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-11T19:24:27.235884",
+      "speaker": "Dhruv",
+      "text": "Nahin yah to nahin tha Kabhi abhi bola Kuchh To time Laga kar rakha Yo Yo Jigar Ke Chal Lo turant capture kar raha hai Iske",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-11T19:24:27.289071",
+      "speaker": "Dhruv",
+      "text": "Mera can you tell me what",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-11T19:24:27.332089",
+      "speaker": "Dhruv",
+      "text": "you miss kar raha hai chalega",
+      "emotion": "happy"
+    }
+  ]
+}

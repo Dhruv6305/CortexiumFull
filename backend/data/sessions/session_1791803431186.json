@@ -1,0 +1,417 @@
+{
+  "session_id": "session_1791803431186",
+  "started_at": 1791783632.330973,
+  "ended_at": 1791783655.288736,
+  "total_events": 80,
+  "persons_seen": [
+    "Dhruv",
+    "Aarya"
+  ],
+  "objects_seen": [
+    "person",
+    "cat",
+    "teddy bear",
+    "dog",
+    "laptop",
+    "chair"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "67ed3ade-9bb4-4ca7-873a-17921e0530fa",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803432.306,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fff8dc48-c3d3-4a12-a76f-8abbdbdf362c",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803433.271,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3fdb0ba1-5ff7-4a3a-ab29-05a782f3b3a0",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803433.739,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "be0e4da2-3239-4171-a306-c598b009fac9",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803434.339,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f3b83972-a189-4af0-868d-84e50d5f8341",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803434.339,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b694d3db-1852-4077-9814-8101147e030c",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803435.659,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2ef85c7d-a6ba-45be-9497-b750dd104bd3",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803435.659,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c7ef7656-9b4e-40f3-afec-85cb128f7226",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803436.374,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "7689e341-cd0e-43d1-a2cc-0a9d677e0455",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803436.374,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9c56860d-2213-4893-b02d-cff308ef000d",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803437.104,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b26a1bcc-fcf7-4682-9fc1-943fd3b3763d",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803437.104,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a51eea1a-d126-4483-b363-b54a7d4a1d82",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803437.823,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "dbd9d540-d69f-4fd5-a325-d1893fc8217d",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803437.823,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1aaba2a1-47aa-48d1-a314-8ba43dbcfd05",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803439.023,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6393f2d1-7a0e-4bec-9ebe-b76746ac0ce5",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803439.023,
+      "emotion": "fear",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "1a256226-c3e1-49d7-bc93-54b7cea55d9e",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803439.508,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e611a75f-66be-41e7-9326-29d8e86422cb",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803440.088,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "71ffa286-9171-4963-a43d-38798da7659c",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803440.088,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f1b8d8fd-a6ff-4bb4-9dc3-f97cd79ae745",
+      "person_name": "Dhruv",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803441.171,
+      "emotion": "neutral",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "54a49d09-7b9a-4395-bee8-6fab0195ff7a",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803441.171,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "b5f919a0-76bc-421d-a238-b36fb1bef2ca",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803442.122,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "16d71b86-a057-4287-bbe5-8c3aaec78273",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803442.605,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "ae83d977-0888-45e8-84f7-06709e4d1c4a",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803443.087,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "64d3104b-4904-4001-ac19-9e950c9799d4",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803443.571,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fd0d4cbf-02c0-479a-8fd3-e45c759a5572",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803444.053,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "64d9116e-3f77-4744-9c2d-505b2c50acc2",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803444.537,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "e4700842-b9a0-4940-afc6-93c9aa912d46",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803445.005,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "4550eb63-a8aa-4b7e-b4e5-6ca6e5e51422",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803445.487,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "43c6bc83-2850-4f2b-8f8b-58ed5d7baaa9",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803445.97,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3ba570b8-5665-4e79-8003-00eeeeb7e1bd",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803446.453,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "694b8bd7-b809-4d9b-8a00-bbef96a4a130",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803447.405,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "3820065d-7ca5-4273-b887-51434d028160",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803447.887,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c37312c8-fca6-42e4-af3b-9a1c189f0ffa",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803448.372,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "44eba5c1-c7d8-4690-8785-f7a526c3fc24",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803448.87,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "2a68360f-6b30-465b-a5c7-feccc26103a9",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803449.471,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "0fca295a-10a8-41ce-9de8-3652189b4cd7",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803450.069,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "fe250987-e72f-41da-a464-bf141d03cf7b",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803450.553,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "9cbbdb12-58dc-412f-bde8-6a78cd2f78f4",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803451.021,
+      "emotion": "angry",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "c9cd4b6b-bc26-4e39-8b91-2c908e001de1",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803451.62,
+      "emotion": "disgust",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "19321566-d6e5-4a4d-b3fb-da738b1f468e",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803452.569,
+      "emotion": "disgust",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "78d34996-0aaf-4988-9c31-ca1661bf7280",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803453.069,
+      "emotion": "disgust",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "6101ab70-f386-4a17-aff6-847437274faa",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803453.552,
+      "emotion": "disgust",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "a38c7b4e-4da0-4f8d-a1f2-c8ee65faed40",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803454.021,
+      "emotion": "disgust",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "f5bda43d-d1eb-4568-9b5e-775709473474",
+      "person_name": "Aarya",
+      "session_id": "session_1791803431186",
+      "timestamp": 1791803454.503,
+      "emotion": "disgust",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": []
+}

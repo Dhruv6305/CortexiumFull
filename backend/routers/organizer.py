@@ -61,7 +61,16 @@ _ORGANIZER_DATA_DIR = _ORGANIZER_DIR
 
 LEARNED_RULES_PATH = str(_ORGANIZER_DATA_DIR / "learned_rules.json")
 USAGE_DATA_PATH    = str(_ORGANIZER_DATA_DIR / "usage_data.csv")
-YOLO_MODEL_PATH    = str(_ORGANIZER_DATA_DIR / "yolov8s.pt")
+CAMERA_CONFIG_PATH = str(_ORGANIZER_DATA_DIR / "camera_config.json")
+YOLO_NANO_PATH     = str(_ORGANIZER_DATA_DIR / "yolov8n.pt")
+YOLO_MODEL_PATH    = YOLO_NANO_PATH if os.path.exists(YOLO_NANO_PATH) else str(_ORGANIZER_DATA_DIR / "yolov8s.pt")
+
+try:
+    import torch
+    if hasattr(torch, "set_num_threads"):
+        torch.set_num_threads(min(8, os.cpu_count() or 4))
+except Exception:
+    pass
 
 # ─────────────────────────────────────────────
 # Camera source — integer index OR IP URL string
@@ -345,29 +354,268 @@ def _trigger_retrain():
 
 
 # ─────────────────────────────────────────────
-# Detector background thread
+# Decoupled High-Speed Pipeline
+#   Thread 1: Camera capture & MJPEG streaming (smooth 25-30 FPS)
+#   Thread 2: Asynchronous YOLO & ML Inference (runs on latest available frame)
 # ─────────────────────────────────────────────
+_inference_lock = threading.Lock()
+_latest_inference_frame: Optional[np.ndarray] = None
+_new_frame_event = threading.Event()
+_inference_busy = False
+
+
+def _inference_worker():
+    """Background worker that continuously processes the newest captured frame with YOLO and CatBoost."""
+    global _latest_inference_frame, _inference_busy
+
+    while True:
+        _new_frame_event.wait(timeout=0.1)
+        if not org_state.camera_active:
+            _new_frame_event.clear()
+            time.sleep(0.05)
+            continue
+
+        frame_to_process = None
+        with _inference_lock:
+            if _latest_inference_frame is not None:
+                frame_to_process = _latest_inference_frame
+                _latest_inference_frame = None
+                _inference_busy = True
+            _new_frame_event.clear()
+
+        if frame_to_process is None:
+            continue
+
+        try:
+            t0 = time.time()
+            with org_state.lock:
+                yolo = org_state.yolo
+                mode = org_state.mode
+                learned_rules = dict(org_state.learned_rules)
+                fc = org_state.frame_count
+
+            if yolo is None:
+                continue
+
+            # Run YOLO with imgsz=320 for high-speed CPU inference (~60ms)
+            results = yolo(frame_to_process, imgsz=320, conf=0.25, verbose=False)
+            inference_ms = (time.time() - t0) * 1000
+
+            h, w = frame_to_process.shape[:2]
+
+            # ── Parse detections — surfaces first ──
+            surface_boxes: dict[str, tuple] = {}
+            detected: list[dict] = []
+
+            for r in results:
+                for box in r.boxes:
+                    cls = int(box.cls)
+                    label = yolo.names[cls]
+                    if label in SURFACES:
+                        sname = SURFACE_ALIASES.get(label, label)
+                        x1, y1, x2, y2 = map(int, box.xyxy[0])
+                        surface_boxes[sname] = (x1, y1, x2, y2)
+
+            with org_state.lock:
+                if surface_boxes:
+                    org_state.last_surface_boxes.update(surface_boxes)
+                else:
+                    surface_boxes = dict(org_state.last_surface_boxes)
+
+            if not surface_boxes or "table" not in surface_boxes:
+                surface_boxes["table"] = (0, int(h * 0.25), w, h)
+
+            # ── Parse objects (non-surfaces) ──
+            for r in results:
+                for box in r.boxes:
+                    cls = int(box.cls)
+                    label = yolo.names[cls]
+                    det_conf = float(box.conf[0])
+                    x1, y1, x2, y2 = map(int, box.xyxy[0])
+
+                    if label in SURFACES:
+                        continue
+
+                    obj_box = (x1, y1, x2, y2)
+
+                    # Determine current surface
+                    current_surface = None
+                    best_overlap = 0.0
+                    for sname, sbox in surface_boxes.items():
+                        if sname == "table" and sbox == (0, int(h * 0.25), w, h):
+                            continue
+                        ov = overlap_ratio(obj_box, sbox)
+                        if ov > 0.15 and ov > best_overlap:
+                            best_overlap = ov
+                            current_surface = sname
+
+                    if current_surface is None and "table" in surface_boxes:
+                        table_box = surface_boxes["table"]
+                        if overlap_ratio(obj_box, table_box) > 0.15:
+                            current_surface = "table"
+
+                    # ── Learn mode: record placement ──
+                    if mode == "learn" and current_surface is not None:
+                        rule_changed = False
+                        with org_state.lock:
+                            prev_rule = org_state.learned_rules.get(label)
+                            if prev_rule != current_surface:
+                                rule_changed = True
+                                org_state.learned_rules[label] = current_surface
+                                learned_rules[label] = current_surface
+
+                        if rule_changed:
+                            org_state.save_learned_rules()
+                            org_state.log_event("success", f"Learned rule: {label} belongs on {current_surface}")
+
+                        if rule_changed or (fc % 10 == 0):
+                            try:
+                                sbox_to_log = surface_boxes.get(current_surface, (0, int(h * 0.25), w, h))
+                                org_state.data_collector.log_sample(
+                                    label,
+                                    current_surface,
+                                    obj_box,
+                                    sbox_to_log,
+                                    det_conf,
+                                    frame_to_process.shape[:2],
+                                    is_positive=True,
+                                )
+                                with org_state.lock:
+                                    org_state.new_samples_since_retrain += 1
+                                    org_state.dataset_size += 1
+                            except Exception:
+                                pass
+
+                            for other_name, other_box in surface_boxes.items():
+                                if other_name != current_surface:
+                                    try:
+                                        org_state.data_collector.log_sample(
+                                            label,
+                                            other_name,
+                                            obj_box,
+                                            other_box,
+                                            det_conf,
+                                            frame_to_process.shape[:2],
+                                            is_positive=False,
+                                        )
+                                    except Exception:
+                                        pass
+
+                        should_retrain = False
+                        with org_state.lock:
+                            if (
+                                org_state.new_samples_since_retrain >= org_state.retrain_threshold
+                                and org_state.model_status == "Ready"
+                            ):
+                                should_retrain = True
+                        if should_retrain:
+                            org_state.log_event(
+                                "info",
+                                f"Auto-retrain triggered after {org_state.retrain_threshold} new samples.",
+                            )
+                            _trigger_retrain()
+
+                    # ── Predict expected surface ──
+                    expected_surface = None
+                    prediction_source = "default_rule"
+
+                    if label in learned_rules:
+                        expected_surface = learned_rules[label]
+                        prediction_source = "learned_rule"
+
+                    if expected_surface is None and org_state.personalized_predictor.is_loaded and surface_boxes:
+                        try:
+                            predicted, _ = org_state.personalized_predictor.predict(
+                                label, surface_boxes, obj_box, det_conf, frame_to_process.shape[:2]
+                            )
+                            if predicted is not None:
+                                expected_surface = predicted
+                                prediction_source = "personalized_model"
+                        except Exception:
+                            pass
+
+                    if expected_surface is None and org_state.baseline_predictor.is_loaded and surface_boxes:
+                        try:
+                            predicted, _ = org_state.baseline_predictor.predict(
+                                label, surface_boxes, obj_box, det_conf, frame_to_process.shape[:2]
+                            )
+                            if predicted is not None:
+                                expected_surface = predicted
+                                prediction_source = "baseline_model"
+                        except Exception:
+                            pass
+
+                    if expected_surface is None:
+                        expected_surface = DEFAULT_RULES.get(label, "table")
+                        prediction_source = "default_rule"
+
+                    is_correct = False
+                    if mode == "learn":
+                        is_correct = True
+                    elif expected_surface and current_surface == expected_surface:
+                        is_correct = True
+                    elif expected_surface and expected_surface in surface_boxes:
+                        if overlap_ratio(obj_box, surface_boxes[expected_surface]) > 0.15:
+                            is_correct = True
+
+                    detected.append({
+                        "name": label,
+                        "confidence": round(det_conf, 3),
+                        "currentSurface": current_surface or "unknown",
+                        "predictedSurface": expected_surface or "table",
+                        "status": "Correct" if is_correct else "Misplaced",
+                        "predictionSource": prediction_source,
+                        "box": (x1, y1, x2, y2),
+                    })
+
+                    if not is_correct and expected_surface and mode != "learn":
+                        org_state.log_event(
+                            "warning",
+                            f"{label} detected on {current_surface or 'unknown'} "
+                            f"(expected: {expected_surface})",
+                        )
+
+            # ── Atomically update shared detection results ──
+            with org_state.lock:
+                org_state.detected_objects = detected
+                org_state.surface_boxes = surface_boxes
+                org_state.inference_time_ms = inference_ms
+
+            # Broadcast WebSocket snapshot with new detections immediately
+            if org_state.ws_clients and MAIN_EVENT_LOOP and MAIN_EVENT_LOOP.is_running():
+                snapshot = org_state.get_snapshot()
+                asyncio.run_coroutine_threadsafe(_org_broadcast(snapshot), MAIN_EVENT_LOOP)
+
+        except Exception as e:
+            print(f"[Organizer] Inference error: {e}")
+        finally:
+            with _inference_lock:
+                _inference_busy = False
+
+
 def _detector_thread():
     """
-    Continuously reads frames from the camera (local or IP), runs YOLO,
-    updates shared state, and broadcasts over WebSocket.
-
-    Supports:
-      - Local webcam:  org_state.camera_source = 0 (or any int index)
-      - IP camera:     org_state.camera_source = "http://192.168.1.x:8080/video"
-      - DroidCam:      org_state.camera_source = "http://192.168.1.x:4747/video"
-      - RTSP stream:   org_state.camera_source = "rtsp://..."
+    High-speed camera capture and streaming loop.
+    Reads camera at native 30 FPS, overlays current detection bounding boxes,
+    and dispatches frames asynchronously to the inference worker.
     """
+    global _latest_inference_frame, _inference_busy
+
     from ultralytics import YOLO
 
     with org_state.lock:
         org_state.yolo = YOLO(YOLO_MODEL_PATH)
         org_state.load_learned_rules()
 
-    org_state.log_event("info", "Organizer detector thread started. Waiting for camera.")
+    # Launch inference worker thread
+    inf_thread = threading.Thread(target=_inference_worker, daemon=True)
+    inf_thread.start()
+
+    org_state.log_event("info", f"Organizer detector initialized with {os.path.basename(YOLO_MODEL_PATH)}. Camera ready.")
 
     fps_timer = time.time()
     fps_frames = 0
+    last_ws_broadcast = time.time()
 
     consecutive_failures = 0
     reconnect_attempts = 0
@@ -376,18 +624,18 @@ def _detector_thread():
         if not org_state.camera_active:
             consecutive_failures = 0
             reconnect_attempts = 0
-            time.sleep(0.1)
+            time.sleep(0.05)
             continue
 
         with org_state.camera_lock:
             if not org_state.camera_active or org_state.cap is None or not org_state.cap.isOpened():
-                time.sleep(0.1)
+                time.sleep(0.05)
                 continue
             ret, frame = org_state.cap.read()
 
         if not ret or frame is None:
             consecutive_failures += 1
-            if consecutive_failures >= 60:  # ~6 seconds of failed reads before attempting background reconnect
+            if consecutive_failures >= 60:  # ~3-4 seconds of failures
                 consecutive_failures = 0
                 reconnect_attempts += 1
                 if reconnect_attempts <= 5:
@@ -410,11 +658,10 @@ def _detector_thread():
                             org_state.log_event("success", "Camera background reconnected successfully.")
                             reconnect_attempts = 0
                             continue
-                
                 org_state.log_event("error", "Camera stream disconnected after retries. Stopping camera.")
                 org_state.safe_release_camera()
                 reconnect_attempts = 0
-            time.sleep(0.1)
+            time.sleep(0.05)
             continue
 
         consecutive_failures = 0
@@ -426,259 +673,64 @@ def _detector_thread():
 
         with org_state.lock:
             org_state.frame_count += 1
-            fc = org_state.frame_count
 
-        # Skip every 2 out of 3 frames for performance
-        if fc % 3 != 0:
-            fps_frames += 1
-            continue
+        # Dispatch newest frame to inference worker if worker is ready
+        with _inference_lock:
+            if not _inference_busy:
+                _latest_inference_frame = frame.copy()
+                _new_frame_event.set()
 
-        # ── Inference ──
-        t0 = time.time()
-        with org_state.lock:
-            yolo = org_state.yolo
-            mode = org_state.mode
-            learned_rules = dict(org_state.learned_rules)
-
-        results = yolo(frame, imgsz=416, conf=0.25, verbose=False)
-        inference_ms = (time.time() - t0) * 1000
-
-        # FPS calculation
+        # Update FPS rolling counter
         fps_frames += 1
-        elapsed = time.time() - fps_timer
-        if elapsed >= 1.0:
-            fps = fps_frames / elapsed
-            fps_timer = time.time()
+        now = time.time()
+        elapsed = now - fps_timer
+        if elapsed >= 0.5:
+            stream_fps = fps_frames / elapsed
+            fps_timer = now
             fps_frames = 0
-        else:
             with org_state.lock:
-                fps = org_state.fps
+                org_state.fps = round(stream_fps, 1)
 
-        # ── Parse detections — surfaces first ──
-        surface_boxes: dict[str, tuple] = {}
-        detected: list[dict] = []
-
-        for r in results:
-            for box in r.boxes:
-                cls = int(box.cls)
-                label = yolo.names[cls]
-                if label in SURFACES:
-                    sname = SURFACE_ALIASES.get(label, label)
-                    x1, y1, x2, y2 = map(int, box.xyxy[0])
-                    surface_boxes[sname] = (x1, y1, x2, y2)
-
-        # FIX Bug 3: use last known surface boxes as fallback when none detected this frame
+        # Snapshot detection data for annotation
         with org_state.lock:
-            if surface_boxes:
-                org_state.last_surface_boxes.update(surface_boxes)
-            else:
-                surface_boxes = dict(org_state.last_surface_boxes)
+            draw_surfaces = dict(org_state.surface_boxes)
+            draw_objects = list(org_state.detected_objects)
+            draw_mode = org_state.mode
+            draw_fps = org_state.fps
 
-        # Default workspace surface: if no explicit surface was detected (or no "table"),
-        # provide a fallback "table" covering the lower 75% of the frame (desk surface)
-        if not surface_boxes or "table" not in surface_boxes:
-            surface_boxes["table"] = (0, int(h * 0.25), w, h)
-
-        # ── Parse objects (non-surfaces) ──
-        for r in results:
-            for box in r.boxes:
-                cls = int(box.cls)
-                label = yolo.names[cls]
-                det_conf = float(box.conf[0])
-                x1, y1, x2, y2 = map(int, box.xyxy[0])
-
-                if label in SURFACES:
-                    continue
-
-                obj_box = (x1, y1, x2, y2)
-
-                # Determine current surface: check specific furniture first, then workspace table
-                current_surface = None
-                best_overlap = 0.0
-                for sname, sbox in surface_boxes.items():
-                    if sname == "table" and sbox == (0, int(h * 0.25), w, h):
-                        continue
-                    ov = overlap_ratio(obj_box, sbox)
-                    if ov > 0.15 and ov > best_overlap:
-                        best_overlap = ov
-                        current_surface = sname
-
-                # If not inside any detected furniture, check workspace table
-                if current_surface is None and "table" in surface_boxes:
-                    table_box = surface_boxes["table"]
-                    if overlap_ratio(obj_box, table_box) > 0.15:
-                        current_surface = "table"
-
-                # ── Learn mode: record this placement ──
-                if mode == "learn" and current_surface is not None:
-                    rule_changed = False
-                    with org_state.lock:
-                        prev_rule = org_state.learned_rules.get(label)
-                        if prev_rule != current_surface:
-                            rule_changed = True
-                            org_state.learned_rules[label] = current_surface
-                            learned_rules[label] = current_surface
-
-                    if rule_changed:
-                        org_state.save_learned_rules()
-                        org_state.log_event("success", f"Learned rule: {label} belongs on {current_surface}")
-
-                    # Throttle disk sample logging to rule changes and every 15 frames (~0.5s)
-                    if rule_changed or (fc % 15 == 0):
-                        try:
-                            sbox_to_log = surface_boxes.get(current_surface, (0, int(h * 0.25), w, h))
-                            org_state.data_collector.log_sample(
-                                label,
-                                current_surface,
-                                obj_box,
-                                sbox_to_log,
-                                det_conf,
-                                frame.shape[:2],
-                                is_positive=True,
-                            )
-                            with org_state.lock:
-                                org_state.new_samples_since_retrain += 1
-                                org_state.dataset_size += 1
-                        except Exception:
-                            pass
-
-                        # Negative samples for other surfaces
-                        for other_name, other_box in surface_boxes.items():
-                            if other_name != current_surface:
-                                try:
-                                    org_state.data_collector.log_sample(
-                                        label,
-                                        other_name,
-                                        obj_box,
-                                        other_box,
-                                        det_conf,
-                                        frame.shape[:2],
-                                        is_positive=False,
-                                    )
-                                except Exception:
-                                    pass
-
-                    # Auto-retrain check
-                    should_retrain = False
-                    with org_state.lock:
-                        if (
-                            org_state.new_samples_since_retrain >= org_state.retrain_threshold
-                            and org_state.model_status == "Ready"
-                        ):
-                            should_retrain = True
-                    if should_retrain:
-                        org_state.log_event(
-                            "info",
-                            f"Auto-retrain triggered after {org_state.retrain_threshold} new samples.",
-                        )
-                        _trigger_retrain()
-
-                # ── Predict expected surface (four-tier priority) ──
-                expected_surface = None
-                prediction_source = "default_rule"
-
-                # Tier 1 — personalized rules (Learn Mode observations)
-                if label in learned_rules:
-                    expected_surface = learned_rules[label]
-                    prediction_source = "learned_rule"
-
-                # Tier 2 — personalized CatBoost model
-                if expected_surface is None and org_state.personalized_predictor.is_loaded and surface_boxes:
-                    try:
-                        predicted, _ = org_state.personalized_predictor.predict(
-                            label, surface_boxes, obj_box, det_conf, frame.shape[:2]
-                        )
-                        if predicted is not None:
-                            expected_surface = predicted
-                            prediction_source = "personalized_model"
-                    except Exception:
-                        pass
-
-                # Tier 3 — CatBoost baseline (static general knowledge)
-                if expected_surface is None and org_state.baseline_predictor.is_loaded and surface_boxes:
-                    try:
-                        predicted, _ = org_state.baseline_predictor.predict(
-                            label, surface_boxes, obj_box, det_conf, frame.shape[:2]
-                        )
-                        if predicted is not None:
-                            expected_surface = predicted
-                            prediction_source = "baseline_model"
-                    except Exception:
-                        pass
-
-                # Tier 4 — hardcoded DEFAULT_RULES
-                if expected_surface is None:
-                    expected_surface = DEFAULT_RULES.get(label, "table")
-                    prediction_source = "default_rule"
-
-                # ── Determine placement status ──
-                is_correct = False
-                if mode == "learn":
-                    is_correct = True
-                elif expected_surface and current_surface == expected_surface:
-                    is_correct = True
-                elif expected_surface and expected_surface in surface_boxes:
-                    if overlap_ratio(obj_box, surface_boxes[expected_surface]) > 0.15:
-                        is_correct = True
-
-                detected.append({
-                    "name": label,
-                    "confidence": round(det_conf, 3),
-                    "currentSurface": current_surface or "unknown",
-                    "predictedSurface": expected_surface or "table",
-                    "status": "Correct" if is_correct else "Misplaced",
-                    "predictionSource": prediction_source,
-                    "box": (x1, y1, x2, y2),
-                })
-
-                # Log misplacement event (only in predict mode)
-                if not is_correct and expected_surface and mode != "learn":
-                    org_state.log_event(
-                        "warning",
-                        f"{label} detected on {current_surface or 'unknown'} "
-                        f"(expected: {expected_surface})",
-                    )
-
-        # ── Update shared state ──
-        with org_state.lock:
-            org_state.detected_objects = detected
-            org_state.surface_boxes = surface_boxes
-            org_state.fps = fps
-            org_state.inference_time_ms = inference_ms
-
-        # ── Draw annotations ──
+        # ── Draw annotations at full frame rate ──
         annotated = frame.copy()
-        for sname, sbox in surface_boxes.items():
+        for sname, sbox in draw_surfaces.items():
             if sname == "table" and sbox == (0, int(h * 0.25), w, h):
                 continue
             cv2.rectangle(annotated, sbox[:2], sbox[2:], (255, 255, 0), 2)
             cv2.putText(annotated, f"[{sname}]", (sbox[0], max(sbox[1] - 4, 12)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 255, 255), 2)
 
-        for obj in detected:
+        for obj in draw_objects:
             box = obj.get("box")
             if not box:
                 continue
             bx1, by1, bx2, by2 = box
-            color = (0, 255, 0) if obj["status"] == "Correct" else (0, 0, 255)
-            if mode == "learn":
+            color = (0, 255, 0) if obj.get("status") == "Correct" else (0, 0, 255)
+            if draw_mode == "learn":
                 color = (0, 200, 255)  # Cyan/Amber during learn mode
             cv2.rectangle(annotated, (bx1, by1), (bx2, by2), color, 2)
             src_tag = obj.get("predictionSource", "")[:3].upper()
-            tag = (f"{obj['name']} [LEARN->{obj['currentSurface']}]"
-                   if mode == "learn"
+            tag = (f"{obj['name']} [LEARN->{obj.get('currentSurface', 'unknown')}]"
+                   if draw_mode == "learn"
                    else f"{obj['name']} OK [{src_tag}]"
-                   if obj["status"] == "Correct"
-                   else f"{obj['name']}->{obj['predictedSurface']} [{src_tag}]")
+                   if obj.get("status") == "Correct"
+                   else f"{obj['name']}->{obj.get('predictedSurface', 'table')} [{src_tag}]")
             tag_y = max(by1 - 6, 12)
             (tw, th), _ = cv2.getTextSize(tag, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1)
             cv2.rectangle(annotated, (bx1, tag_y - th - 2), (bx1 + tw + 2, tag_y + 2), (0, 0, 0), -1)
             cv2.putText(annotated, tag, (bx1 + 1, tag_y),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1)
 
-        cv2.putText(annotated, f"MODE: {mode.upper()}", (10, 25),
+        cv2.putText(annotated, f"MODE: {draw_mode.upper()}", (10, 25),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-        cv2.putText(annotated, f"FPS: {fps:.1f}", (10, 50),
+        cv2.putText(annotated, f"FPS: {draw_fps:.1f}", (10, 50),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 200, 200), 1)
 
         ok, buf = cv2.imencode(".jpg", annotated, [cv2.IMWRITE_JPEG_QUALITY, 70])
@@ -686,12 +738,14 @@ def _detector_thread():
             with org_state.lock:
                 org_state.last_jpeg = buf.tobytes()
 
-        # ── Broadcast full live snapshot via WebSocket ──
-        if org_state.ws_clients and MAIN_EVENT_LOOP:
-            snapshot = org_state.get_snapshot()
-            asyncio.run_coroutine_threadsafe(_org_broadcast(snapshot), MAIN_EVENT_LOOP)
+        # Periodic WebSocket sync for FPS card (every 1.0s)
+        if now - last_ws_broadcast >= 1.0:
+            last_ws_broadcast = now
+            if org_state.ws_clients and MAIN_EVENT_LOOP and MAIN_EVENT_LOOP.is_running():
+                snapshot = org_state.get_snapshot()
+                asyncio.run_coroutine_threadsafe(_org_broadcast(snapshot), MAIN_EVENT_LOOP)
 
-        time.sleep(0.03)  # cap loop at ~30 fps
+        time.sleep(0.01)  # short pause to cap at ~30 FPS smoothly
 
 
 # ─────────────────────────────────────────────
@@ -942,6 +996,7 @@ def org_stop_camera():
         org_state.detected_objects = []
         org_state.surface_boxes = {}
         org_state.last_jpeg = None
+        org_state.fps = 0.0
 
     org_state.log_event("info", "Camera stopped.")
 
@@ -975,14 +1030,14 @@ def org_camera_stream():
 
             if jpeg is None:
                 yield HEADER + placeholder_bytes + b"\r\n"
-                time.sleep(0.2)
+                time.sleep(0.1)
                 continue
 
             if jpeg is not last_sent:
                 last_sent = jpeg
                 yield HEADER + jpeg + b"\r\n"
 
-            time.sleep(0.033)  # cap at ~30 fps
+            time.sleep(0.015)  # responsive delivery up to 35-40 fps without timer stutter
 
     return StreamingResponse(
         generate(),

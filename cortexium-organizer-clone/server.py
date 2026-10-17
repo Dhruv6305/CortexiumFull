@@ -299,7 +299,7 @@ def detector_thread():
     from ultralytics import YOLO
 
     with state.lock:
-        state.yolo = YOLO("yolov8s.pt")
+        state.yolo = YOLO("yolov8n.pt" if os.path.exists("yolov8n.pt") else "yolov8s.pt")
         state.load_learned_rules()
 
     state.log_event("info", "Detector thread started. Waiting for camera.")
@@ -345,7 +345,7 @@ def detector_thread():
             mode = state.mode
             learned_rules = dict(state.learned_rules)
 
-        results = yolo(frame, imgsz=416, conf=0.25, verbose=False)
+        results = yolo(frame, imgsz=320, conf=0.25, verbose=False)
         inference_ms = (time.time() - t0) * 1000
 
         # FPS

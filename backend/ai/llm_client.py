@@ -35,11 +35,58 @@ _ENV_PATH = Path(__file__).resolve().parent.parent.parent / ".env"
 load_dotenv(dotenv_path=_ENV_PATH, override=False)
 print(f"[LLMClient] Loaded .env from: {_ENV_PATH} (exists={_ENV_PATH.exists()})")
 
+# ── Common non-name words to reject ───────────────────────────────────────────
+NON_NAME_WORDS = {
+    "working", "good", "working good", "fine", "cool", "great", "broken",
+    "test", "testing", "ready", "running", "awesome", "fun", "bad", "okay",
+    "ok", "true", "false", "nothing", "everything", "here", "there", "now",
+    "it", "this", "that", "something", "someone", "project", "system",
+    "cortexium", "happy", "sad", "angry", "tired", "busy", "sure", "sorry",
+    "going", "doing", "talking", "speaking", "listening", "trying", "looking",
+    "better", "worse", "best", "fast", "slow", "alive", "online", "offline",
+    "done", "finished", "started", "late", "early", "right", "wrong", "all right",
+    "radio", "a radio", "the radio", "car", "a car", "the car", "model", "ai"
+}
+
+def is_valid_person_name(name: str | None, text_context: str = "") -> bool:
+    """Validate that candidate string is an actual personal human name and not a phrase or adjective."""
+    if not name or not isinstance(name, str):
+        return False
+    clean = name.strip()
+    if len(clean) < 2 or len(clean) > 30:
+        return False
+
+    # Check if context is a question or status check
+    lower_ctx = text_context.strip().lower()
+    if lower_ctx.endswith("?") or any(lower_ctx.startswith(q) for q in (
+        "is this", "is it", "are you", "are we", "can you", "what is", "how is", "does this", "do you", "how are"
+    )):
+        return False
+
+    words = [w.lower() for w in clean.split()]
+    if any(w in NON_NAME_WORDS for w in words):
+        return False
+    if clean.lower() in NON_NAME_WORDS:
+        return False
+
+    # Reject gerunds or past participles (e.g. "Working", "Tested")
+    if any(w.endswith("ing") or w.endswith("ed") for w in words):
+        return False
+
+    # Must contain only alphabetic characters, hyphens or spaces
+    if not re.match(r"^[A-Za-z\s\-']+$", clean):
+        return False
+
+    return True
+
 # ── Name extraction regex patterns (offline fallback) ────────────────────────
 _NAME_PATTERNS = [
-    r"(?:hello|hey|hi)?\s*(?:my name is|i am|i'm|call me|this is|meet|introducing|myself)\s+([a-zA-Z]+(?:\s+[a-zA-Z]+)?)",
-    r"^([a-zA-Z]+(?:\s+[a-zA-Z]+)?)\s+here$",
-    r"^([a-zA-Z]+(?:\s+[a-zA-Z]+)?),?\s+(?:nice to|good to|pleasure)",
+    # Explicit introduction statements: "my name is Alex", "call me Sarah"
+    r"(?:hello|hey|hi)?\s*,?\s*(?:my name is|call me|introducing)\s+([a-zA-Z]+(?:\s+[a-zA-Z]+)?)",
+    # "meet [Name]" / "this is my friend [Name]"
+    r"(?:meet|this is my (?:friend|colleague|partner|brother|sister))\s+([a-zA-Z]+(?:\s+[a-zA-Z]+)?)",
+    # "I am [Name]" only if capitalized single name at start of sentence or after greeting
+    r"(?:^|\.\s+|!\s+)?(?:hello|hey|hi)?\s*,?\s*(?:i am|i'm)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\b(?:\s*[,.!]|$)",
 ]
 
 
@@ -337,11 +384,11 @@ class LLMClient:
             m = re.search(pattern, prompt, re.IGNORECASE)
             if m:
                 raw_name = m.group(1).strip().title()
-                if raw_name.lower() not in ("a radio", "the radio", "a car", "radio", "something", "a test"):
+                if is_valid_person_name(raw_name, prompt):
                     return json.dumps({
                         "name": raw_name,
                         "intent": "greeting",
-                        "confidence": 0.85,
+                        "confidence": 0.9,
                     })
         if any(w in text for w in ("where", "navigate", "go to", "direction", "route")):
             return json.dumps({"name": None, "intent": "navigation", "confidence": 0.7})

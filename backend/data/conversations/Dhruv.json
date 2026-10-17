@@ -97,9 +97,177 @@
       "source": "voice",
       "session_id": "session_1791662822295",
       "emotion": "neutral"
+    },
+    {
+      "timestamp": "2026-10-11T23:44:41.683721",
+      "note": "hey how are you",
+      "source": "voice",
+      "session_id": "session_1791742468089",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-11T23:44:42.374244",
+      "note": "say how are you",
+      "source": "voice",
+      "session_id": "session_1791742468089",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-11T23:44:47.285859",
+      "note": "okay so now I think",
+      "source": "voice",
+      "session_id": "session_1791742468089",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-11T23:44:52.138484",
+      "note": "this is working good",
+      "source": "voice",
+      "session_id": "session_1791742468089",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-12T00:10:34.384875",
+      "note": "idhar Laga",
+      "source": "voice",
+      "session_id": "session_1791743999576",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-12T00:12:04.692379",
+      "note": "hey how are you say how are you",
+      "source": "voice",
+      "session_id": "session_1791744107934",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:26:10.602814",
+      "note": "hello",
+      "source": "voice",
+      "session_id": "session_1791744953487",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-12T00:26:10.712015",
+      "note": "can you tell me",
+      "source": "voice",
+      "session_id": "session_1791744953487",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-12T00:26:11.695893",
+      "note": "how are you",
+      "source": "voice",
+      "session_id": "session_1791744953487",
+      "emotion": "angry"
+    },
+    {
+      "timestamp": "2026-10-12T00:26:55.421178",
+      "note": "can you tell me what",
+      "source": "voice",
+      "session_id": "session_1791745006164",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:27:52.705726",
+      "note": "hello how r u",
+      "source": "voice",
+      "session_id": "session_1791745055513",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:27:52.770970",
+      "note": "hello",
+      "source": "voice",
+      "session_id": "session_1791745055513",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:27:52.927954",
+      "note": "turant capture kar raha hai dekh",
+      "source": "voice",
+      "session_id": "session_1791745055513",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:10.161859",
+      "note": "Yo Yo Mere Jigar Ke chhallo how are you",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:17.142130",
+      "note": "voice",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:24.514330",
+      "note": "Kuchh To timer Laga Ke Rakha Hai",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:28.938326",
+      "note": "voice",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "fear"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:42.123799",
+      "note": "okay okay",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:54.315959",
+      "note": "when you tell me what okay",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-12T00:53:59.106818",
+      "note": "select band kar deta hun",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:54:04.674068",
+      "note": "ho gaya ho gaya barabar Hai Pipal Mein check kar lete ho",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "sad"
+    },
+    {
+      "timestamp": "2026-10-12T00:54:27.232321",
+      "note": "Nahin yah to nahin tha Kabhi abhi bola Kuchh To time Laga kar rakha Yo Yo Jigar Ke Chal Lo turant capture kar raha hai Iske",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-12T00:54:27.282391",
+      "note": "Mera can you tell me what",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "happy"
+    },
+    {
+      "timestamp": "2026-10-12T00:54:27.328564",
+      "note": "you miss kar raha hai chalega",
+      "source": "voice",
+      "session_id": "session_1791746568882",
+      "emotion": "happy"
     }
   ],
-  "last_seen": "2026-10-11T01:39:18.859748",
+  "last_seen": "2026-10-12T00:54:27.328564",
   "registered_via": "voice",
   "role": "",
   "notes": "",

@@ -1,0 +1,41 @@
+{
+  "session_id": "session_1791744107934",
+  "started_at": 1791724310.557211,
+  "ended_at": null,
+  "total_events": 4,
+  "persons_seen": [
+    "Dhruv"
+  ],
+  "objects_seen": [
+    "person",
+    "wine glass"
+  ],
+  "encounters": [
+    {
+      "encounter_id": "8763cbb5-3c06-4563-b199-8de361acb343",
+      "person_name": "Dhruv",
+      "session_id": "session_1791744107934",
+      "timestamp": 1791744108.383,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    },
+    {
+      "encounter_id": "67b6e3ef-ad17-4f0a-8af6-898a40ffa870",
+      "person_name": "Dhruv",
+      "session_id": "session_1791744107934",
+      "timestamp": 1791744111.982,
+      "emotion": "sad",
+      "context": "recognized in frame",
+      "location": null
+    }
+  ],
+  "conversation_lines": [
+    {
+      "timestamp": "2026-10-11T18:42:04.696641",
+      "speaker": "Dhruv",
+      "text": "hey how are you say how are you",
+      "emotion": "sad"
+    }
+  ]
+}

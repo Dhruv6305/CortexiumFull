@@ -118,9 +118,11 @@ async def process_frame(data: FrameData, current_user=Depends(get_current_user))
     session_manager.get_or_create(data.session_id)
 
     # Run inference pipeline � offloaded to thread pool to avoid blocking asyncio event loop
-    objects = await asyncio.to_thread(model_loader.predict_objects, frame)
-    faces   = await asyncio.to_thread(model_loader.recognize_faces, frame)   # emotion/age/gender per face
-    persons = await asyncio.to_thread(model_loader.identify_persons, frame)  # [{name, bbox, confidence, region}]
+    # Run inference pipeline concurrently in thread pool
+    (persons, faces), objects = await asyncio.gather(
+        asyncio.to_thread(model_loader.analyze_faces_fast, frame),
+        asyncio.to_thread(model_loader.predict_objects, frame),
+    )
 
     # ── Auto-register if a name was provided and no match was found ──
     registration_result = None
