@@ -100,10 +100,25 @@ def _get_env(key: str, default: str = "") -> str:
 
 # ── Provider health state (module-level, shared across instances) ─────────────
 _provider_health: dict[str, bool] = {
-    "mistral":     True,   # assume online until proven otherwise
+    "mistral":     True,
+    "groq":        True,
     "huggingface": True,
 }
+_session_disabled_providers: set[str] = set()
 _COOL_DOWN_SEC = 60.0   # seconds before retrying a failed provider
+
+# Persistent HTTP clients per provider with connection pooling & separate connect/read timeouts
+_provider_clients: dict[str, httpx.AsyncClient] = {}
+
+def _get_provider_client(provider: str) -> httpx.AsyncClient:
+    client = _provider_clients.get(provider)
+    if client is None or client.is_closed:
+        # Separate longer connect timeout (10.0s) from read timeout (12.0s)
+        timeout_config = httpx.Timeout(read=12.0, connect=10.0, write=10.0, pool=10.0)
+        limits_config = httpx.Limits(max_keepalive_connections=5, max_connections=10, keepalive_expiry=30.0)
+        client = httpx.AsyncClient(timeout=timeout_config, limits=limits_config)
+        _provider_clients[provider] = client
+    return client
 
 
 def _clean_llm_output(text: str) -> str:
@@ -114,18 +129,18 @@ def _clean_llm_output(text: str) -> str:
 
 
 # ════════════════════════════════════════════════════════════════════════════
-#  Provider-level call helpers
+#  Provider-level call helpers (with 1-retry backoff for transient errors)
 # ════════════════════════════════════════════════════════════════════════════
 
 async def _call_mistral(
     messages: list[dict],
-    model: str = "mistral-small-latest",
+    model: str = "open-mistral-7b",
     max_tokens: int = 250,
-    timeout: float = 3.0,
+    timeout: float = 6.0,
     api_key: str = "",
 ) -> str | None:
-    """Call Mistral AI via OpenAI-compatible /v1/chat/completions."""
-    if not api_key:
+    """Call Mistral AI via /v1/chat/completions."""
+    if not api_key or "mistral" in _session_disabled_providers:
         return None
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -137,124 +152,195 @@ async def _call_mistral(
         "temperature": 0.2,
         "max_tokens": max_tokens,
     }
-    try:
-        async with httpx.AsyncClient(timeout=timeout) as client:
-            r = await client.post(
-                "https://api.mistral.ai/v1/chat/completions",
-                headers=headers,
-                json=payload,
-            )
+    url = "https://api.mistral.ai/v1/chat/completions"
+    call_timeout = httpx.Timeout(read=timeout, connect=10.0, write=10.0, pool=10.0)
+
+    for attempt in range(2):
+        try:
+            client = _get_provider_client("mistral")
+            r = await client.post(url, headers=headers, json=payload, timeout=call_timeout)
             if r.status_code == 200:
                 content = r.json()["choices"][0]["message"]["content"]
                 _provider_health["mistral"] = True
                 return _clean_llm_output(content)
+            elif r.status_code in (401, 402):
+                reason = "payment required / no credits" if r.status_code == 402 else "unauthorized"
+                if "mistral" not in _session_disabled_providers:
+                    _session_disabled_providers.add("mistral")
+                    print(f"[LLM/Mistral] HTTP {r.status_code} ({reason}) — disabling provider for remainder of session")
+                _provider_health["mistral"] = False
+                return None
+            elif r.status_code in (429, 503) and attempt == 0:
+                print(f"[LLM/Mistral] HTTP {r.status_code} on attempt 1. Retrying in 1.0s...")
+                await asyncio.sleep(1.0)
+                continue
             else:
-                print(f"[LLM/Mistral] HTTP {r.status_code}: {r.text[:200]}")
-    except httpx.TimeoutException:
-        print(f"[LLM/Mistral] Timeout after {timeout}s")
-    except Exception as e:
-        print(f"[LLM/Mistral] Error: {e}")
+                err_msg = ""
+                try:
+                    err_obj = r.json()
+                    err_msg = err_obj.get("message") or err_obj.get("error", {}).get("message") or str(err_obj)
+                except Exception:
+                    err_msg = r.text[:120]
+                print(f"[LLM/Mistral] HTTP {r.status_code}: {err_msg}")
+                break
+        except (httpx.TimeoutException, httpx.NetworkError, httpx.ConnectError) as e:
+            exc_desc = f"{type(e).__name__}" + (f": {e}" if str(e).strip() else "")
+            if attempt == 0:
+                print(f"[LLM/Mistral] Transient connection issue ({exc_desc}). Retrying in 1.0s...")
+                await asyncio.sleep(1.0)
+                continue
+            print(f"[LLM/Mistral] Error after retry ({exc_desc})")
+            break
+        except Exception as e:
+            exc_desc = f"{type(e).__name__}" + (f": {e}" if str(e).strip() else "")
+            print(f"[LLM/Mistral] Unexpected error ({exc_desc})")
+            break
 
     _provider_health["mistral"] = False
     return None
 
 
-async def _call_huggingface(
+async def _call_groq(
     messages: list[dict],
-    model: str | None = None,
+    model: str = "qwen/qwen3.8-27b",
     max_tokens: int = 250,
-    timeout: float = 3.0,
+    timeout: float = 6.0,
     api_key: str = "",
 ) -> str | None:
-    """
-    Call HF Inference API.
-    Tries OpenAI-compat endpoint first (/v1/chat/completions), falls back to
-    the raw text-generation endpoint if the model doesn't support it.
-    """
-    if not api_key:
+    """Call Groq API via /openai/v1/chat/completions."""
+    if not api_key or "groq" in _session_disabled_providers:
         return None
-    hf_model = model or "mistralai/Mistral-7B-Instruct-v0.3"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
-    base = f"https://api-inference.huggingface.co/models/{hf_model}"
+    payload = {
+        "model": model,
+        "messages": messages,
+        "temperature": 0.2,
+        "max_tokens": max_tokens,
+    }
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    call_timeout = httpx.Timeout(read=timeout, connect=10.0, write=10.0, pool=10.0)
 
-    try:
-        async with httpx.AsyncClient(timeout=timeout) as client:
-            # ── Try OpenAI-compat endpoint ────────────────────────────────────
-            r = await client.post(
-                f"{base}/v1/chat/completions",
-                headers=headers,
-                json={
-                    "model": hf_model,
-                    "messages": messages,
-                    "max_tokens": max_tokens,
-                    "temperature": 0.2,
-                },
-            )
+    for attempt in range(2):
+        try:
+            client = _get_provider_client("groq")
+            r = await client.post(url, headers=headers, json=payload, timeout=call_timeout)
+            if r.status_code == 200:
+                content = r.json()["choices"][0]["message"]["content"]
+                _provider_health["groq"] = True
+                return _clean_llm_output(content)
+            elif r.status_code in (401, 402):
+                reason = "payment required / no credits" if r.status_code == 402 else "unauthorized"
+                if "groq" not in _session_disabled_providers:
+                    _session_disabled_providers.add("groq")
+                    print(f"[LLM/Groq] HTTP {r.status_code} ({reason}) — disabling provider for remainder of session")
+                _provider_health["groq"] = False
+                return None
+            elif r.status_code in (429, 503) and attempt == 0:
+                print(f"[LLM/Groq] HTTP {r.status_code} on attempt 1. Retrying in 1.0s...")
+                await asyncio.sleep(1.0)
+                continue
+            else:
+                err_msg = ""
+                try:
+                    err_obj = r.json()
+                    err_msg = err_obj.get("error", {}).get("message") or err_obj.get("message") or str(err_obj)
+                except Exception:
+                    err_msg = r.text[:120]
+                print(f"[LLM/Groq] HTTP {r.status_code}: {err_msg}")
+                break
+        except (httpx.TimeoutException, httpx.NetworkError, httpx.ConnectError) as e:
+            exc_desc = f"{type(e).__name__}" + (f": {e}" if str(e).strip() else "")
+            if attempt == 0:
+                print(f"[LLM/Groq] Transient connection issue ({exc_desc}). Retrying in 1.0s...")
+                await asyncio.sleep(1.0)
+                continue
+            print(f"[LLM/Groq] Error after retry ({exc_desc})")
+            break
+        except Exception as e:
+            exc_desc = f"{type(e).__name__}" + (f": {e}" if str(e).strip() else "")
+            print(f"[LLM/Groq] Unexpected error ({exc_desc})")
+            break
+
+    _provider_health["groq"] = False
+    return None
+
+
+async def _call_huggingface(
+    messages: list[dict],
+    model: str = "meta-llama/Llama-3.1-8B-Instruct",
+    max_tokens: int = 250,
+    timeout: float = 6.0,
+    api_key: str = "",
+) -> str | None:
+    """
+    Call Hugging Face Inference API via new router endpoint.
+    URL: https://router.huggingface.co/v1/chat/completions
+    """
+    if not api_key or "huggingface" in _session_disabled_providers:
+        return None
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": model,
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "temperature": 0.2,
+    }
+    url = "https://router.huggingface.co/v1/chat/completions"
+    call_timeout = httpx.Timeout(read=timeout, connect=10.0, write=10.0, pool=10.0)
+
+    for attempt in range(2):
+        try:
+            client = _get_provider_client("huggingface")
+            r = await client.post(url, headers=headers, json=payload, timeout=call_timeout)
             if r.status_code == 200:
                 content = r.json()["choices"][0]["message"]["content"]
                 _provider_health["huggingface"] = True
                 return _clean_llm_output(content)
-
-            if r.status_code == 503:
-                # Model is loading — HF cold-start, wait briefly and retry once
-                print("[LLM/HF] Model loading (503), retrying in 3s…")
-                await asyncio.sleep(3)
-                r = await client.post(
-                    f"{base}/v1/chat/completions",
-                    headers=headers,
-                    json={
-                        "model": hf_model,
-                        "messages": messages,
-                        "max_tokens": max_tokens,
-                        "temperature": 0.2,
-                    },
-                )
-                if r.status_code == 200:
-                    content = r.json()["choices"][0]["message"]["content"]
-                    _provider_health["huggingface"] = True
-                    return _clean_llm_output(content)
-
-            # ── Fallback: raw text-generation API ─────────────────────────────
-            prompt_text = "\n".join(
-                f"{'System' if m['role'] == 'system' else 'User'}: {m['content']}"
-                for m in messages
-            ) + "\nAssistant:"
-
-            r2 = await client.post(
-                base,
-                headers=headers,
-                json={
-                    "inputs": prompt_text,
-                    "parameters": {
-                        "max_new_tokens": max_tokens,
-                        "temperature": 0.2,
-                        "return_full_text": False,
-                    },
-                },
-            )
-            if r2.status_code == 200:
-                result = r2.json()
-                if isinstance(result, list) and result:
-                    text = result[0].get("generated_text", "").strip()
-                    _provider_health["huggingface"] = True
-                    return _clean_llm_output(text)
-
-            print(f"[LLM/HF] HTTP {r2.status_code}: {r2.text[:200]}")
-
-    except httpx.TimeoutException:
-        print(f"[LLM/HF] Timeout after {timeout}s")
-    except Exception as e:
-        print(f"[LLM/HF] Error: {e}")
+            elif r.status_code in (401, 402):
+                reason = "payment required / no credits" if r.status_code == 402 else "unauthorized"
+                if "huggingface" not in _session_disabled_providers:
+                    _session_disabled_providers.add("huggingface")
+                    print(f"[LLM/HF] HTTP {r.status_code} ({reason}) — disabling provider for remainder of session")
+                _provider_health["huggingface"] = False
+                return None
+            elif r.status_code in (429, 503) and attempt == 0:
+                print(f"[LLM/HF] HTTP {r.status_code} on attempt 1. Retrying in 1.0s...")
+                await asyncio.sleep(1.0)
+                continue
+            else:
+                err_msg = ""
+                try:
+                    err_obj = r.json()
+                    err_msg = err_obj.get("error", {}).get("message") if isinstance(err_obj.get("error"), dict) else err_obj.get("error") or str(err_obj)
+                except Exception:
+                    err_msg = r.text[:120]
+                print(f"[LLM/HF] HTTP {r.status_code}: {err_msg}")
+                break
+        except (httpx.TimeoutException, httpx.NetworkError, httpx.ConnectError) as e:
+            exc_desc = f"{type(e).__name__}" + (f": {e}" if str(e).strip() else "")
+            if attempt == 0:
+                print(f"[LLM/HF] Transient connection issue ({exc_desc}). Retrying in 1.0s...")
+                await asyncio.sleep(1.0)
+                continue
+            print(f"[LLM/HF] Error after retry ({exc_desc})")
+            break
+        except Exception as e:
+            exc_desc = f"{type(e).__name__}" + (f": {e}" if str(e).strip() else "")
+            print(f"[LLM/HF] Unexpected error ({exc_desc})")
+            break
 
     _provider_health["huggingface"] = False
     return None
 
 
 # ════════════════════════════════════════════════════════════════════════════
-#  LLM Client — cascade fallback: Mistral → HF → rule-based
+#  LLM Client — cascade fallback: Mistral → Groq → HF → rule-based
 # ════════════════════════════════════════════════════════════════════════════
 
 class LLMClient:
@@ -262,36 +348,39 @@ class LLMClient:
     Text LLM with automatic cascade fallback.
 
     Call order:
-      1. Primary provider (from LLM_PROVIDER env, default: mistral)
-      2. Backup provider  (the other one: mistral ↔ huggingface)
-      3. Rule-based regex (always available, no network needed)
+      1. Mistral AI        (from LLM_MODEL env, default: open-mistral-7b)
+      2. Groq              (from GROQ_LLM_MODEL env, default: qwen/qwen3.8-27b)
+      3. Hugging Face      (from HF_LLM_MODEL env, default: meta-llama/Llama-3.1-8B-Instruct)
+      4. Rule-based regex  (existing offline fallback, 100% unchanged)
 
-    If a provider recovers, it's automatically used again on the next request
+    If a provider recovers, it is automatically used again on future requests
     (cool-down period: 60 s).
     """
 
     def __init__(self):
-        # Read keys at instantiation time — after load_dotenv() has run
-        self.primary      = _get_env("LLM_PROVIDER", "mistral").lower()
-        self.backup       = "huggingface" if self.primary == "mistral" else "mistral"
-        self.model        = _get_env("LLM_MODEL", "mistral-small-latest")
-        self._mistral_key = _get_env("MISTRAL_API_KEY", "")
-        self._hf_key      = _get_env("HF_API_KEY", "")
-        self._hf_llm_model= _get_env("HF_LLM_MODEL", "mistralai/Mistral-7B-Instruct-v0.3")
+        # Read models & keys after load_dotenv() has run
+        self.primary          = _get_env("LLM_PROVIDER", "mistral").lower()
+        self.model            = _get_env("LLM_MODEL", "open-mistral-7b")
+        self.groq_model       = _get_env("GROQ_LLM_MODEL", "qwen/qwen3.8-27b")
+        self.hf_model         = _get_env("HF_LLM_MODEL", "meta-llama/Llama-3.1-8B-Instruct")
+
+        self._mistral_key     = _get_env("MISTRAL_API_KEY", "")
+        self._groq_key        = _get_env("GROQ_API_KEY", "")
+        self._hf_key          = _get_env("HF_API_KEY", "")
+
+        # Configurable provider chain order
+        chain_env = _get_env("LLM_PROVIDER_CHAIN", "mistral,groq,huggingface")
+        self.chain = [p.strip().lower() for p in chain_env.split(",") if p.strip()]
+
         self._last_fail: dict[str, float] = {}  # provider → timestamp of last failure
 
         print(
-            f"[LLMClient] Primary: {self.primary.upper()} ({self.model}) | "
-            f"Backup: {self.backup.upper()}"
+            f"[LLMClient] Provider chain: {' -> '.join(p.upper() for p in self.chain)} -> OFFLINE FALLBACK | "
+            f"Mistral model: {self.model} | Groq model: {self.groq_model}"
         )
-        if not self._mistral_key:
-            print("[LLMClient] [!] MISTRAL_API_KEY not set - check .env")
-        else:
-            print(f"[LLMClient] [OK] Mistral key loaded ({self._mistral_key[:12]}...)")
-        if not self._hf_key:
-            print("[LLMClient] [!] HF_API_KEY not set - check .env")
-        else:
-            print(f"[LLMClient] [OK] HF key loaded ({self._hf_key[:12]}...)")
+        print(f"[LLMClient] Mistral key: {'loaded' if self._mistral_key else 'missing'}")
+        print(f"[LLMClient] Groq key: {'loaded' if self._groq_key else 'missing'}")
+        print(f"[LLMClient] HF key: {'loaded' if self._hf_key else 'missing'}")
 
     def _is_cooling_down(self, provider: str) -> bool:
         import time
@@ -309,28 +398,30 @@ class LLMClient:
         max_tokens: int = 250,
         timeout: float = 6.0,
     ) -> str | None:
-        """Try primary → backup, respecting cool-down windows."""
-        for provider in [self.primary, self.backup]:
+        """Try Mistral → Groq → HF in order, respecting cool-down windows and session-disabled providers."""
+        for provider in self.chain:
+            if provider in _session_disabled_providers:
+                continue
             if self._is_cooling_down(provider):
                 continue
 
+            result = None
             if provider == "mistral":
-                # Pass the instance key (read at __init__ time, after dotenv loaded)
                 result = await _call_mistral(messages, self.model, max_tokens, timeout, api_key=self._mistral_key)
+            elif provider == "groq":
+                result = await _call_groq(messages, self.groq_model, max_tokens, timeout, api_key=self._groq_key)
             elif provider == "huggingface":
-                result = await _call_huggingface(messages, self._hf_llm_model, max_tokens, timeout, api_key=self._hf_key)
-            else:
-                continue
+                result = await _call_huggingface(messages, self.hf_model, max_tokens, timeout, api_key=self._hf_key)
 
             if result is not None:
-                # Provider recovered — clear cool-down
+                # Provider succeeded — clear cool-down
                 self._last_fail.pop(provider, None)
                 _provider_health[provider] = True
                 return result
             else:
                 self._mark_failed(provider)
 
-        return None   # both providers down → caller uses rule-based fallback
+        return None   # all providers down → caller uses rule-based fallback
 
     async def generate_response(self, prompt: str, system_prompt: str = "") -> str:
         """Main LLM call — used by agents.py, audio.py, persons.py."""
@@ -343,38 +434,43 @@ class LLMClient:
         if result:
             return result
 
-        print("[LLMClient] Both providers failed — using rule-based fallback")
+        print("[LLMClient] All LLM providers failed — using rule-based fallback")
         return self._fallback_response(prompt)
 
     async def generate_summary(self, person_name: str, transcript_lines: list) -> str:
         """
-        Session summarization — used by summary_manager.py and persons.py.
-        Returns empty string on full failure so caller uses its rule-based fallback.
+        Session summarization — used by audio.py and summary_manager.py.
+        Returns empty string on failure so caller can handle fallback.
         """
-        lines = transcript_lines[:15]
+        lines = transcript_lines[:25]
         numbered = "\n".join(f"{i+1}. {l}" for i, l in enumerate(lines))
 
+        system_instruction = (
+            "You are a conversation summarizer for speech transcripts. The conversation input may contain mixed Hindi and English speech.\n"
+            "Write a short summary in clear English (2 to 4 sentences) covering the topics discussed, "
+            "any decisions or follow-ups, and who was mentioned.\n"
+            "Rules:\n"
+            "- Summarize the conversation; NEVER repeat or quote the transcript verbatim.\n"
+            "- Use ONLY information present in the text. Do NOT invent details.\n"
+            "- If the text is too short or meaningless to summarize, say so briefly in one sentence.\n"
+            "- Plain English only — no JSON, no markdown bullet points, no prefixes like 'Summary:'."
+        )
+
+        user_content = (
+            f"Transcript of conversation with {person_name}:\n{numbered}\n\n"
+            "Write a 2 to 4 sentence summary in clear English:"
+        )
+
         messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a conversation summarizer. Write a clear 2-3 sentence "
-                    "summary in natural English. Rules: plain English only — no JSON, "
-                    "no bullet points, no markdown. Write in third person. "
-                    "Do not start with 'Summary:'. Maximum 300 characters."
-                ),
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"Transcript of what {person_name} said:\n{numbered}\n\n"
-                    "Write a 2-3 sentence plain-English summary:"
-                ),
-            },
+            {"role": "system", "content": system_instruction},
+            {"role": "user", "content": user_content},
         ]
-        result = await self._dispatch(messages, max_tokens=300, timeout=12.0)
-        if result and len(result) >= 10 and not result.strip().startswith("{"):
-            return result[:400]
+        result = await self._dispatch(messages, max_tokens=350, timeout=10.0)
+        if result and len(result.strip()) >= 10 and not result.strip().startswith("{"):
+            cleaned = result.strip().strip('"').strip("'")
+            if cleaned.lower().startswith("summary:"):
+                cleaned = cleaned[8:].strip()
+            return cleaned[:600]
         return ""
 
     def _fallback_response(self, prompt: str) -> str:
@@ -397,10 +493,13 @@ class LLMClient:
     @property
     def status(self) -> dict:
         mistral_ok = bool(self._mistral_key) and not self._is_cooling_down("mistral")
+        groq_ok    = bool(self._groq_key)    and not self._is_cooling_down("groq")
         hf_ok      = bool(self._hf_key)      and not self._is_cooling_down("huggingface")
 
-        if mistral_ok and self.primary == "mistral":
+        if mistral_ok:
             active = "mistral-api"
+        elif groq_ok:
+            active = "groq-api"
         elif hf_ok:
             active = "huggingface-api"
         else:
@@ -408,12 +507,15 @@ class LLMClient:
 
         return {
             "mode":              active,
-            "primary_provider":  self.primary,
-            "backup_provider":   self.backup,
-            "model":             self.model,
+            "provider_chain":    self.chain,
+            "mistral_model":     self.model,
+            "groq_model":        self.groq_model,
+            "hf_model":          self.hf_model,
             "mistral_key":       bool(self._mistral_key),
+            "groq_key":          bool(self._groq_key),
             "hf_key":            bool(self._hf_key),
             "mistral_healthy":   not self._is_cooling_down("mistral"),
+            "groq_healthy":      not self._is_cooling_down("groq"),
             "hf_healthy":        not self._is_cooling_down("huggingface"),
             "provider_health":   dict(_provider_health),
         }
@@ -467,8 +569,7 @@ class VLMClient:
         if self._enabled and not self._hf_key:
             print("[VLMClient] [!] VLM_ENABLED=true but HF_API_KEY not set - disabling VLM.")
             self._enabled = False
-        elif self._enabled:
-            print(f"[VLMClient] [OK] HF key loaded ({self._hf_key[:12]}...)")
+        print(f"[VLMClient] HF key: {'loaded' if self._hf_key else 'missing'}")
 
         status = f"enabled via {self.provider}/{self.model}" if self._enabled else "disabled (using YOLOv8 + DeepFace)"
         print(f"[VLMClient] Scene VLM: {status}")

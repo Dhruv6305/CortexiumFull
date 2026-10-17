@@ -261,6 +261,71 @@ async def generate_and_save(
     return data
 
 
+def update_or_save_session_summary(
+    person_name: str,
+    session_id: str,
+    summary_text: str,
+    clean_texts: list[str],
+    llm_used: bool = True,
+    session_entries: list[dict] | None = None,
+) -> dict:
+    """
+    Update an existing session summary file for person_name/session_id with a new summary,
+    or create a new summary file if one doesn't exist yet.
+    """
+    slug = _safe_name(person_name)
+    d = _person_dir(slug)
+    # Check if an existing file exists for this session_id
+    for f in d.glob("*.json"):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            if data.get("session_id") == session_id:
+                data["summary"] = summary_text
+                data["llm_used"] = llm_used
+                if clean_texts:
+                    data["transcript"] = clean_texts
+                    data["clean_count"] = len(clean_texts)
+                data["updated_at"] = datetime.utcnow().isoformat()
+                f.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+                print(f"[SummaryMgr] Updated {f.name} with LLM summary (llm_used={llm_used})")
+                return data
+        except Exception as e:
+            print(f"[SummaryMgr] Error updating summary file {f}: {e}")
+
+    # No existing file found — generate a new one
+    now = datetime.utcnow()
+    date_str = now.strftime("%Y-%m-%d")
+    timestamps = []
+    if session_entries:
+        for e in session_entries:
+            try:
+                timestamps.append(datetime.fromisoformat(e["timestamp"]))
+            except Exception:
+                pass
+    if timestamps:
+        date_str = min(timestamps).strftime("%Y-%m-%d")
+
+    session_code = _next_session_code(person_name, date_str)
+    path = _summary_path(person_name, session_code)
+    data = {
+        "person": slug,
+        "session_id": session_id,
+        "session_code": session_code,
+        "date": date_str,
+        "started_at": (min(timestamps) if timestamps else now).isoformat(),
+        "ended_at": (max(timestamps) if timestamps else now).isoformat(),
+        "summary": summary_text,
+        "transcript": clean_texts,
+        "entry_count": len(session_entries) if session_entries else len(clean_texts),
+        "clean_count": len(clean_texts),
+        "generated_at": now.isoformat(),
+        "llm_used": llm_used,
+    }
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"[SummaryMgr] Saved new: {path.name} (llm_used={llm_used})")
+    return data
+
+
 # ═════════════════════════════════════════════════════════════════════════════
 #  Retrieval helpers
 # ═════════════════════════════════════════════════════════════════════════════
@@ -368,7 +433,7 @@ async def auto_finalize_if_new(
     useful = _clean_texts([e["note"] for e in entries if e.get("session_id") == session_id and e.get("note")])
     if len(useful) < 1:
         return None  # not enough content
-    return await generate_and_save(person_name, session_id, entries, use_llm=True)
+    return await generate_and_save(person_name, session_id, entries, use_llm=False)
 
 
 # ═════════════════════════════════════════════════════════════════════════════

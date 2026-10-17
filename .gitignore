@@ -71,3 +71,11 @@ powershell.cmd
 **/powershell.cmd
 imagesForReference/
 dashboard/public/media/real-*.png
+
+# Runtime Data & Temporary Files
+backend/data/sessions/
+backend/data/summaries/
+LOCAL
+PUBLIC
+nul
+

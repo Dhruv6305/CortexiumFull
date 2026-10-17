@@ -518,70 +518,17 @@ export default function App() {
     (persons || []).forEach(p => {
       if (p.name && !seenPersonsThisSession.current.has(p.name)) {
         seenPersonsThisSession.current.add(p.name)
-        // Instant visual feedback: show face card immediately with loading state
+        // Show face card in neutral idle state (NO auto-fetch of last-session)
         setFaceCard(prev => {
           if (prev && prev.personName === p.name) return prev
           return {
             personName: p.name,
-            summary: `Retrieving background and past session summary for ${p.name}...`,
-            loading: true,
-            mode: 'previous',
+            summary: null,
+            loading: false,
+            mode: 'idle',
             autoShown: true,
           }
         })
-        const sid = sessionId.current
-        fetch(`${API}/api/persons/${encodeURIComponent(p.name)}/last-session?session_id=${sid}`)
-          .then(r => r.ok ? r.json() : null)
-          .then(async data => {
-            if (data?.found && data.summary) {
-              setFaceCard({
-                personName: p.name,
-                summary: data.summary,
-                sessionCode: data.session_code,
-                date: data.date,
-                startedAt: data.started_at,
-                loading: false,
-                mode: 'previous',
-                autoShown: true,
-              })
-            } else {
-              // Fallback: fetch person profile summary
-              try {
-                const sumRes = await fetch(`${API}/api/persons/${encodeURIComponent(p.name)}/summary`)
-                const sumData = await sumRes.json()
-                if (sumData?.summary) {
-                  setFaceCard({
-                    personName: p.name,
-                    summary: sumData.summary,
-                    sessionCode: null,
-                    date: sumData.last_seen_str || 'Recently',
-                    loading: false,
-                    mode: 'previous',
-                    autoShown: true,
-                  })
-                  return
-                }
-              } catch { /* ok */ }
-              setFaceCard({
-                personName: p.name,
-                summary: `Recognized ${p.name} from database. Ready to record conversation for this session.`,
-                sessionCode: null,
-                loading: false,
-                mode: 'current',
-                autoShown: true,
-              })
-            }
-          })
-          .catch(() => {
-            setFaceCard({
-              personName: p.name,
-              summary: `Recognized ${p.name} from database.`,
-              sessionCode: null,
-              loading: false,
-              mode: 'current',
-              autoShown: true,
-            })
-          })
       }
     })
   }, [])
@@ -612,23 +559,13 @@ export default function App() {
           setDetectedPersons(name ? [{ name, confidence: 0.9, region: null, emotion: emo }] : [])
           if (name && !seenPersonsThisSession.current.has(name)) {
             seenPersonsThisSession.current.add(name)
-            fetch(`${API}/api/persons/${encodeURIComponent(name)}/last-session?session_id=${sessionId.current}`)
-              .then(r => r.ok ? r.json() : null)
-              .then(data => {
-                if (data?.found && data.summary) {
-                  setFaceCard(prev => prev ? prev : {
-                    personName: name,
-                    summary: data.summary,
-                    sessionCode: data.session_code,
-                    date: data.date,
-                    startedAt: data.started_at,
-                    loading: false,
-                    mode: 'previous',
-                    autoShown: true,
-                  })
-                }
-              })
-              .catch(() => {})
+            setFaceCard(prev => prev ? prev : {
+              personName: name,
+              summary: null,
+              loading: false,
+              mode: 'idle',
+              autoShown: true,
+            })
           }
         }
         break
@@ -1273,57 +1210,7 @@ export default function App() {
     const primaryPerson = currentPersons.length > 0 ? currentPersons[0].name : null
     const primaryEmotion = currentPersons.length > 0 ? currentPersons[0].emotion : null
 
-    // ── Local voice command detection (no LLM needed) ──────────────────────
-    const lower = text.toLowerCase()
-    // ── Voice command routing ─────────────────────────────────────────────
-    // "last time" / "previous session" → show previous session summary
-    const LAST_TIME_TRIGGERS = [
-      'last time', 'previous session', 'last session',
-      'what did we talk about before', 'previous conversation',
-      'what was discussed before', 'last meeting',
-    ]
-    const isLastTime = LAST_TIME_TRIGGERS.some(t => lower.includes(t))
-    if (isLastTime) {
-      if (primaryPerson) {
-        await fetchFaceSummary(primaryPerson, true) // passing true gets the PREVIOUS session
-        showNotification('info', `Showing last session with ${primaryPerson}…`)
-      } else {
-        showNotification('info', 'No person recognized — look at camera first')
-      }
-      return
-    }
-
-    // "what did we talk about on [date]" → show sessions by date
-    const DATE_PATTERN = /(?:on|from|during)\s+((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2}|\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*|\d{4}-\d{2}-\d{2}|yesterday|today)/i
-    const dateMatch = lower.match(DATE_PATTERN)
-    if (dateMatch && primaryPerson) {
-      const dateStr = dateMatch[1]
-      await fetchSessionByDate(primaryPerson, dateStr)
-      showNotification('info', `Looking up sessions on "${dateStr}"…`)
-      return
-    }
-
-    const CONV_TRIGGERS = [
-      'view past conversations', 'show past conversations',
-      'show conversations', 'view conversations',
-      'what did we talk about', 'conversation history',
-      'show history', 'view history',
-      'past conversations', 'our conversations',
-    ]
-    const triggered = CONV_TRIGGERS.some(t => lower.includes(t))
-    if (triggered) {
-      const nameMatch = lower.match(/(?:show|view|what did)\s+(?:past |our )?conversations?\s+(?:with|of|for|between)?\s*([a-z]+)/i)
-      const targetPerson = nameMatch?.[1] ? nameMatch[1] : primaryPerson
-      if (targetPerson) {
-        await fetchFaceSummary(targetPerson)
-        showNotification('info', `Loading last session with ${targetPerson}…`)
-      } else {
-        showNotification('info', 'No person recognized — point camera at someone first')
-      }
-      return
-    }
-
-    // ── Send to NLP backend ────────────────────────────────────────────────
+    // ── Send to NLP backend (handles intent classification, recall & storage) ──
     try {
       let persons = currentPersons
       if (!persons.length && seenPersonsThisSession.current.size > 0) {
@@ -1352,7 +1239,18 @@ export default function App() {
         setIntroDetected(true)
         showNotification('info', `Name detected: "${data.extracted_name}"`)
       }
-      if (data.show_conversations_for) {
+      // If user asked a recall question, backend returns recall_summary
+      if (data.recall_summary) {
+        setFaceCard({
+          personName: data.recall_person || effectivePrimary || 'Conversation',
+          summary: data.recall_summary,
+          sessionCode: data.session_code || null,
+          date: data.session_date || null,
+          loading: false,
+          mode: 'previous',
+        })
+        showNotification('info', `Recalled session for ${data.recall_person || 'person'}`)
+      } else if (data.show_conversations_for) {
         await fetchFaceSummary(data.show_conversations_for)
       }
     } catch (err) {
@@ -2158,10 +2056,17 @@ export default function App() {
                           <RefreshCw size={11} className="animate-spin" />
                           <span className="text-[9px] font-mono">Loading…</span>
                         </div>
-                      ) : (
+                      ) : faceCard.summary ? (
                         <p className="text-[10px] text-slate-300 leading-relaxed">
                           {faceCard.summary}
                         </p>
+                      ) : (
+                        <div className="space-y-1 py-0.5">
+                          <p className="text-[9px] text-slate-400 font-mono italic">No summary requested yet.</p>
+                          <p className="text-[8px] text-cyan-400/80 font-mono leading-relaxed">
+                            Ask &ldquo;what did we talk about last time?&rdquo; to recall.
+                          </p>
+                        </div>
                       )}
                     </div>
                     {/* Card footer */}
